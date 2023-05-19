@@ -7,9 +7,9 @@ Class MainWindow
     Public corelDoc As Corel.Interop.CorelDRAW.Document
 
     Dim ctrlRectangle, cornerRect, regDot, vertFlutes,
-            horzFlutes, stkDot6x24, stkDot10x30, holeUL, holeUC, holeUR, holeCL, holeCR,
-            holeLL, holeLC, holeLR As Corel.Interop.CorelDRAW.Shape
+            horzFlutes, stkDot6x24, stkDot10x30, grommet As Corel.Interop.CorelDRAW.Shape
     Dim radTxt, holeSzTxt, holeDistTxt, holePlcTxt As String
+    Dim txtDimWidth, txtDimHeight As Corel.Interop.VGCore.Shape
 
     Private Sub lstFlutes_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstFlutes.SelectionChanged
         If lstFlutes.SelectedIndex = 1 Then
@@ -140,6 +140,11 @@ Class MainWindow
         ctrlRectangle.SizeWidth = pgWidth
         ctrlRectangle.SetPosition(0, pgHeight)
 
+        txtDimWidth = corelDoc.ActivePage.Shapes("txtDimWidth")
+        txtDimHeight = corelDoc.ActivePage.Shapes("txtDimHeight")
+
+        txtDimWidth.FontProperties.Size = 400
+
         'Sets flutes & position
         vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
 
@@ -229,32 +234,31 @@ Class MainWindow
         Dim tbDist As Double = Val(txtTBDist.Text)
         Dim lrDist As Double = Val(txtLRDist.Text)
         If ckbxUL.IsChecked Then
-            holeUL = corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
         End If
         If ckbxUC.IsChecked Then
-            holeUC = corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
         End If
         If ckbxUR.IsChecked Then
-            holeUR = corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight - tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight - tbDist, holeSz / 2)
         End If
         If ckbxCL.IsChecked Then
-            holeCL = corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight / 2, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight / 2, holeSz / 2)
         End If
         If ckbxCR.IsChecked Then
-            holeCR = corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight / 2, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight / 2, holeSz / 2)
         End If
         If ckbxLL.IsChecked Then
-            holeLL = corelApp.ActiveLayer.CreateEllipse2(lrDist, tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, tbDist, holeSz / 2)
         End If
         If ckbxLC.IsChecked Then
-            holeLC = corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, tbDist, holeSz / 2)
         End If
         If ckbxLR.IsChecked Then
-            holeLR = corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, tbDist, holeSz / 2)
         End If
 
         'Writing corner and hole description
-
         If lstCorners.SelectedIndex <> -1 Then
 
             radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
@@ -265,8 +269,19 @@ Class MainWindow
             holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
 
             If tbDist = lrDist And ckbxUL.IsChecked And ckbxUR.IsChecked Then
-
-                holeSzTxt = holeSzTxt + ", " + tbDist.ToString + "'' from edge"
+                holePlcTxt = tbDist.ToString
+                If tbDist = 0.25 Then
+                    holePlcTxt = "1/4"
+                ElseIf tbDist = 0.375 Then
+                    holePlcTxt = "3/8"
+                ElseIf tbDist = 0.5 Then
+                    holePlcTxt = "1/2"
+                ElseIf tbDist = 0.625 Then
+                    holePlcTxt = "5/8"
+                ElseIf tbDist = 0.75 Then
+                    holePlcTxt = "3/4"
+                End If
+                holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
 
             End If
 
@@ -276,6 +291,16 @@ Class MainWindow
                                                         "Arial", 100, , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
 
         holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
+
+        'Grommets
+        grommet = corelDoc.ActivePage.Shapes("grommet")
+
+        If ckbxCornerGroms.IsChecked = True Then
+            grommet.SetPosition(0.625, pgHeight - 0.625)
+            grommet.Duplicate(pgWidth - 2)
+            grommet.Duplicate(, 0 - pgHeight + 2)
+            grommet.Duplicate(pgWidth - 2, 0 - pgHeight + 2)
+        End If
 
         'Change view to fit evrything on Layer 1
 

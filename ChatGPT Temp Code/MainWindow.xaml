@@ -83,6 +83,9 @@
         <CheckBox x:Name="ckbxLR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,375,0,0" IsEnabled="False"/>
         <CheckBox x:Name="ckbxCL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,338,0,0" IsEnabled="False"/>
         <CheckBox x:Name="ckbxCR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,338,0,0" IsEnabled="False"/>
+        <Label Content="Grommets" HorizontalAlignment="Left" Margin="420,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <CheckBox x:Name="ckbxCornerGroms" Content="Four Corners" HorizontalAlignment="Left" Margin="388,155,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="388,178,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
