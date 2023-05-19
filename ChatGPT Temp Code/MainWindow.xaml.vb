@@ -143,7 +143,7 @@ Class MainWindow
         txtDimWidth = corelDoc.ActivePage.Shapes("txtDimWidth")
         txtDimHeight = corelDoc.ActivePage.Shapes("txtDimHeight")
 
-        txtDimWidth.FontProperties.Size = 400
+        'txtDimWidth.FontProperties.Size = 400
 
         'Sets flutes & position
         vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
@@ -259,50 +259,73 @@ Class MainWindow
         End If
 
         'Writing corner and hole description
-        If lstCorners.SelectedIndex <> -1 Then
+        If lstCorners.SelectedIndex <> -1 Or lstHoleSz.SelectedIndex <> -1 Then
 
-            radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
 
-        End If
-        If lstHoleSz.SelectedIndex <> -1 Then
+            If lstCorners.SelectedIndex <> -1 Then
 
-            holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
+                radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
 
-            If tbDist = lrDist And ckbxUL.IsChecked And ckbxUR.IsChecked Then
-                holePlcTxt = tbDist.ToString
-                If tbDist = 0.25 Then
-                    holePlcTxt = "1/4"
-                ElseIf tbDist = 0.375 Then
-                    holePlcTxt = "3/8"
-                ElseIf tbDist = 0.5 Then
-                    holePlcTxt = "1/2"
-                ElseIf tbDist = 0.625 Then
-                    holePlcTxt = "5/8"
-                ElseIf tbDist = 0.75 Then
-                    holePlcTxt = "3/4"
+            End If
+            If lstHoleSz.SelectedIndex <> -1 Then
+
+                holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
+
+                If tbDist = lrDist And ckbxUL.IsChecked And ckbxUR.IsChecked Then
+                    holePlcTxt = tbDist.ToString
+                    If tbDist = 0.25 Then
+                        holePlcTxt = "1/4"
+                    ElseIf tbDist = 0.375 Then
+                        holePlcTxt = "3/8"
+                    ElseIf tbDist = 0.5 Then
+                        holePlcTxt = "1/2"
+                    ElseIf tbDist = 0.625 Then
+                        holePlcTxt = "5/8"
+                    ElseIf tbDist = 0.75 Then
+                        holePlcTxt = "3/4"
+                    End If
+                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
+
                 End If
-                holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
 
             End If
 
+            Dim holesAndCornersTxt As Corel.Interop.CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, -4, radTxt + vbCrLf + holeSzTxt, , ,
+                                                "Arial", 100, , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
+
+            holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
+
         End If
-
-        Dim holesAndCornersTxt As Corel.Interop.CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, -4, radTxt + vbCrLf + holeSzTxt, , ,
-                                                        "Arial", 100, , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
-
-        holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
 
         'Grommets
         grommet = corelDoc.ActivePage.Shapes("grommet")
+        Dim grommetUL, grommetUC, grommetUR, grommetCL, grommetCR, grommetLL, grommetLC, grommetLR As Corel.Interop.VGCore.Shape
+        If ckbxCornerGroms.IsChecked And ckbxCTBGroms.IsChecked = False Then
+            grommetUL = grommet.Duplicate()
+            grommetUL.SetPosition(0.625, pgHeight - 0.625)
+            grommetUL.Duplicate(pgWidth - 2)
+            grommetUL.Duplicate(, 0 - pgHeight + 2)
+            grommetUL.Duplicate(pgWidth - 2, 0 - pgHeight + 2)
 
-        If ckbxCornerGroms.IsChecked = True Then
+        ElseIf ckbxCTBGroms.IsChecked And ckbxCornerGroms.IsChecked = False Then
+
+            grommetUC = grommet.Duplicate()
+            grommet.SetPosition(pgWidth / 2 - 0.375, pgHeight - 0.625)
+            grommet.Duplicate(, 0 - pgHeight + 2)
+
+        ElseIf ckbxCornerGroms.IsChecked And ckbxCTBGroms.IsChecked Then
+
             grommet.SetPosition(0.625, pgHeight - 0.625)
+            grommet.Duplicate(pgWidth / 2 - 1)
             grommet.Duplicate(pgWidth - 2)
             grommet.Duplicate(, 0 - pgHeight + 2)
             grommet.Duplicate(pgWidth - 2, 0 - pgHeight + 2)
+            grommet.Duplicate(pgWidth / 2 - 1, 0 - pgHeight + 2)
+
         End If
 
-        'Change view to fit evrything on Layer 1
+
+        'Change view to fit everything on Layer 1
 
         Dim layer1 As Corel.Interop.CorelDRAW.ShapeRange
         layer1 = corelDoc.ActiveLayer.Shapes.All
