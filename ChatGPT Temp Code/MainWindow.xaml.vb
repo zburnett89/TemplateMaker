@@ -301,6 +301,7 @@ Class MainWindow
         grommet = corelDoc.ActivePage.Shapes("grommet")
         Dim grommetUL, grommetUC, grommetUR, grommetCL, grommetCR, grommetLL, grommetLC, grommetLR As Corel.Interop.VGCore.Shape
         If ckbxCornerGroms.IsChecked And ckbxCTBGroms.IsChecked = False Then
+
             grommetUL = grommet.Duplicate()
             grommetUL.SetPosition(0.625, pgHeight - 0.625)
             grommetUL.Duplicate(pgWidth - 2)
@@ -321,6 +322,9 @@ Class MainWindow
             grommet.Duplicate(, 0 - pgHeight + 2)
             grommet.Duplicate(pgWidth - 2, 0 - pgHeight + 2)
             grommet.Duplicate(pgWidth / 2 - 1, 0 - pgHeight + 2)
+
+        Else
+            grommet.Delete()
 
         End If
 
