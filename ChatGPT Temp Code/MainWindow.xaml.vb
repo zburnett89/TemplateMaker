@@ -1,6 +1,4 @@
-﻿Imports Corel.Interop.CorelDRAW
-Imports Corel.Interop.VGCore
-Imports System.Math
+﻿Imports System.Math
 
 Class MainWindow
 
@@ -170,212 +168,221 @@ Class MainWindow
         Dim pgHeight As Double = Val(txtHeight.Text)
         Dim pgWidth As Double = Val(txtWidth.Text)
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
+        Dim valLRspacing As Single = Val(txtLRspacing.Text)
 
-        If Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
+        If ckbxTBspacing.IsChecked And Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
             MsgBox("Width must be evenly divisible by grommet spacing distance.")
             txtTBspacing.Clear()
             Exit Sub
         End If
 
-        corelDoc = corelApp.CreateDocumentFromTemplate("C:\Users\zach.SIGNMASTER\Desktop\Working Folder\TestTemplate.cdt")
+        If ckbxLRspacing.IsChecked And Not Integer.TryParse(pgHeight / valLRspacing, 0) Then
+            MsgBox("Height must be evenly divisible by grommet spacing distance.")
+            txtLRspacing.Clear()
+            Exit Sub
+        End If
+        corelDoc = corelApp.CreateDocumentFromTemplate("C:\Program Files\Corel\CorelDRAW Graphics Suite 2017\Draw\SignMasterTemplate\TestTemplate.cdt")
         'corelDoc.Activate()
 
 
         'Sets the page size
         corelDoc.ActivePage.SizeWidth = pgWidth
-            corelDoc.ActivePage.SizeHeight = pgHeight
+        corelDoc.ActivePage.SizeHeight = pgHeight
 
-            'Sets the control rectangle size & position
-            ctrlRectangle = corelDoc.ActivePage.Shapes("ctrlRectangle")
-            ctrlRectangle.SizeHeight = pgHeight
-            ctrlRectangle.SizeWidth = pgWidth
-            ctrlRectangle.SetPosition(0, pgHeight)
+        'Sets the control rectangle size & position
+        ctrlRectangle = corelDoc.ActivePage.Shapes("ctrlRectangle")
+        ctrlRectangle.SizeHeight = pgHeight
+        ctrlRectangle.SizeWidth = pgWidth
+        ctrlRectangle.SetPosition(0, pgHeight)
 
-            txtDimWidth = corelDoc.ActivePage.Shapes("txtDimWidth")
-            txtDimHeight = corelDoc.ActivePage.Shapes("txtDimHeight")
+        txtDimWidth = corelDoc.ActivePage.Shapes("txtDimWidth")
+        txtDimHeight = corelDoc.ActivePage.Shapes("txtDimHeight")
 
-            'txtDimWidth.FontProperties.Size = 400
+        'txtDimWidth.FontProperties.Size = 400
 
-            'Sets flutes & position
-            vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
+        'Sets flutes & position
+        vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
 
-            horzFlutes = corelDoc.ActivePage.Shapes("horzFlutes")
+        horzFlutes = corelDoc.ActivePage.Shapes("horzFlutes")
 
-            If lstFlutes.SelectedIndex = 0 Then 'Vertical flutes
-                horzFlutes.Delete()
-                vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight / 2)
-            ElseIf lstFlutes.SelectedIndex = 1 Then 'Horizontal flutes
-                vertFlutes.Delete()
-                horzFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + horzFlutes.SizeHeight / 2)
-            ElseIf lstFlutes.SelectedIndex = 2 Then 'Both flutes
-                vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight + 1)
-                horzFlutes.SetPosition(pgWidth + 2, vertFlutes.PositionY - 4)
-            Else 'No flutes
-                horzFlutes.Delete()
-                vertFlutes.Delete()
+        If lstFlutes.SelectedIndex = 0 Then 'Vertical flutes
+            horzFlutes.Delete()
+            vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight / 2)
+        ElseIf lstFlutes.SelectedIndex = 1 Then 'Horizontal flutes
+            vertFlutes.Delete()
+            horzFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + horzFlutes.SizeHeight / 2)
+        ElseIf lstFlutes.SelectedIndex = 2 Then 'Both flutes
+            vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight + 1)
+            horzFlutes.SetPosition(pgWidth + 2, vertFlutes.PositionY - 4)
+        Else 'No flutes
+            horzFlutes.Delete()
+            vertFlutes.Delete()
+        End If
+
+        'Sets stake dots & position
+        stkDot6x24 = corelDoc.ActivePage.Shapes("stkDot6x24")
+        stkDot10x30 = corelDoc.ActivePage.Shapes("stkDot10x30")
+
+        If lstStkDots.SelectedIndex = -1 Or lstStkDots.SelectedIndex = 2 Then
+            stkDot6x24.Delete()
+            stkDot10x30.Delete()
+        ElseIf lstFlutes.SelectedIndex = 1 Then '6x24
+            stkDot10x30.Delete()
+            stkDot6x24.SetPosition(pgWidth / 2 - stkDot6x24.SizeWidth / 2, 0.3)
+        ElseIf lstStkDots.SelectedIndex = 0 Then '10x30
+            stkDot6x24.Delete()
+            stkDot10x30.SetPosition(pgWidth / 2 - stkDot10x30.SizeWidth / 2, 0.3)
+        End If
+
+        Select Case lstCorners.SelectedIndex
+            Case 1
+                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+                ctrlRectangle.Outline.Width = 0
+                cornerRect.Rectangle.RadiusUpperLeft = 0.25
+                cornerRect.Rectangle.RadiusLowerLeft = 0.25
+                cornerRect.Rectangle.RadiusLowerRight = 0.25
+                cornerRect.Rectangle.RadiusUpperRight = 0.25
+            Case 2
+                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+                ctrlRectangle.Outline.Width = 0
+                cornerRect.Rectangle.RadiusUpperLeft = 0.5
+                cornerRect.Rectangle.RadiusLowerLeft = 0.5
+                cornerRect.Rectangle.RadiusLowerRight = 0.5
+                cornerRect.Rectangle.RadiusUpperRight = 0.5
+            Case 3
+                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+                ctrlRectangle.Outline.Width = 0
+                cornerRect.Rectangle.RadiusUpperLeft = 0.75
+                cornerRect.Rectangle.RadiusLowerLeft = 0.75
+                cornerRect.Rectangle.RadiusLowerRight = 0.75
+                cornerRect.Rectangle.RadiusUpperRight = 0.75
+            Case 4
+                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+                ctrlRectangle.Outline.Width = 0
+                cornerRect.Rectangle.RadiusUpperLeft = 1
+                cornerRect.Rectangle.RadiusLowerLeft = 1
+                cornerRect.Rectangle.RadiusLowerRight = 1
+                cornerRect.Rectangle.RadiusUpperRight = 1
+            Case 5
+                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+                ctrlRectangle.Outline.Width = 0
+                cornerRect.Rectangle.RadiusUpperLeft = 1.5
+                cornerRect.Rectangle.RadiusLowerLeft = 1.5
+                cornerRect.Rectangle.RadiusLowerRight = 1.5
+                cornerRect.Rectangle.RadiusUpperRight = 1.5
+
+        End Select
+
+        Dim holeSz As Double = 0
+
+        Select Case lstHoleSz.SelectedIndex
+            Case 0
+                holeSz = 0.1875
+            Case 1
+                holeSz = 0.25
+            Case 2
+                holeSz = 0.3125
+            Case 3
+                holeSz = 0.375
+        End Select
+
+        Dim tbDist As Double = Val(txtTBDist.Text)
+        Dim lrDist As Double = Val(txtLRDist.Text)
+        If ckbxUL.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
+        End If
+        If ckbxUC.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
+        End If
+        If ckbxUR.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight - tbDist, holeSz / 2)
+        End If
+        If ckbxCL.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight / 2, holeSz / 2)
+        End If
+        If ckbxCR.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight / 2, holeSz / 2)
+        End If
+        If ckbxLL.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, tbDist, holeSz / 2)
+        End If
+        If ckbxLC.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, tbDist, holeSz / 2)
+        End If
+        If ckbxLR.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, tbDist, holeSz / 2)
+        End If
+
+        'Writing corner and hole description
+        If lstCorners.SelectedIndex <> -1 Or lstHoleSz.SelectedIndex <> -1 Then
+
+
+            If lstCorners.SelectedIndex <> -1 Then
+
+                radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
+
             End If
+            If lstHoleSz.SelectedIndex <> -1 Then
 
-            'Sets stake dots & position
-            stkDot6x24 = corelDoc.ActivePage.Shapes("stkDot6x24")
-            stkDot10x30 = corelDoc.ActivePage.Shapes("stkDot10x30")
+                holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
 
-            If lstStkDots.SelectedIndex = -1 Or lstStkDots.SelectedIndex = 2 Then
-                stkDot6x24.Delete()
-                stkDot10x30.Delete()
-            ElseIf lstFlutes.SelectedIndex = 1 Then '6x24
-                stkDot10x30.Delete()
-                stkDot6x24.SetPosition(pgWidth / 2 - stkDot6x24.SizeWidth / 2, 0.3)
-            ElseIf lstStkDots.SelectedIndex = 0 Then '10x30
-                stkDot6x24.Delete()
-                stkDot10x30.SetPosition(pgWidth / 2 - stkDot10x30.SizeWidth / 2, 0.3)
-            End If
-
-            Select Case lstCorners.SelectedIndex
-                Case 1
-                    cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                    ctrlRectangle.Outline.Width = 0
-                    cornerRect.Rectangle.RadiusUpperLeft = 0.25
-                    cornerRect.Rectangle.RadiusLowerLeft = 0.25
-                    cornerRect.Rectangle.RadiusLowerRight = 0.25
-                    cornerRect.Rectangle.RadiusUpperRight = 0.25
-                Case 2
-                    cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                    ctrlRectangle.Outline.Width = 0
-                    cornerRect.Rectangle.RadiusUpperLeft = 0.5
-                    cornerRect.Rectangle.RadiusLowerLeft = 0.5
-                    cornerRect.Rectangle.RadiusLowerRight = 0.5
-                    cornerRect.Rectangle.RadiusUpperRight = 0.5
-                Case 3
-                    cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                    ctrlRectangle.Outline.Width = 0
-                    cornerRect.Rectangle.RadiusUpperLeft = 0.75
-                    cornerRect.Rectangle.RadiusLowerLeft = 0.75
-                    cornerRect.Rectangle.RadiusLowerRight = 0.75
-                    cornerRect.Rectangle.RadiusUpperRight = 0.75
-                Case 4
-                    cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                    ctrlRectangle.Outline.Width = 0
-                    cornerRect.Rectangle.RadiusUpperLeft = 1
-                    cornerRect.Rectangle.RadiusLowerLeft = 1
-                    cornerRect.Rectangle.RadiusLowerRight = 1
-                    cornerRect.Rectangle.RadiusUpperRight = 1
-                Case 5
-                    cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                    ctrlRectangle.Outline.Width = 0
-                    cornerRect.Rectangle.RadiusUpperLeft = 1.5
-                    cornerRect.Rectangle.RadiusLowerLeft = 1.5
-                    cornerRect.Rectangle.RadiusLowerRight = 1.5
-                    cornerRect.Rectangle.RadiusUpperRight = 1.5
-
-            End Select
-
-            Dim holeSz As Double = 0
-
-            Select Case lstHoleSz.SelectedIndex
-                Case 0
-                    holeSz = 0.1875
-                Case 1
-                    holeSz = 0.25
-                Case 2
-                    holeSz = 0.3125
-                Case 3
-                    holeSz = 0.375
-            End Select
-
-            Dim tbDist As Double = Val(txtTBDist.Text)
-            Dim lrDist As Double = Val(txtLRDist.Text)
-            If ckbxUL.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
-            End If
-            If ckbxUC.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
-            End If
-            If ckbxUR.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight - tbDist, holeSz / 2)
-            End If
-            If ckbxCL.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight / 2, holeSz / 2)
-            End If
-            If ckbxCR.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight / 2, holeSz / 2)
-            End If
-            If ckbxLL.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(lrDist, tbDist, holeSz / 2)
-            End If
-            If ckbxLC.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, tbDist, holeSz / 2)
-            End If
-            If ckbxLR.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, tbDist, holeSz / 2)
-            End If
-
-            'Writing corner and hole description
-            If lstCorners.SelectedIndex <> -1 Or lstHoleSz.SelectedIndex <> -1 Then
-
-
-                If lstCorners.SelectedIndex <> -1 Then
-
-                    radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
-
-                End If
-                If lstHoleSz.SelectedIndex <> -1 Then
-
-                    holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
-
-                    If tbDist = lrDist And ckbxUL.IsChecked And ckbxUR.IsChecked Then
-                        holePlcTxt = tbDist.ToString
-                        If tbDist = 0.25 Then
-                            holePlcTxt = "1/4"
-                        ElseIf tbDist = 0.375 Then
-                            holePlcTxt = "3/8"
-                        ElseIf tbDist = 0.5 Then
-                            holePlcTxt = "1/2"
-                        ElseIf tbDist = 0.625 Then
-                            holePlcTxt = "5/8"
-                        ElseIf tbDist = 0.75 Then
-                            holePlcTxt = "3/4"
-                        End If
-                        holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
-
+                If tbDist = lrDist And ckbxUL.IsChecked And ckbxUR.IsChecked Then
+                    holePlcTxt = tbDist.ToString
+                    If tbDist = 0.25 Then
+                        holePlcTxt = "1/4"
+                    ElseIf tbDist = 0.375 Then
+                        holePlcTxt = "3/8"
+                    ElseIf tbDist = 0.5 Then
+                        holePlcTxt = "1/2"
+                    ElseIf tbDist = 0.625 Then
+                        holePlcTxt = "5/8"
+                    ElseIf tbDist = 0.75 Then
+                        holePlcTxt = "3/4"
                     End If
+                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
 
                 End If
 
-                Dim holesAndCornersTxt As Corel.Interop.CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, -4, radTxt + vbCrLf + holeSzTxt, , ,
-                                                    "Arial", 100, , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
-
-                holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
-
             End If
 
-            'Grommets
-            grommet = corelDoc.ActivePage.Shapes("grommet")
-            Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetBottomSpacing, grommetLL, grommetLC, grommetLR As Corel.Interop.VGCore.Shape
-            If ckbxCornerGroms.IsChecked Then
+            Dim holesAndCornersTxt As Corel.Interop.CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,
+                                                    "Arial", , , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
 
-                grommetUL = grommet.Duplicate()
-                grommetUL.SetPosition(0.625, pgHeight - 0.625)
-                grommetUL.Duplicate(pgWidth - 2)
-                grommetUL.Duplicate(, 0 - pgHeight + 2)
-                grommetUL.Duplicate(pgWidth - 2, 0 - pgHeight + 2)
+            holesAndCornersTxt.SetSize(pgWidth)
+            holesAndCornersTxt.SetPosition(0, 0 - (pgHeight * 0.125))
+            holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
 
-            End If
 
-            If ckbxCTBGroms.IsChecked Then
+        End If
 
-                grommetUC = grommet.Duplicate()
-                grommetUC.SetPosition(pgWidth / 2 - 0.375, pgHeight - 0.625)
-                grommetUC.Duplicate(, 0 - pgHeight + 2)
+        'Grommets
+        grommet = corelDoc.ActivePage.Shapes("grommet")
+        Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing As Corel.Interop.VGCore.Shape
+        If ckbxCornerGroms.IsChecked Then
 
-            End If
+            grommetUL = grommet.Duplicate()
+            grommetUL.SetPosition(0.625, pgHeight - 0.625)
+            grommetUL.Duplicate(pgWidth - 2)
+            grommetUL.Duplicate(, 0 - pgHeight + 2)
+            grommetUL.Duplicate(pgWidth - 2, 0 - pgHeight + 2)
 
-            If ckbxCLRgroms.IsChecked Then
+        End If
 
-                grommetCL = grommet.Duplicate
-                grommetCL.SetPosition(0.625, pgHeight / 2 + 0.375)
-                grommetCL.Duplicate(pgWidth - 2)
+        If ckbxCTBGroms.IsChecked Then
 
-            End If
+            grommetUC = grommet.Duplicate()
+            grommetUC.SetPosition(pgWidth / 2 - 0.375, pgHeight - 0.625)
+            grommetUC.Duplicate(, 0 - pgHeight + 2)
+
+        End If
+
+        If ckbxCLRgroms.IsChecked Then
+
+            grommetCL = grommet.Duplicate
+            grommetCL.SetPosition(0.625, pgHeight / 2 + 0.375)
+            grommetCL.Duplicate(pgWidth - 2)
+
+        End If
 
         If ckbxTBspacing.IsChecked Then
 
@@ -386,9 +393,22 @@ Class MainWindow
             grommetTBSpacing.Duplicate(, 0 - pgHeight + 2)
 
             For i = 1 To Floor(pgWidth / valTBspacing - 2)
-                MsgBox((valTBspacing + valTBspacing * i).ToString)
                 grommetTBSpacing.Duplicate(valTBspacing * i)
                 grommetTBSpacing.Duplicate(valTBspacing * i, 0 - pgHeight + 2)
+            Next i
+        End If
+
+        If ckbxLRspacing.IsChecked Then
+
+            Dim totalLRdist As Single = valLRspacing + 0.375
+            Dim i As Integer
+            grommetLRSpacing = grommet.Duplicate()
+            grommetLRSpacing.SetPosition(0.625, totalLRdist)
+            grommetLRSpacing.Duplicate(pgWidth - 2)
+
+            For i = 1 To Floor(pgHeight / valLRspacing - 2)
+                grommetLRSpacing.Duplicate(0, valLRspacing * i)
+                grommetLRSpacing.Duplicate(pgWidth - 2, valLRspacing * i)
             Next i
         End If
 
