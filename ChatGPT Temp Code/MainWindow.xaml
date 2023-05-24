@@ -85,7 +85,16 @@
         <CheckBox x:Name="ckbxCR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,338,0,0" IsEnabled="False"/>
         <Label Content="Grommets" HorizontalAlignment="Left" Margin="420,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <CheckBox x:Name="ckbxCornerGroms" Content="Four Corners" HorizontalAlignment="Left" Margin="388,155,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="388,178,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="388,180,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckbxCLRgroms" Content="Center Left &amp; Right" HorizontalAlignment="Left" Margin="388,205,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckbxTBspacing" Content="Every" HorizontalAlignment="Left" Margin="388,230,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtTBspacing" HorizontalAlignment="Left" Margin="443,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto"/>
+        <TextBlock HorizontalAlignment="Left" Margin="490,230,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="408,255,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckbxLRspacing" Content="Every" HorizontalAlignment="Left" Margin="388,280,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtLRspacing" HorizontalAlignment="Left" Margin="443,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18"/>
+        <TextBlock HorizontalAlignment="Left" Margin="490,280,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="408,305,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
