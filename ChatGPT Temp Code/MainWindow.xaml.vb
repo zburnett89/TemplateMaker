@@ -165,8 +165,8 @@ Class MainWindow
 
         corelApp.Visible = True
 
-        Dim pgHeight As Double = Val(txtHeight.Text)
-        Dim pgWidth As Double = Val(txtWidth.Text)
+        Dim pgHeight As Single = Val(txtHeight.Text)
+        Dim pgWidth As Single = Val(txtWidth.Text)
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
         Dim valLRspacing As Single = Val(txtLRspacing.Text)
 
@@ -181,7 +181,7 @@ Class MainWindow
             txtLRspacing.Clear()
             Exit Sub
         End If
-        corelDoc = corelApp.CreateDocumentFromTemplate("C:\Program Files\Corel\CorelDRAW Graphics Suite 2017\Draw\SignMasterTemplate\TestTemplate.cdt")
+        corelDoc = corelApp.CreateDocumentFromTemplate("Y:\DESIGN\Templates\TestTemplate.cdt")
         'corelDoc.Activate()
 
 
