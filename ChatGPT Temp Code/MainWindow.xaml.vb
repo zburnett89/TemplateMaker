@@ -1,12 +1,13 @@
 ﻿Imports System.Math
+Imports Corel.Interop.VGCore
 
 Class MainWindow
 
-    Public corelApp As Corel.Interop.CorelDRAW.Application
-    Public corelDoc As Corel.Interop.CorelDRAW.Document
+    Public corelApp As Corel.Interop.VGCore.Application
+    Public corelDoc As Corel.Interop.VGCore.Document
 
     Dim ctrlRectangle, cornerRect, regDot, vertFlutes,
-            horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.CorelDRAW.Shape
+            horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
     Dim radTxt, holeSzTxt, holeDistTxt, holePlcTxt As String
 
     Private Sub ckbxCLRgroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Checked, ckbxCLRgroms.Unchecked
@@ -49,8 +50,6 @@ Class MainWindow
             ckbxCTBGroms.IsEnabled = True
         End If
     End Sub
-
-    Dim txtDimWidth, txtDimHeight As Corel.Interop.VGCore.Shape
 
     Private Sub lstFlutes_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstFlutes.SelectionChanged
         If lstFlutes.SelectedIndex = 1 Then
@@ -109,9 +108,9 @@ Class MainWindow
         InitializeComponent()
 
         If corelApp Is Nothing Then
-            corelApp = CType(CreateObject("CorelDRAW.Application"), Corel.Interop.CorelDRAW.Application)
+            corelApp = CType(CreateObject("CorelDRAW.Application"), Corel.Interop.VGCore.Application)
         Else
-            corelApp = CType(GetObject(, "CorelDRAW.Application"), Corel.Interop.CorelDRAW.Application)
+            corelApp = CType(GetObject(, "CorelDRAW.Application"), Corel.Interop.VGCore.Application)
         End If
 
 
@@ -146,6 +145,13 @@ Class MainWindow
             ckbxLL.IsChecked = False
             ckbxLC.IsChecked = False
             ckbxLR.IsChecked = False
+            ckbxCLRgroms.IsEnabled = True
+            ckbxCTBGroms.IsEnabled = True
+            ckbxCornerGroms.IsEnabled = True
+            ckbxTBspacing.IsEnabled = True
+            ckbxLRspacing.IsEnabled = True
+            txtTBspacing.IsEnabled = True
+            txtLRspacing.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 1 Then 'Aluminum
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -182,6 +188,8 @@ Class MainWindow
         ElseIf lstMaterial.SelectedIndex = 3 Then 'Vinyl
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
+            lstFlutes.SelectedIndex = -1
+            lstStkDots.SelectedIndex = -1
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
             lblStkDots.IsEnabled = False
@@ -219,7 +227,12 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
+
         ElseIf lstMaterial.SelectedIndex = 4 Then 'Banner
+            txtHeight.IsEnabled = True
+            txtWidth.IsEnabled = True
+            lstFlutes.SelectedIndex = -1
+            lstStkDots.SelectedIndex = -1
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
             lblStkDots.IsEnabled = False
@@ -252,9 +265,49 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             txtTBspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
+
         ElseIf lstMaterial.SelectedIndex = 5 Then 'Poster
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
+            lstFlutes.SelectedIndex = -1
+            lstStkDots.SelectedIndex = -1
+            lblFlutes.IsEnabled = False
+            lstFlutes.IsEnabled = False
+            lblStkDots.IsEnabled = False
+            lstStkDots.IsEnabled = False
+            lblCorners.IsEnabled = False
+            lstCorners.IsEnabled = False
+            lblHoles.IsEnabled = False
+            lstHoleQty.IsEnabled = False
+            lstCorners.SelectedIndex = -1
+            lstHoleQty.SelectedIndex = -1
+            lstHoleSz.SelectedIndex = -1
+            txtLRDist.IsEnabled = False
+            txtLRDist.Clear()
+            txtTBDist.IsEnabled = False
+            txtTBDist.Clear()
+            ckbxUL.IsChecked = False
+            ckbxUC.IsChecked = False
+            ckbxUR.IsChecked = False
+            ckbxCL.IsChecked = False
+            ckbxCR.IsChecked = False
+            ckbxLL.IsChecked = False
+            ckbxLC.IsChecked = False
+            ckbxLR.IsChecked = False
+            ckbxCLRgroms.IsEnabled = False
+            ckbxCLRgroms.IsChecked = False
+            ckbxCTBGroms.IsEnabled = False
+            ckbxCTBGroms.IsChecked = False
+            ckbxCornerGroms.IsEnabled = False
+            ckbxCornerGroms.IsChecked = False
+            ckbxTBspacing.IsEnabled = False
+            ckbxTBspacing.IsChecked = False
+            ckbxLRspacing.IsEnabled = False
+            ckbxLRspacing.IsChecked = False
+            txtTBspacing.IsEnabled = False
+            txtTBspacing.Clear()
+            txtLRspacing.IsEnabled = False
+            txtLRspacing.Clear()
         ElseIf lstMaterial.SelectedIndex = 6 Then 'Tags
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
@@ -297,6 +350,8 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
+            lstFlutes.SelectedIndex = -1
+            lstStkDots.SelectedIndex = -1
 
         End If
 
@@ -310,6 +365,8 @@ Class MainWindow
         Dim pgWidth As Single = Val(txtWidth.Text)
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
         Dim valLRspacing As Single = Val(txtLRspacing.Text)
+        Dim pgDimsRange As Corel.Interop.VGCore.IVGShapeRange, pgDimsShape As Corel.Interop.VGCore.Shape
+
 
         If ckbxTBspacing.IsChecked And Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
             MsgBox("Width must be evenly divisible by grommet spacing distance.")
@@ -336,10 +393,12 @@ Class MainWindow
         ctrlRectangle.SizeWidth = pgWidth
         ctrlRectangle.SetPosition(0, pgHeight)
 
-        txtDimWidth = corelDoc.ActivePage.Shapes("txtDimWidth")
-        txtDimHeight = corelDoc.ActivePage.Shapes("txtDimHeight")
-
-        'txtDimWidth.FontProperties.Size = 400
+        pgDimsRange = corelDoc.ActiveLayer.Shapes.All
+        For Each pgDimsShape In pgDimsRange
+            If pgDimsShape.Type = cdrShapeType.cdrLinearDimensionShape Then
+                pgDimsShape.Dimension.TextShape.Text.Story.Size = 1.8 * ((pgWidth + pgHeight) / 2) + 34
+            End If
+        Next
 
         'Sets flutes & position
         vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
@@ -486,7 +545,7 @@ Class MainWindow
 
             End If
 
-            Dim holesAndCornersTxt As Corel.Interop.CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,
+            Dim holesAndCornersTxt As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,
                                                     "Arial", , , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
 
             holesAndCornersTxt.SetSize(pgWidth)
@@ -571,7 +630,7 @@ Class MainWindow
 
         'Change view to fit everything on Layer 1
 
-        Dim layer1 As Corel.Interop.CorelDRAW.ShapeRange
+        Dim layer1 As Corel.Interop.VGCore.ShapeRange
         layer1 = corelDoc.ActiveLayer.Shapes.All
         corelApp.ActiveWindow.ActiveView.ToFitShapeRange(layer1)
         'Sets registration dot position

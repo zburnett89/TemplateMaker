@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Corel.Interop.CorelDRAW">
-      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Corel.Interop.CorelDRAW\v4.0_19.0.0.328__e4835428e22ad6f9\Corel.Interop.CorelDRAW.dll</HintPath>
+    <Reference Include="Corel.Interop.VGCore">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Corel.Interop.VGCore\v4.0_19.0.0.328__e4835428e22ad6f9\Corel.Interop.VGCore.dll</HintPath>
     </Reference>
     <Reference Include="Corel.Interop.VGCore">
       <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Corel.Interop.VGCore\v4.0_19.0.0.328__e4835428e22ad6f9\Corel.Interop.VGCore.dll</HintPath>
