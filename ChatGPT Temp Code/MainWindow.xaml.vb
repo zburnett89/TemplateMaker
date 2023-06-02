@@ -10,6 +10,14 @@ Class MainWindow
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
     Dim radTxt, holeSzTxt, holeDistTxt, holePlcTxt As String
 
+    Private Sub txtLRspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLRspacing.TextChanged
+        ckbxLRspacing.IsChecked = True
+    End Sub
+
+    Private Sub txtTBspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtTBspacing.TextChanged
+        ckbxTBspacing.IsChecked = True
+    End Sub
+
     Private Sub ckbxCLRgroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Checked, ckbxCLRgroms.Unchecked
         If ckbxCLRgroms.IsChecked Then
             ckbxLRspacing.IsEnabled = False
@@ -63,7 +71,7 @@ Class MainWindow
     End Sub
 
     Public Sub lstHoleQty_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstHoleQty.SelectionChanged
-        If lstHoleQty.SelectedIndex <> 0 And lstHoleQty.SelectedIndex <> -1 Then
+        If lstHoleQty.SelectedIndex <> 1 And lstHoleQty.SelectedIndex <> -1 Then
             lblHoleSz.IsEnabled = True
             lstHoleSz.IsEnabled = True
             lblHoleDistance.IsEnabled = True
@@ -165,7 +173,21 @@ Class MainWindow
             lblStkDots.IsEnabled = False
             lstStkDots.IsEnabled = False
             lstStkDots.SelectedIndex = -1
-        ElseIf lstMaterial.SelectedIndex = 2 Then 'Plastic
+            ckbxCLRgroms.IsEnabled = False
+            ckbxCLRgroms.IsChecked = False
+            ckbxCTBGroms.IsEnabled = False
+            ckbxCTBGroms.IsChecked = False
+            ckbxCornerGroms.IsEnabled = False
+            ckbxCornerGroms.IsChecked = False
+            ckbxTBspacing.IsEnabled = False
+            ckbxTBspacing.IsChecked = False
+            ckbxLRspacing.IsEnabled = False
+            ckbxLRspacing.IsChecked = False
+            txtTBspacing.IsEnabled = False
+            txtTBspacing.Clear()
+            txtLRspacing.IsEnabled = False
+            txtLRspacing.Clear()
+        ElseIf lstMaterial.SelectedIndex = 2 Or lstMaterial.SelectedIndex = 3 Then 'ACM or Plastic
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
             lblCorners.IsEnabled = True
@@ -185,7 +207,7 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             txtTBspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
-        ElseIf lstMaterial.SelectedIndex = 3 Then 'Vinyl
+        ElseIf lstMaterial.SelectedIndex = 4 Then 'Vinyl
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
             lstFlutes.SelectedIndex = -1
@@ -228,7 +250,7 @@ Class MainWindow
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
 
-        ElseIf lstMaterial.SelectedIndex = 4 Then 'Banner
+        ElseIf lstMaterial.SelectedIndex = 5 Then 'Banner
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
             lstFlutes.SelectedIndex = -1
@@ -266,7 +288,7 @@ Class MainWindow
             txtTBspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
 
-        ElseIf lstMaterial.SelectedIndex = 5 Then 'Poster
+        ElseIf lstMaterial.SelectedIndex = 6 Then 'Poster
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
             lstFlutes.SelectedIndex = -1
@@ -308,7 +330,7 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
-        ElseIf lstMaterial.SelectedIndex = 6 Then 'Tags
+        ElseIf lstMaterial.SelectedIndex = 7 Then 'Tags
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
             lblStkDots.IsEnabled = False

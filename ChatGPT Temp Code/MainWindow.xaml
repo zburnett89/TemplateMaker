@@ -19,6 +19,7 @@
         <ComboBox x:Name="lstMaterial" HorizontalAlignment="Left" Margin="130,22,0,0" VerticalAlignment="Top" Width="120" IsSynchronizedWithCurrentItem="False">
             <ComboBoxItem Content="Coroplast"/>
             <ComboBoxItem Content="Aluminum"/>
+            <ComboBoxItem Content="ACM"/>
             <ComboBoxItem Content="Plastic"/>
             <ComboBoxItem Content="Vinyl"/>
             <ComboBoxItem Content="Banner"/>
