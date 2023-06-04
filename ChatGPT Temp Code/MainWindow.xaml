@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
+        Icon="Template Maker Icon.ico"
         mc:Ignorable="d"
         Title="Create Template" Height="480" Width="605">
     <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="590">

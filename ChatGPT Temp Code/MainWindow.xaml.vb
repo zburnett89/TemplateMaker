@@ -8,7 +8,6 @@ Class MainWindow
 
     Dim ctrlRectangle, cornerRect, regDot, vertFlutes,
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
-    Dim radTxt, holeSzTxt, holeDistTxt, holePlcTxt As String
 
     Private Sub txtLRspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLRspacing.TextChanged
         ckbxLRspacing.IsChecked = True
@@ -508,6 +507,7 @@ Class MainWindow
                 holeSz = 0.375
         End Select
 
+        Dim radTxt, holeSzTxt, holeLRDistTxt, holeTBDistTxt, holePlcTxt As String
         Dim tbDist As Double = Val(txtTBDist.Text)
         Dim lrDist As Double = Val(txtLRDist.Text)
         If ckbxUL.IsChecked Then
@@ -543,12 +543,15 @@ Class MainWindow
 
                 radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
 
+            Else
+                radTxt = ""
+
             End If
             If lstHoleSz.SelectedIndex <> -1 Then
 
                 holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
 
-                If tbDist = lrDist And ckbxUL.IsChecked And ckbxUR.IsChecked Then
+                If tbDist = lrDist Then
                     holePlcTxt = tbDist.ToString
                     If tbDist = 0.25 Then
                         holePlcTxt = "1/4"
@@ -562,9 +565,42 @@ Class MainWindow
                         holePlcTxt = "3/4"
                     End If
                     holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
+                Else
+                    If tbDist = 0.25 Then
+                        holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
+                    ElseIf tbDist = 0.375 Then
+                        holeTBDistTxt = "3/8'' from top and bottom edge" + vbCrLf
+                    ElseIf tbDist = 0.5 Then
+                        holeTBDistTxt = "1/2'' from top and bottom edge" + vbCrLf
+                    ElseIf tbDist = 0.625 Then
+                        holeTBDistTxt = "5/8'' from top and bottom edge" + vbCrLf
+                    ElseIf tbDist = 0.75 Then
+                        holeTBDistTxt = "3/4'' from top and bottom edge" + vbCrLf
+                    ElseIf txtTBDist Is Nothing Or tbDist = 0 Then
+                        holeTBDistTxt = ""
+                    Else
+                        holeTBDistTxt = txtTBDist.Text + "'' from top and bottom edge" + vbCrLf
+                    End If
+                    If lrDist = 0.25 Then
+                        holeLRDistTxt = "1/4'' from left and right edge" + vbCrLf
+                    ElseIf lrDist = 0.375 Then
+                        holeLRDistTxt = "3/8'' from left and right edge" + vbCrLf
+                    ElseIf lrDist = 0.5 Then
+                        holeLRDistTxt = "1/2'' from left and right edge" + vbCrLf
+                    ElseIf lrDist = 0.625 Then
+                        holeLRDistTxt = "5/8'' from left and right edge" + vbCrLf
+                    ElseIf lrDist = 0.75 Then
+                        holeLRDistTxt = "3/4'' from left and right edge" + vbCrLf
+                    ElseIf txtLRDist Is Nothing Or lrDist = 0 Then
+                        holeLRDistTxt = ""
+                    Else
+                        holeLRDistTxt = txtLRDist.Text + "'' from left and right edge" + vbCrLf
+                    End If
+                    holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt
 
                 End If
-
+            Else
+                holeSzTxt = ""
             End If
 
             Dim holesAndCornersTxt As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,

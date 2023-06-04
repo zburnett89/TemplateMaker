@@ -6,7 +6,12 @@
     <RootNamespace>ChatGPT_Temp_Code</RootNamespace>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>Template Maker Icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Template Maker Icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Import Include="System.Windows" />
