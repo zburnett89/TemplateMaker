@@ -4,16 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
-        Icon="Template Maker Icon.ico"
+        Icon="/Template Maker Icon.png"
         mc:Ignorable="d"
-        Title="Create Template" Height="480" Width="605">
-    <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="590">
+        Title="Create Template" Height="467" Width="605" ResizeMode="CanResizeWithGrip">
+    <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition /> 
+        </Grid.RowDefinitions>
         <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="370,379,0,0" Padding="5,5,5,5"/>
-        <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="426,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="426,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="426,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="426,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <Label Content="Height" HorizontalAlignment="Left" Margin="366,23,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Width" HorizontalAlignment="Left" Margin="366,66,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Material" HorizontalAlignment="Left" Margin="56,21,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -39,7 +42,7 @@
             <ComboBoxItem Content="6x24"/>
             <ComboBoxItem Content="None"/>
         </ComboBox>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="486,379,0,0" VerticalAlignment="Top" Padding="5,5,5,5"/>
+        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="486,379,0,0" VerticalAlignment="Top" Padding="5,5,5,5" HorizontalContentAlignment="Center"/>
         <Label x:Name="lblCorners" Content="Radius Corners" HorizontalAlignment="Left" Margin="19,140,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False"/>
         <ComboBox x:Name="lstCorners" HorizontalAlignment="Left" Margin="130,144,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
             <ComboBoxItem Content="None"/>
@@ -61,7 +64,7 @@
             <ComboBoxItem Content="5/16''"/>
             <ComboBoxItem Content="3/8''"/>
         </ComboBox>
-        <Rectangle HorizontalAlignment="Left" Height="100" Margin="158.5,297,0,0" Stroke="Black" VerticalAlignment="Top" Width="100" IsEnabled="False"/>
+        <Rectangle HorizontalAlignment="Left" Height="100" Margin="158,297,0,0" Stroke="Black" VerticalAlignment="Top" Width="100" IsEnabled="False"/>
         <CheckBox x:Name="ckbxUL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,302,0,0" IsEnabled="False"/>
         <Label x:Name="lblHolePosition" Content="Hole Position" HorizontalAlignment="Left" Margin="168,266,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
         <Label x:Name="lblHoleDistance" Content="Hole Distance" HorizontalAlignment="Left" Margin="59,268,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
@@ -82,11 +85,11 @@
         <CheckBox x:Name="ckbxCLRgroms" Content="Center Left &amp; Right" HorizontalAlignment="Left" Margin="388,205,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="ckbxTBspacing" Content="Every" HorizontalAlignment="Left" Margin="388,230,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTBspacing" HorizontalAlignment="Left" Margin="443,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto"/>
-        <TextBlock HorizontalAlignment="Left" Margin="490,230,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="490,230,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="408,255,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
         <CheckBox x:Name="ckbxLRspacing" Content="Every" HorizontalAlignment="Left" Margin="388,280,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtLRspacing" HorizontalAlignment="Left" Margin="443,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18"/>
-        <TextBlock HorizontalAlignment="Left" Margin="490,280,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="490,280,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="408,305,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
 
     </Grid>
