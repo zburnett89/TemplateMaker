@@ -5,6 +5,12 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ChatGPT Temp Code", "ChatGPT Temp Code\ChatGPT Temp Code.vbproj", "{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{44E638AE-D87D-46FC-B18C-B5CC261A9F6A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TemplateMaker", "TemplateMaker\TemplateMaker.vdproj", "{52389C57-70BF-43FC-9EC7-6C183C7714BB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Template Maker", "Template Maker\Template Maker.vdproj", "{6DC62229-37E9-4569-AC03-5E6BC11422EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}.Release|x86.ActiveCfg = Release|x86
 		{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}.Release|x86.Build.0 = Release|x86
+		{44E638AE-D87D-46FC-B18C-B5CC261A9F6A}.Debug|Any CPU.ActiveCfg = Debug
+		{44E638AE-D87D-46FC-B18C-B5CC261A9F6A}.Debug|x86.ActiveCfg = Debug
+		{44E638AE-D87D-46FC-B18C-B5CC261A9F6A}.Release|Any CPU.ActiveCfg = Release
+		{44E638AE-D87D-46FC-B18C-B5CC261A9F6A}.Release|x86.ActiveCfg = Release
+		{52389C57-70BF-43FC-9EC7-6C183C7714BB}.Debug|Any CPU.ActiveCfg = Debug
+		{52389C57-70BF-43FC-9EC7-6C183C7714BB}.Debug|x86.ActiveCfg = Debug
+		{52389C57-70BF-43FC-9EC7-6C183C7714BB}.Release|Any CPU.ActiveCfg = Release
+		{52389C57-70BF-43FC-9EC7-6C183C7714BB}.Release|x86.ActiveCfg = Release
+		{6DC62229-37E9-4569-AC03-5E6BC11422EB}.Debug|Any CPU.ActiveCfg = Debug
+		{6DC62229-37E9-4569-AC03-5E6BC11422EB}.Debug|x86.ActiveCfg = Debug
+		{6DC62229-37E9-4569-AC03-5E6BC11422EB}.Release|Any CPU.ActiveCfg = Release
+		{6DC62229-37E9-4569-AC03-5E6BC11422EB}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
