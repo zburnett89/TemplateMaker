@@ -10,7 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestTemplate.cdt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Template Maker Icon.ico" />
+    <Content Include="TestTemplate.cdt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

@@ -27,6 +27,24 @@ Class MainWindow
         End If
     End Sub
 
+    Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
+        Dim openFileDialog As New Microsoft.Win32.OpenFileDialog()
+
+        ' Set properties of the dialog
+        openFileDialog.Filter = "ZCH Files (*.zch)|*.zch|All Files (*.*)|*.*"
+        openFileDialog.Title = "Select ZCH File"
+
+        ' Show the dialog and get the selected file path
+        If openFileDialog.ShowDialog() = True Then
+            Dim selectedFilePath As String = openFileDialog.FileName
+            'Dim orderXML As XDocument
+            XDocument.Load(selectedFilePath)
+
+        End If
+
+
+    End Sub
+
     Private Sub ckbxCTBGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCTBGroms.Checked, ckbxCTBGroms.Unchecked
         If ckbxCTBGroms.IsChecked Then
             ckbxTBspacing.IsEnabled = False
@@ -382,6 +400,8 @@ Class MainWindow
 
         corelApp.Visible = True
 
+
+
         Dim pgHeight As Single = Val(txtHeight.Text)
         Dim pgWidth As Single = Val(txtWidth.Text)
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
@@ -400,8 +420,18 @@ Class MainWindow
             txtLRspacing.Clear()
             Exit Sub
         End If
-        corelDoc = corelApp.CreateDocumentFromTemplate("Y:\DESIGN\Templates\TestTemplate.cdt")
+
+        Dim appDirectory As String = AppDomain.CurrentDomain.BaseDirectory
+        Dim templateFilePath As String = appDirectory & "TestTemplate.cdt"
+        MsgBox(appDirectory)
+        corelDoc = corelApp.CreateDocumentFromTemplate(templateFilePath)
         'corelDoc.Activate()
+        Dim regDots18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("regDots18x24")
+        Dim cutLines18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("cutLines18x24")
+        Dim lyrOne18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("lyrOne18x24")
+        Dim regmark As Layer = corelDoc.ActivePage.AllLayers.Find("Regmark")
+        Dim thrucut As Layer = corelDoc.ActivePage.AllLayers.Find("Through Cut")
+        Dim layer1 As Layer = corelDoc.ActivePage.AllLayers.Find("Layer 1")
 
 
         'Sets the page size
@@ -420,6 +450,17 @@ Class MainWindow
                 pgDimsShape.Dimension.TextShape.Text.Story.Size = 1.8 * ((pgWidth + pgHeight) / 2) + 34
             End If
         Next
+
+        If lstMaterial.SelectedIndex = 0 And pgHeight = 18 And pgWidth = 24 Then
+            regDots18x24.MoveToLayer(regmark)
+            cutLines18x24.MoveToLayer(thrucut)
+            lyrOne18x24.Ungroup()
+        Else
+            regDots18x24.Delete()
+            cutLines18x24.Delete()
+            lyrOne18x24.Delete()
+        End If
+
 
         'Sets flutes & position
         vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
@@ -539,7 +580,7 @@ Class MainWindow
         If lstCorners.SelectedIndex <> -1 Or lstHoleSz.SelectedIndex <> -1 Then
 
 
-            If lstCorners.SelectedIndex <> -1 Then
+            If lstCorners.SelectedIndex <> -1 And lstCorners.SelectedIndex <> 0 Then
 
                 radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
 
@@ -609,6 +650,8 @@ Class MainWindow
             holesAndCornersTxt.SetSize(pgWidth)
             holesAndCornersTxt.SetPosition(0, 0 - (pgHeight * 0.125))
             holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
+
+
 
 
         End If
@@ -685,16 +728,15 @@ Class MainWindow
             tagHoles.Delete()
         End If
 
-
-        'Change view to fit everything on Layer 1
-
-        Dim layer1 As Corel.Interop.VGCore.ShapeRange
-        layer1 = corelDoc.ActiveLayer.Shapes.All
-        corelApp.ActiveWindow.ActiveView.ToFitShapeRange(layer1)
         'Sets registration dot position
 
         regDot = corelDoc.ActivePage.Shapes("RegDot")
         regDot.SetPosition(0 - 6, pgHeight + 6)
+
+
+        'Change view to fit everything on Layer 1
+        corelApp.ActiveWindow.ActiveView.ToFitPage()
+        corelDoc.ClearSelection()
 
     End Sub
 End Class
