@@ -423,7 +423,6 @@ Class MainWindow
 
         Dim appDirectory As String = AppDomain.CurrentDomain.BaseDirectory
         Dim templateFilePath As String = appDirectory & "TestTemplate.cdt"
-        MsgBox(appDirectory)
         corelDoc = corelApp.CreateDocumentFromTemplate(templateFilePath)
         'corelDoc.Activate()
         Dim regDots18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("regDots18x24")
@@ -714,6 +713,37 @@ Class MainWindow
         End If
 
         grommet.Delete()
+
+        'grommet & banner text
+        Dim bannerSizeTxt, grommetTxt As String
+        Dim bannerArtTxt, grommetArtTxt As Corel.Interop.VGCore.Shape
+
+        grommetTxt = "3/8'' Brass Grommets "
+
+        If lstMaterial.SelectedIndex = 5 Then
+            bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
+            bannerArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, bannerSizeTxt, , ,
+                                                    "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+            bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
+            If ckbxCornerGroms.IsChecked Then
+                grommetTxt += "- One in each corner"
+            End If
+            If ckbxCTBGroms.IsChecked Then
+                grommetTxt += ", in center of top & bottom"
+            End If
+            If ckbxCLRgroms.IsChecked Then
+                grommetTxt += ", in center of left & right"
+            End If
+            If ckbxTBspacing.IsChecked Then
+                grommetTxt += ", every " + txtTBspacing.Text + "'' along top & bottom"
+            End If
+            If ckbxLRspacing.IsChecked Then
+                grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
+            End If
+            grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
+                                                    "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+            grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
+        End If
 
         'Tags
         tagBorder = corelDoc.ActiveLayer.Shapes.FindShape("tagBorder")

@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Template Maker Icon.ico" />
+    <Content Include="Template Maker Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestTemplate.cdt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
