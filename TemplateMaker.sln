@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ChatGPT Temp Code", "ChatGPT Temp Code\ChatGPT Temp Code.vbproj", "{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TemplateMaker App", "ChatGPT Temp Code\TemplateMaker App.vbproj", "{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TemplateMaker", "TemplateMaker\TemplateMaker.vdproj", "{FD4E57C0-EEAE-46E0-9636-17EDDB5B6020}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}.Release|x86.ActiveCfg = Release|x86
 		{E780B1D9-8C8B-4BE2-9910-BBDC426C02CA}.Release|x86.Build.0 = Release|x86
+		{FD4E57C0-EEAE-46E0-9636-17EDDB5B6020}.Debug|Any CPU.ActiveCfg = Debug
+		{FD4E57C0-EEAE-46E0-9636-17EDDB5B6020}.Debug|x86.ActiveCfg = Debug
+		{FD4E57C0-EEAE-46E0-9636-17EDDB5B6020}.Release|Any CPU.ActiveCfg = Release
+		{FD4E57C0-EEAE-46E0-9636-17EDDB5B6020}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿Imports System.Math
+Imports System.Xml.Linq
 Imports Corel.Interop.VGCore
 
 Class MainWindow
@@ -9,11 +10,11 @@ Class MainWindow
     Dim ctrlRectangle, cornerRect, regDot, vertFlutes,
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
 
-    Private Sub txtLRspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLRspacing.TextChanged
+    Private Sub txtLRspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLRspacing.GotFocus
         ckbxLRspacing.IsChecked = True
     End Sub
 
-    Private Sub txtTBspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtTBspacing.TextChanged
+    Private Sub txtTBspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtTBspacing.GotFocus
         ckbxTBspacing.IsChecked = True
     End Sub
 
@@ -29,6 +30,7 @@ Class MainWindow
 
     Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
         Dim openFileDialog As New Microsoft.Win32.OpenFileDialog()
+        Dim zchFile As New XDocument
 
         ' Set properties of the dialog
         openFileDialog.Filter = "ZCH Files (*.zch)|*.zch|All Files (*.*)|*.*"
@@ -37,11 +39,64 @@ Class MainWindow
         ' Show the dialog and get the selected file path
         If openFileDialog.ShowDialog() = True Then
             Dim selectedFilePath As String = openFileDialog.FileName
-            'Dim orderXML As XDocument
-            XDocument.Load(selectedFilePath)
-
+            zchFile = XDocument.Load(selectedFilePath)
+        Else
+            Return
         End If
 
+        Dim orderNode As XElement = zchFile.Element("order")
+        Dim id As String = orderNode.Attribute("id").Value
+        Dim material As Integer = Integer.Parse(orderNode.Element("material").Value)
+        Dim height As Single = Single.Parse(orderNode.Element("height").Value)
+        Dim width As Single = Single.Parse(orderNode.Element("width").Value)
+        Dim flutes As Integer = Integer.Parse(orderNode.Element("flutes").Value)
+        Dim stakes As Integer = Integer.Parse(orderNode.Element("stakes").Value)
+        Dim corners As Integer = Integer.Parse(orderNode.Element("corners").Value)
+        Dim holes As Integer = Integer.Parse(orderNode.Element("holes").Value)
+        Dim holesize As Integer = Integer.Parse(orderNode.Element("holesize").Value)
+        Dim holedistvert As Single = Single.Parse(orderNode.Element("holedistvert").Value)
+        Dim holedisthorz As Single = Single.Parse(orderNode.Element("holedisthorz").Value)
+        Dim holeul As Boolean = Boolean.Parse(orderNode.Element("holeul").Value)
+        Dim holeuc As Boolean = Boolean.Parse(orderNode.Element("holeuc").Value)
+        Dim holeur As Boolean = Boolean.Parse(orderNode.Element("holeur").Value)
+        Dim holecl As Boolean = Boolean.Parse(orderNode.Element("holecl").Value)
+        Dim holecr As Boolean = Boolean.Parse(orderNode.Element("holecr").Value)
+        Dim holell As Boolean = Boolean.Parse(orderNode.Element("holell").Value)
+        Dim holelc As Boolean = Boolean.Parse(orderNode.Element("holelc").Value)
+        Dim holelr As Boolean = Boolean.Parse(orderNode.Element("holelr").Value)
+        Dim gromcorn As Boolean = Boolean.Parse(orderNode.Element("gromcorn").Value)
+        Dim gromtbc As Boolean = Boolean.Parse(orderNode.Element("gromtbc").Value)
+        Dim gromlrc As Boolean = Boolean.Parse(orderNode.Element("gromlrc").Value)
+        Dim gromtb As Boolean = Boolean.Parse(orderNode.Element("gromtb").Value)
+        Dim gromtbdist As Single = Single.Parse(orderNode.Element("gromtbdist").Value)
+        Dim gromlr As Boolean = Boolean.Parse(orderNode.Element("gromlr").Value)
+        Dim gromlrdist As Single = Single.Parse(orderNode.Element("gromlrdist").Value)
+
+        lstMaterial.SelectedIndex = material
+        txtWidth.Text = width
+        txtHeight.Text = height
+        lstFlutes.SelectedIndex = flutes
+        lstStkDots.SelectedIndex = stakes
+        lstCorners.SelectedIndex = corners
+        lstHoleQty.SelectedIndex = holes
+        lstHoleSz.SelectedIndex = holesize
+        txtLRDist.Text = holedisthorz
+        txtTBDist.Text = holedistvert
+        ckbxUL.IsChecked = holeul
+        ckbxUC.IsChecked = holeuc
+        ckbxUR.IsChecked = holeur
+        ckbxCL.IsChecked = holecl
+        ckbxCR.IsChecked = holecr
+        ckbxLL.IsChecked = holell
+        ckbxLC.IsChecked = holelc
+        ckbxLR.IsChecked = holelr
+        ckbxCornerGroms.IsChecked = gromcorn
+        ckbxCTBGroms.IsChecked = gromtbc
+        ckbxCLRgroms.IsChecked = gromlrc
+        ckbxTBspacing.IsChecked = gromtb
+        ckbxLRspacing.IsChecked = gromlr
+        txtTBspacing.Text = gromtbdist
+        txtLRspacing.Text = gromlrdist
 
     End Sub
 
@@ -51,6 +106,53 @@ Class MainWindow
 
     Private Sub txtWidth_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtWidth.GotFocus
         txtWidth.SelectAll()
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As RoutedEventArgs) Handles btnClear.Click
+        lstMaterial.SelectedIndex = -1
+        lblFlutes.IsEnabled = False
+        lstFlutes.IsEnabled = False
+        lblStkDots.IsEnabled = False
+        lstStkDots.IsEnabled = False
+        lblCorners.IsEnabled = False
+        lstCorners.IsEnabled = False
+        lblHoles.IsEnabled = False
+        lstHoleQty.IsEnabled = False
+        lstCorners.SelectedIndex = -1
+        lstHoleQty.SelectedIndex = -1
+        lstHoleSz.SelectedIndex = -1
+        txtLRDist.IsEnabled = False
+        txtLRDist.Clear()
+        txtTBDist.IsEnabled = False
+        txtTBDist.Clear()
+        ckbxUL.IsChecked = False
+        ckbxUC.IsChecked = False
+        ckbxUR.IsChecked = False
+        ckbxCL.IsChecked = False
+        ckbxCR.IsChecked = False
+        ckbxLL.IsChecked = False
+        ckbxLC.IsChecked = False
+        ckbxLR.IsChecked = False
+        txtWidth.IsEnabled = False
+        txtWidth.Clear()
+        txtHeight.IsEnabled = False
+        txtHeight.Clear()
+        ckbxCLRgroms.IsEnabled = False
+        ckbxCLRgroms.IsChecked = False
+        ckbxCTBGroms.IsEnabled = False
+        ckbxCTBGroms.IsChecked = False
+        ckbxCornerGroms.IsEnabled = False
+        ckbxCornerGroms.IsChecked = False
+        ckbxTBspacing.IsEnabled = False
+        ckbxTBspacing.IsChecked = False
+        ckbxLRspacing.IsEnabled = False
+        ckbxLRspacing.IsChecked = False
+        txtTBspacing.IsEnabled = False
+        txtTBspacing.Clear()
+        txtLRspacing.IsEnabled = False
+        txtLRspacing.Clear()
+        lstFlutes.SelectedIndex = -1
+        lstStkDots.SelectedIndex = -1
     End Sub
 
     Private Sub ckbxCTBGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCTBGroms.Checked, ckbxCTBGroms.Unchecked
@@ -151,7 +253,51 @@ Class MainWindow
     End Sub
 
     Public Sub lstMaterial_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstMaterial.SelectionChanged
-
+        If lstMaterial.SelectedIndex = -1 Then
+            lblFlutes.IsEnabled = False
+            lstFlutes.IsEnabled = False
+            lblStkDots.IsEnabled = False
+            lstStkDots.IsEnabled = False
+            lblCorners.IsEnabled = False
+            lstCorners.IsEnabled = False
+            lblHoles.IsEnabled = False
+            lstHoleQty.IsEnabled = False
+            lstCorners.SelectedIndex = -1
+            lstHoleQty.SelectedIndex = -1
+            lstHoleSz.SelectedIndex = -1
+            txtLRDist.IsEnabled = False
+            txtLRDist.Clear()
+            txtTBDist.IsEnabled = False
+            txtTBDist.Clear()
+            ckbxUL.IsChecked = False
+            ckbxUC.IsChecked = False
+            ckbxUR.IsChecked = False
+            ckbxCL.IsChecked = False
+            ckbxCR.IsChecked = False
+            ckbxLL.IsChecked = False
+            ckbxLC.IsChecked = False
+            ckbxLR.IsChecked = False
+            txtWidth.IsEnabled = False
+            txtWidth.Clear()
+            txtHeight.IsEnabled = False
+            txtHeight.Clear()
+            ckbxCLRgroms.IsEnabled = False
+            ckbxCLRgroms.IsChecked = False
+            ckbxCTBGroms.IsEnabled = False
+            ckbxCTBGroms.IsChecked = False
+            ckbxCornerGroms.IsEnabled = False
+            ckbxCornerGroms.IsChecked = False
+            ckbxTBspacing.IsEnabled = False
+            ckbxTBspacing.IsChecked = False
+            ckbxLRspacing.IsEnabled = False
+            ckbxLRspacing.IsChecked = False
+            txtTBspacing.IsEnabled = False
+            txtTBspacing.Clear()
+            txtLRspacing.IsEnabled = False
+            txtLRspacing.Clear()
+            lstFlutes.SelectedIndex = -1
+            lstStkDots.SelectedIndex = -1
+        End If
         If lstMaterial.SelectedIndex = 0 Then 'Coroplast
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -426,6 +572,16 @@ Class MainWindow
         If ckbxLRspacing.IsChecked And Not Integer.TryParse(pgHeight / valLRspacing, 0) Then
             MsgBox("Height must be evenly divisible by grommet spacing distance.")
             txtLRspacing.Clear()
+            Exit Sub
+        End If
+
+        If lstHoleQty.SelectedIndex = 0 And lstHoleSz.SelectedIndex = -1 Then
+            MsgBox("Must input hole size.")
+            Exit Sub
+        End If
+
+        If pgHeight = 0 Or pgWidth = 0 Then
+            MsgBox("Invalid page size.")
             Exit Sub
         End If
 

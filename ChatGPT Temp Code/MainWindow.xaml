@@ -11,7 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="416,379,0,0" Padding="5,5,5,5" IsDefault="True"/>
+        <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,368,0,0" Padding="5,5,5,5" IsDefault="True"/>
         <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="426,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="426,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Height" HorizontalAlignment="Left" Margin="366,23,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -39,7 +39,7 @@
             <ComboBoxItem Content="6x24"/>
             <ComboBoxItem Content="None"/>
         </ComboBox>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="527,379,0,0" VerticalAlignment="Top" Padding="5,5,5,5" IsCancel="True"/>
+        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="542,368,0,0" VerticalAlignment="Top" Padding="5,5,5,5" IsCancel="True"/>
         <Label x:Name="lblCorners" Content="Radius Corners" HorizontalAlignment="Left" Margin="19,140,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False"/>
         <ComboBox x:Name="lstCorners" HorizontalAlignment="Left" Margin="130,144,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
             <ComboBoxItem Content="None"/>
@@ -88,7 +88,8 @@
         <TextBox x:Name="txtLRspacing" HorizontalAlignment="Left" Margin="443,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18"/>
         <TextBlock HorizontalAlignment="Left" Margin="490,280,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="408,305,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
-        <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="305,379,0,0" VerticalAlignment="Top" Width="98" Height="27.96" IsEnabled="False" Visibility="Hidden"/>
+        <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="282,368,0,0" VerticalAlignment="Top" Width="98" Height="28"/>
+        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="494,368,0,0" Padding="5,5,5,5"/>
 
     </Grid>
 </Window>
