@@ -10,13 +10,6 @@ Class MainWindow
     Dim ctrlRectangle, cornerRect, regDot, vertFlutes,
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
 
-    Private Sub txtLRspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLRspacing.GotFocus
-        ckbxLRspacing.IsChecked = True
-    End Sub
-
-    Private Sub txtTBspacing_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtTBspacing.GotFocus
-        ckbxTBspacing.IsChecked = True
-    End Sub
 
     Private Sub ckbxCLRgroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Checked, ckbxCLRgroms.Unchecked
         If ckbxCLRgroms.IsChecked Then
@@ -78,7 +71,6 @@ Class MainWindow
         lstFlutes.SelectedIndex = flutes
         lstStkDots.SelectedIndex = stakes
         lstCorners.SelectedIndex = corners
-        lstHoleQty.SelectedIndex = holes
         lstHoleSz.SelectedIndex = holesize
         txtLRDist.Text = holedisthorz
         txtTBDist.Text = holedistvert
@@ -99,6 +91,12 @@ Class MainWindow
         txtLRspacing.Text = gromlrdist
 
     End Sub
+    Private Sub txtTBDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBDist.GotFocus
+        txtTBDist.SelectAll()
+    End Sub
+    Private Sub txtLRDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRDist.GotFocus
+        txtLRDist.SelectAll()
+    End Sub
 
     Private Sub txtHeight_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtHeight.GotFocus
         txtHeight.SelectAll()
@@ -117,9 +115,8 @@ Class MainWindow
         lblCorners.IsEnabled = False
         lstCorners.IsEnabled = False
         lblHoles.IsEnabled = False
-        lstHoleQty.IsEnabled = False
+        lstHoleSz.IsEnabled = False
         lstCorners.SelectedIndex = -1
-        lstHoleQty.SelectedIndex = -1
         lstHoleSz.SelectedIndex = -1
         txtLRDist.IsEnabled = False
         txtLRDist.Clear()
@@ -190,6 +187,7 @@ Class MainWindow
         If lstFlutes.SelectedIndex = 1 Then
             lblStkDots.IsEnabled = False
             lstStkDots.IsEnabled = False 'Removes stake dot option for horizontal flutes
+            lstStkDots.SelectedIndex = -1
         Else
             lblStkDots.IsEnabled = True
             lstStkDots.IsEnabled = True
@@ -197,10 +195,8 @@ Class MainWindow
 
     End Sub
 
-    Public Sub lstHoleQty_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstHoleQty.SelectionChanged
-        If lstHoleQty.SelectedIndex <> 1 And lstHoleQty.SelectedIndex <> -1 Then
-            lblHoleSz.IsEnabled = True
-            lstHoleSz.IsEnabled = True
+    Public Sub lstHoleSz_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstHoleSz.SelectionChanged
+        If lstHoleSz.SelectedIndex <> -1 Then
             lblHoleDistance.IsEnabled = True
             lblHolePosition.IsEnabled = True
             lblHolesTBDist.IsEnabled = True
@@ -216,9 +212,6 @@ Class MainWindow
             ckbxLC.IsEnabled = True
             ckbxLR.IsEnabled = True
         Else
-            lblHoleSz.IsEnabled = False
-            lstHoleSz.IsEnabled = False
-            lstHoleSz.SelectedIndex = -1
             lblHoleDistance.IsEnabled = False
             lblHolePosition.IsEnabled = False
             lblHolesTBDist.IsEnabled = False
@@ -261,9 +254,7 @@ Class MainWindow
             lblCorners.IsEnabled = False
             lstCorners.IsEnabled = False
             lblHoles.IsEnabled = False
-            lstHoleQty.IsEnabled = False
             lstCorners.SelectedIndex = -1
-            lstHoleQty.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
             txtLRDist.IsEnabled = False
             txtLRDist.Clear()
@@ -308,9 +299,7 @@ Class MainWindow
             lblCorners.IsEnabled = False
             lstCorners.IsEnabled = False
             lblHoles.IsEnabled = False
-            lstHoleQty.IsEnabled = False
             lstCorners.SelectedIndex = -1
-            lstHoleQty.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
             txtLRDist.IsEnabled = False
             txtLRDist.Clear()
@@ -337,7 +326,7 @@ Class MainWindow
             lblCorners.IsEnabled = True
             lstCorners.IsEnabled = True
             lblHoles.IsEnabled = True
-            lstHoleQty.IsEnabled = True
+            lstHoleSz.IsEnabled = True
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
             lstFlutes.SelectedIndex = -1
@@ -364,7 +353,7 @@ Class MainWindow
             lblCorners.IsEnabled = True
             lstCorners.IsEnabled = True
             lblHoles.IsEnabled = True
-            lstHoleQty.IsEnabled = True
+            lstHoleSz.IsEnabled = True
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
             lstFlutes.SelectedIndex = -1
@@ -390,9 +379,8 @@ Class MainWindow
             lblCorners.IsEnabled = False
             lstCorners.IsEnabled = False
             lblHoles.IsEnabled = False
-            lstHoleQty.IsEnabled = False
+            lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
-            lstHoleQty.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
             txtLRDist.IsEnabled = False
             txtLRDist.Clear()
@@ -433,9 +421,8 @@ Class MainWindow
             lblCorners.IsEnabled = False
             lstCorners.IsEnabled = False
             lblHoles.IsEnabled = False
-            lstHoleQty.IsEnabled = False
+            lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
-            lstHoleQty.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
             txtLRDist.IsEnabled = False
             txtLRDist.Clear()
@@ -471,9 +458,8 @@ Class MainWindow
             lblCorners.IsEnabled = False
             lstCorners.IsEnabled = False
             lblHoles.IsEnabled = False
-            lstHoleQty.IsEnabled = False
+            lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
-            lstHoleQty.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
             txtLRDist.IsEnabled = False
             txtLRDist.Clear()
@@ -509,9 +495,8 @@ Class MainWindow
             lblCorners.IsEnabled = False
             lstCorners.IsEnabled = False
             lblHoles.IsEnabled = False
-            lstHoleQty.IsEnabled = False
+            lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
-            lstHoleQty.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
             txtLRDist.IsEnabled = False
             txtLRDist.Clear()
@@ -564,24 +549,25 @@ Class MainWindow
 
 
         If ckbxTBspacing.IsChecked And Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
-            MsgBox("Width must be evenly divisible by grommet spacing distance.")
+            MsgBox("Width must be evenly divisible by grommet spacing distance.", , Title:="Error!")
             txtTBspacing.Clear()
             Exit Sub
         End If
 
         If ckbxLRspacing.IsChecked And Not Integer.TryParse(pgHeight / valLRspacing, 0) Then
-            MsgBox("Height must be evenly divisible by grommet spacing distance.")
+            MsgBox("Height must be evenly divisible by grommet spacing distance.", , Title:="Error!")
             txtLRspacing.Clear()
             Exit Sub
         End If
 
-        If lstHoleQty.SelectedIndex = 0 And lstHoleSz.SelectedIndex = -1 Then
-            MsgBox("Must input hole size.")
+        If lstMaterial.SelectedIndex = 0 And lstFlutes.SelectedIndex = -1 Then
+            MsgBox("Must choose flute direction on coroplast!", , Title:="Error!")
             Exit Sub
         End If
 
+
         If pgHeight = 0 Or pgWidth = 0 Then
-            MsgBox("Invalid page size.")
+            MsgBox("Invalid page size.", , Title:="Error!")
             Exit Sub
         End If
 
@@ -616,9 +602,17 @@ Class MainWindow
 
         If lstMaterial.SelectedIndex = 0 And pgHeight = 18 And pgWidth = 24 Then
             regDots18x24.MoveToLayer(regmark)
+            regDots18x24.Ungroup()
             cutLines18x24.MoveToLayer(thrucut)
+            cutLines18x24.Ungroup()
             lyrOne18x24.Ungroup()
-        Else
+        ElseIf lstMaterial.SelectedIndex = 0 And pgHeight = 24 And pgWidth = 18 Then
+            regDots18x24.MoveToLayer(regmark)
+                regDots18x24.Ungroup()
+                cutLines18x24.MoveToLayer(thrucut)
+                cutLines18x24.Ungroup()
+                lyrOne18x24.Ungroup()
+            Else
             regDots18x24.Delete()
             cutLines18x24.Delete()
             lyrOne18x24.Delete()
@@ -651,7 +645,7 @@ Class MainWindow
         If lstStkDots.SelectedIndex = -1 Or lstStkDots.SelectedIndex = 2 Then
             stkDot6x24.Delete()
             stkDot10x30.Delete()
-        ElseIf lstFlutes.SelectedIndex = 1 Then '6x24
+        ElseIf lstStkDots.SelectedIndex = 1 Then '6x24
             stkDot10x30.Delete()
             stkDot6x24.SetPosition(pgWidth / 2 - stkDot6x24.SizeWidth / 2, 0.3)
         ElseIf lstStkDots.SelectedIndex = 0 Then '10x30
@@ -714,6 +708,14 @@ Class MainWindow
         Dim radTxt, holeSzTxt, holeLRDistTxt, holeTBDistTxt, holePlcTxt As String
         Dim tbDist As Double = Val(txtTBDist.Text)
         Dim lrDist As Double = Val(txtLRDist.Text)
+        If tbDist = Nothing Or tbDist = 0 Then
+            If lrDist = Nothing Or lrDist = 0 Then
+                MsgBox("Distance from edge cannot be 0.", , Title:="Error!")
+                Exit Sub
+            Else
+                tbDist = lrDist
+            End If
+        End If
         If ckbxUL.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
         End If
@@ -768,7 +770,7 @@ Class MainWindow
                     ElseIf tbDist = 0.75 Then
                         holePlcTxt = "3/4"
                     End If
-                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge"
+                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge" + vbCrLf
                 Else
                     If tbDist = 0.25 Then
                         holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
@@ -803,8 +805,22 @@ Class MainWindow
                     holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt
 
                 End If
+                If ckbxUC.IsChecked = True And ckbxLC.IsChecked = True Then
+                    holeSzTxt = holeSzTxt + "in center at top & bottom" + vbCrLf
+                ElseIf ckbxUC.IsChecked = True And ckbxLC.IsChecked = False Then
+                    holeSzTxt = holeSzTxt + "in center at top" + vbCrLf
+                End If
+                If ckbxCL.IsChecked = True And ckbxCR.IsChecked = True Then
+                    holeSzTxt = holeSzTxt + "in center at left & right" + vbCrLf
+                End If
+                If ckbxUL.IsChecked = True And ckbxUR.IsChecked = True And ckbxLL.IsChecked = False And ckbxLR.IsChecked = False Then
+                    holeSzTxt = holeSzTxt + "in top two corners" + vbCrLf
+                End If
+                If ckbxUL.IsChecked = True And ckbxUR.IsChecked = True And ckbxLL.IsChecked = True And ckbxLR.IsChecked = True Then
+                    holeSzTxt = holeSzTxt + "one in each corner" + vbCrLf
+                End If
             Else
-                holeSzTxt = ""
+                    holeSzTxt = ""
             End If
 
             Dim holesAndCornersTxt As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,

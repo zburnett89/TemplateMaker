@@ -55,6 +55,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -166,6 +182,29 @@
         }
         "FileType"
         {
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_8AB98B95D9094B4BB02C6E97FD6F3300"
+            {
+            "Name" = "8:Zach's Corel Helper File"
+            "Description" = "8:"
+            "Extensions" = "8:.zch"
+            "MIME" = "8:"
+            "Icon" = "8:_7C2E2D44B93D45A98C68CF29439E1599"
+            "IconIndex" = "3:0"
+                "Command"
+                {
+                "Command" = "8:_EBF8ED1912684C3C81C6383F21C578FC"
+                }
+                "Verbs"
+                {
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_1781D56C459A4BBAA5B8550FFA13E5D3"
+                    {
+                    "Command" = "8:&Open"
+                    "Verb" = "8:open"
+                    "Arguments" = "8:\"%1\""
+                    "Order" = "3:0"
+                    }
+                }
+            }
         }
         "Folder"
         {
@@ -219,15 +258,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TemplateMaker"
-        "ProductCode" = "8:{A370177C-C461-4960-997B-C2F9A461DC6B}"
-        "PackageCode" = "8:{77C5769F-336D-4B35-9E92-63F4FCECD166}"
+        "ProductCode" = "8:{F22654F7-69FA-4CB5-9BF0-3BA4AB850070}"
+        "PackageCode" = "8:{5DA4DD2E-9192-482A-9C53-85D2E3A113A2}"
         "UpgradeCode" = "8:{ED8433A8-9CBE-4183-B296-4174B05A1DC9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:Burnett Development Software Maker"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -755,7 +794,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_38E92BF2184C422D953353ACB648C338"
             {
-            "SourcePath" = "8:..\\ChatGPT Temp Code\\obj\\Release\\net6.0-windows\\TemplateMaker App.dll"
+            "SourcePath" = "8:..\\ChatGPT Temp Code\\obj\\Release\\net6.0-windows10.0.17763.0\\TemplateMaker App.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_12D55D0DB02C4D31BF243C3761CA7EBC"
@@ -923,7 +962,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EBF8ED1912684C3C81C6383F21C578FC"
             {
-            "SourcePath" = "8:..\\ChatGPT Temp Code\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\ChatGPT Temp Code\\obj\\Release\\net6.0-windows10.0.17763.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_12D55D0DB02C4D31BF243C3761CA7EBC"
