@@ -546,6 +546,8 @@ Class MainWindow
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
         Dim valLRspacing As Single = Val(txtLRspacing.Text)
         Dim pgDimsRange As Corel.Interop.VGCore.IVGShapeRange, pgDimsShape As Corel.Interop.VGCore.Shape
+        Dim tbDist As Double = Val(txtTBDist.Text)
+        Dim lrDist As Double = Val(txtLRDist.Text)
 
 
         If ckbxTBspacing.IsChecked And Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
@@ -565,6 +567,12 @@ Class MainWindow
             Exit Sub
         End If
 
+        If lstHoleSz.SelectedIndex <> -1 Then
+            If tbDist = 0 And lrDist = 0 Then
+                MsgBox("Distance from edge cannot be 0.", , Title:="Error!")
+                Exit Sub
+            End If
+        End If
 
         If pgHeight = 0 Or pgWidth = 0 Then
             MsgBox("Invalid page size.", , Title:="Error!")
@@ -706,20 +714,11 @@ Class MainWindow
         End Select
 
         Dim radTxt, holeSzTxt, holeLRDistTxt, holeTBDistTxt, holePlcTxt As String
-        Dim tbDist As Double = Val(txtTBDist.Text)
-        Dim lrDist As Double = Val(txtLRDist.Text)
-        If tbDist = Nothing Or tbDist = 0 Then
-            If lrDist = Nothing Or lrDist = 0 Then
-                MsgBox("Distance from edge cannot be 0.", , Title:="Error!")
-                Exit Sub
-            Else
-                tbDist = lrDist
+
+            If ckbxUL.IsChecked Then
+                corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
             End If
-        End If
-        If ckbxUL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
-        End If
-        If ckbxUC.IsChecked Then
+            If ckbxUC.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
         End If
         If ckbxUR.IsChecked Then
@@ -923,6 +922,25 @@ Class MainWindow
             grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
                                                     "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
             grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
+        Else
+            If ckbxCornerGroms.IsChecked Then
+                grommetTxt += "- One in each corner"
+            End If
+            If ckbxCTBGroms.IsChecked Then
+                grommetTxt += ", in center of top & bottom"
+            End If
+            If ckbxCLRgroms.IsChecked Then
+                grommetTxt += ", in center of left & right"
+            End If
+            If ckbxTBspacing.IsChecked Then
+                grommetTxt += ", every " + txtTBspacing.Text + "'' along top & bottom"
+            End If
+            If ckbxLRspacing.IsChecked Then
+                grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
+            End If
+            grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
+                                                    "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+            grommetArtTxt.SetPosition(0, -grommetArtTxt.SizeHeight - 1)
         End If
 
         'Tags
@@ -933,6 +951,13 @@ Class MainWindow
             tagBorder.SetPosition(0, 6)
             tagHoles.SetPosition(1.85, 5.5)
             ctrlRectangle.Outline.Width = 0
+            radTxt = "1/2'' radius corners"
+            Dim tagText As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt, , ,
+                                                    "Arial", , , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
+
+            tagText.SetSize(pgWidth)
+            tagText.SetPosition(0, 0 - (pgHeight * 0.125))
+            tagText.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
         Else
             tagBorder.Delete()
             tagHoles.Delete()
