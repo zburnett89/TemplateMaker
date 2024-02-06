@@ -6,90 +6,98 @@
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
         Icon="Template Maker Icon.ico"
         mc:Ignorable="d"
-        Title="Create Template" Height="480" Width="605">
+        Title="Create Template" Height="480" Width="605" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Viewbox Margin="20,20,20,20">
-    <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="590">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,368,0,0" Padding="5,5,5,5" IsDefault="True"/>
-        <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="426,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="426,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Height" HorizontalAlignment="Left" Margin="366,23,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="Width" HorizontalAlignment="Left" Margin="366,66,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="Material" HorizontalAlignment="Left" Margin="56,21,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <ComboBox x:Name="lstMaterial" HorizontalAlignment="Left" Margin="130,22,0,0" VerticalAlignment="Top" Width="120" IsSynchronizedWithCurrentItem="False">
-            <ComboBoxItem Content="Coroplast"/>
-            <ComboBoxItem Content="Aluminum"/>
-            <ComboBoxItem Content="ACM"/>
-            <ComboBoxItem Content="Plastic"/>
-            <ComboBoxItem Content="Vinyl"/>
-            <ComboBoxItem Content="Banner"/>
-            <ComboBoxItem Content="Poster"/>
-            <ComboBoxItem Content="Tags"/>
-        </ComboBox>
-        <Label x:Name="lblFlutes" Content="Flute Direction" HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" FontWeight="Bold" IsEnabled="False"/>
-        <ComboBox x:Name="lstFlutes" HorizontalAlignment="Left" Margin="130,62,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
-            <ComboBoxItem Content="Vertical"/>
-            <ComboBoxItem Content="Horizontal"/>
-            <ComboBoxItem Content="Both"/>
-        </ComboBox>
-        <Label x:Name="lblStkDots" Content="Stake Dots" HorizontalAlignment="Left" Margin="44,99,0,0" VerticalAlignment="Top" FontWeight="Bold" IsEnabled="False" SnapsToDevicePixels="True"/>
-        <ComboBox x:Name="lstStkDots" HorizontalAlignment="Left" Margin="130,101,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
-            <ComboBoxItem Content="10x30 or HD"/>
-            <ComboBoxItem Content="6x24"/>
-            <ComboBoxItem Content="None"/>
-        </ComboBox>
-        <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="542,368,0,0" VerticalAlignment="Top" Padding="5,5,5,5" IsCancel="True"/>
-        <Label x:Name="lblCorners" Content="Radius Corners" HorizontalAlignment="Left" Margin="19,140,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False"/>
-        <ComboBox x:Name="lstCorners" HorizontalAlignment="Left" Margin="130,144,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
-            <ComboBoxItem Content="None"/>
-            <ComboBoxItem Content="1/4''"/>
-            <ComboBoxItem Content="1/2''"/>
-            <ComboBoxItem Content="3/4''"/>
-            <ComboBoxItem Content="1''"/>
-            <ComboBoxItem Content="1.5''"/>
-        </ComboBox>
-        <Label x:Name="lblHoles" Content="Holes" HorizontalAlignment="Left" Margin="71,180,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
-        <ComboBox x:Name="lstHoleSz" HorizontalAlignment="Left" Margin="130,182,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
-            <ComboBoxItem Content="3/16''"/>
-            <ComboBoxItem Content="1/4''"/>
-            <ComboBoxItem Content="5/16''"/>
-            <ComboBoxItem Content="3/8''"/>
-        </ComboBox>
-        <Rectangle HorizontalAlignment="Left" Height="100" Margin="158.5,297,0,0" Stroke="Black" VerticalAlignment="Top" Width="100" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxUL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,302,0,0" IsEnabled="False"/>
-        <Label x:Name="lblHolePosition" Content="Hole Position" HorizontalAlignment="Left" Margin="168,266,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
-        <Label x:Name="lblHoleDistance" Content="Hole Distance" HorizontalAlignment="Left" Margin="59,268,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
-        <TextBox x:Name="txtTBDist" HorizontalAlignment="Left" Margin="100,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20"/>
-        <Label x:Name="lblHolesTBDist" Content="Top/Bottom" HorizontalAlignment="Left" Margin="20,321,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
-        <TextBox x:Name="txtLRDist" HorizontalAlignment="Left" Margin="100,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20"/>
-        <Label x:Name="lblHolesLRDist" Content="Left/Right" HorizontalAlignment="Left" Margin="30,351,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
-        <CheckBox x:Name="ckbxUC" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="201,302,0,0" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxUR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,302,0,0" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxLL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,375,0,0" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxLC" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="201,375,0,0" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxLR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,375,0,0" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxCL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,338,0,0" IsEnabled="False"/>
-        <CheckBox x:Name="ckbxCR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,338,0,0" IsEnabled="False"/>
-        <Label Content="Grommets" HorizontalAlignment="Left" Margin="420,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <CheckBox x:Name="ckbxCornerGroms" Content="Four Corners" HorizontalAlignment="Left" Margin="388,155,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="388,180,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ckbxCLRgroms" Content="Center Left &amp; Right" HorizontalAlignment="Left" Margin="388,205,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ckbxTBspacing" Content="Every" HorizontalAlignment="Left" Margin="388,230,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtTBspacing" HorizontalAlignment="Left" Margin="443,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto"/>
-        <TextBlock HorizontalAlignment="Left" Margin="490,230,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="408,255,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ckbxLRspacing" Content="Every" HorizontalAlignment="Left" Margin="388,280,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtLRspacing" HorizontalAlignment="Left" Margin="443,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18"/>
-        <TextBlock HorizontalAlignment="Left" Margin="490,280,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="408,305,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
-        <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="282,368,0,0" VerticalAlignment="Top" Width="98" Height="28"/>
-        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="494,368,0,0" Padding="5,5,5,5"/>
+        <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="590">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,368,0,0" Padding="5,5,5,5" IsDefault="True"/>
+            <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="426,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="426,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Height" HorizontalAlignment="Left" Margin="366,23,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Width" HorizontalAlignment="Left" Margin="366,66,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Material" HorizontalAlignment="Left" Margin="56,21,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <ComboBox x:Name="lstMaterial" HorizontalAlignment="Left" Margin="130,22,0,0" VerticalAlignment="Top" Width="120" IsSynchronizedWithCurrentItem="False">
+                <ComboBoxItem Content="Coroplast"/>
+                <ComboBoxItem Content="Aluminum"/>
+                <ComboBoxItem Content="ACM"/>
+                <ComboBoxItem Content="Plastic"/>
+                <ComboBoxItem Content="Vinyl"/>
+                <ComboBoxItem Content="Banner"/>
+                <ComboBoxItem Content="Poster"/>
+                <ComboBoxItem Content="Tags"/>
+            </ComboBox>
+            <Label x:Name="lblFlutes" Content="Flute Direction" HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" FontWeight="Bold" IsEnabled="False"/>
+            <ComboBox x:Name="lstFlutes" HorizontalAlignment="Left" Margin="130,62,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
+                <ComboBoxItem Content="Vertical"/>
+                <ComboBoxItem Content="Horizontal"/>
+                <ComboBoxItem Content="Both"/>
+            </ComboBox>
+            <Label x:Name="lblStkDots" Content="Stake Dots" HorizontalAlignment="Left" Margin="44,99,0,0" VerticalAlignment="Top" FontWeight="Bold" IsEnabled="False" SnapsToDevicePixels="True"/>
+            <ComboBox x:Name="lstStkDots" HorizontalAlignment="Left" Margin="130,101,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
+                <ComboBoxItem Content="10x30 or HD"/>
+                <ComboBoxItem Content="6x24"/>
+                <ComboBoxItem Content="None"/>
+            </ComboBox>
+            <Button x:Name="btnClose" Content="Close" HorizontalAlignment="Left" Margin="542,368,0,0" VerticalAlignment="Top" Padding="5,5,5,5" IsCancel="True"/>
+            <Label x:Name="lblCorners" Content="Radius Corners" HorizontalAlignment="Left" Margin="19,140,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False"/>
+            <ComboBox x:Name="lstCorners" HorizontalAlignment="Left" Margin="130,144,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
+                <ComboBoxItem Content="None"/>
+                <ComboBoxItem Content="1/4''"/>
+                <ComboBoxItem Content="1/2''"/>
+                <ComboBoxItem Content="3/4''"/>
+                <ComboBoxItem Content="1''"/>
+                <ComboBoxItem Content="1.5''"/>
+            </ComboBox>
+            <Label x:Name="lblHoles" Content="Holes" HorizontalAlignment="Left" Margin="71,180,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <ComboBox x:Name="lstHoleSz" HorizontalAlignment="Left" Margin="130,182,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
+                <ComboBoxItem Content="3/16''"/>
+                <ComboBoxItem Content="1/4''"/>
+                <ComboBoxItem Content="5/16''"/>
+                <ComboBoxItem Content="3/8''"/>
+            </ComboBox>
+            <Rectangle HorizontalAlignment="Left" Height="100" Margin="158.5,297,0,0" Stroke="Black" VerticalAlignment="Top" Width="100" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxUL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,302,0,0" IsEnabled="False"/>
+            <Label x:Name="lblHolePosition" Content="Hole Position" HorizontalAlignment="Left" Margin="168,266,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
+            <Label x:Name="lblHoleDistance" Content="Hole Distance" HorizontalAlignment="Left" Margin="59,268,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="txtTBDist" HorizontalAlignment="Left" Margin="100,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
+            <Label x:Name="lblHolesTBDist" Content="Top/Bottom" HorizontalAlignment="Left" Margin="20,321,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="txtLRDist" HorizontalAlignment="Left" Margin="100,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
+            <Label x:Name="lblHolesLRDist" Content="Left/Right" HorizontalAlignment="Left" Margin="30,351,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <CheckBox x:Name="ckbxUC" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="201,302,0,0" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxUR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,302,0,0" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxLL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,375,0,0" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxLC" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="201,375,0,0" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxLR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,375,0,0" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,338,0,0" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="238,338,0,0" IsEnabled="False"/>
+            <Label Content="Grommets" HorizontalAlignment="Left" Margin="420,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <CheckBox x:Name="ckbxCornerGroms" Content="Four Corners" HorizontalAlignment="Left" Margin="279,168,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="279,193,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCLRgroms" Content="Center Left &amp; Right" HorizontalAlignment="Left" Margin="279,218,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxTBspacing" Content="Every" HorizontalAlignment="Left" Margin="279,243,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <TextBox x:Name="txtTBspacing" HorizontalAlignment="Left" Margin="334,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="381,243,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="299,268,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
+            <CheckBox x:Name="ckbxLRspacing" Content="Every" HorizontalAlignment="Left" Margin="279,293,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <TextBox x:Name="txtLRspacing" HorizontalAlignment="Left" Margin="334,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" IsEnabled="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="381,293,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="299,318,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
+            <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="282,368,0,0" VerticalAlignment="Top" Width="98" Height="28"/>
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="494,368,0,0" Padding="5,5,5,5"/>
+            <CheckBox x:Name="ckbxTBQty" Content="Put" HorizontalAlignment="Left" Margin="466,169,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <TextBox x:Name="txtTBQty" HorizontalAlignment="Left" Margin="511,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="558,168,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="486,194,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
+            <CheckBox x:Name="ckbxLRQty" Content="Put" HorizontalAlignment="Left" Margin="466,219,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <TextBox x:Name="txtLRQty" HorizontalAlignment="Left" Margin="511,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" IsEnabled="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="558,218,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="486,244,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
 
-    </Grid>
+        </Grid>
     </Viewbox>
 </Window>

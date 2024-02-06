@@ -7,19 +7,9 @@ Class MainWindow
     Public corelApp As Corel.Interop.VGCore.Application
     Public corelDoc As Corel.Interop.VGCore.Document
 
-    Dim ctrlRectangle, cornerRect, regDot, vertFlutes,
+    Dim ctrlRectangle, cornerRect, vertFlutes,
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
 
-
-    Private Sub ckbxCLRgroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Checked, ckbxCLRgroms.Unchecked
-        If ckbxCLRgroms.IsChecked Then
-            ckbxLRspacing.IsEnabled = False
-            ckbxLRspacing.IsChecked = False
-        End If
-        If ckbxCLRgroms.IsChecked = False Then
-            ckbxLRspacing.IsEnabled = True
-        End If
-    End Sub
 
     Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
         Dim openFileDialog As New Microsoft.Win32.OpenFileDialog()
@@ -144,6 +134,11 @@ Class MainWindow
         ckbxTBspacing.IsChecked = False
         ckbxLRspacing.IsEnabled = False
         ckbxLRspacing.IsChecked = False
+        ckbxTBQty.IsEnabled = False
+        ckbxTBQty.IsChecked = False
+        ckbxLRQty.IsEnabled = False
+        ckbxLRQty.IsChecked = False
+        txtTBQty.IsEnabled = False
         txtTBspacing.IsEnabled = False
         txtTBspacing.Clear()
         txtLRspacing.IsEnabled = False
@@ -152,17 +147,52 @@ Class MainWindow
         lstStkDots.SelectedIndex = -1
     End Sub
 
-    Private Sub ckbxCTBGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCTBGroms.Checked, ckbxCTBGroms.Unchecked
-        If ckbxCTBGroms.IsChecked Then
+    Private Sub ckbxTBQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBQty.Click
+        If ckbxTBQty.IsChecked = True Then
             ckbxTBspacing.IsEnabled = False
             ckbxTBspacing.IsChecked = False
+            ckbxCTBGroms.IsEnabled = False
+            ckbxCTBGroms.IsChecked = False
+            txtTBspacing.IsEnabled = False
         End If
-        If ckbxCTBGroms.IsChecked = False Then
+        If ckbxTBQty.IsChecked = False Then
             ckbxTBspacing.IsEnabled = True
+            ckbxCTBGroms.IsEnabled = True
+            txtTBspacing.IsEnabled = True
         End If
     End Sub
 
-    Private Sub ckbxLRspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRspacing.Checked, ckbxLRspacing.Unchecked
+    Private Sub ckbxLRQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRQty.Click
+        If ckbxLRQty.IsChecked = True Then
+            ckbxCLRgroms.IsEnabled = False
+            ckbxCLRgroms.IsChecked = False
+            ckbxLRspacing.IsEnabled = False
+            ckbxLRspacing.IsChecked = False
+            txtLRspacing.IsEnabled = False
+        End If
+        If ckbxLRQty.IsChecked = False Then
+            ckbxCLRgroms.IsEnabled = True
+            ckbxLRspacing.IsEnabled = True
+            ckbxLRspacing.IsEnabled = True
+        End If
+    End Sub
+
+    Private Sub ckbxCTBGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCTBGroms.Click
+        If ckbxCTBGroms.IsChecked = True Then
+            ckbxTBspacing.IsEnabled = False
+            ckbxTBspacing.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            ckbxTBQty.IsChecked = False
+            txtTBQty.IsEnabled = False
+        End If
+        If ckbxCTBGroms.IsChecked = False Then
+            ckbxTBspacing.IsEnabled = True
+            ckbxTBQty.IsEnabled = True
+            txtTBQty.IsEnabled = True
+        End If
+    End Sub
+
+    Private Sub ckbxLRspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRspacing.Click
         If ckbxLRspacing.IsChecked Then
             ckbxCLRgroms.IsEnabled = False
             ckbxCLRgroms.IsChecked = False
@@ -172,7 +202,7 @@ Class MainWindow
         End If
     End Sub
 
-    Private Sub ckbxTBspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBspacing.Checked, ckbxTBspacing.Unchecked
+    Private Sub ckbxTBspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBspacing.Click
 
         If ckbxTBspacing.IsChecked Then
             ckbxCTBGroms.IsEnabled = False
@@ -318,6 +348,10 @@ Class MainWindow
             ckbxCornerGroms.IsEnabled = True
             ckbxTBspacing.IsEnabled = True
             ckbxLRspacing.IsEnabled = True
+            ckbxTBQty.IsEnabled = True
+            ckbxLRQty.IsEnabled = True
+            txtTBQty.IsEnabled = True
+            txtLRQty.IsEnabled = True
             txtTBspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 1 Then 'Aluminum
@@ -343,6 +377,14 @@ Class MainWindow
             ckbxTBspacing.IsChecked = False
             ckbxLRspacing.IsEnabled = False
             ckbxLRspacing.IsChecked = False
+            ckbxTBQty.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            ckbxLRQty.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            txtTBQty.IsEnabled = False
+            txtLRQty.IsEnabled = False
+            txtTBQty.Clear()
+            txtLRQty.Clear()
             txtTBspacing.IsEnabled = False
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
@@ -365,6 +407,10 @@ Class MainWindow
             ckbxCornerGroms.IsEnabled = True
             ckbxTBspacing.IsEnabled = True
             ckbxLRspacing.IsEnabled = True
+            ckbxTBQty.IsEnabled = True
+            ckbxLRQty.IsEnabled = True
+            txtTBQty.IsEnabled = True
+            txtLRQty.IsEnabled = True
             txtTBspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 4 Then 'Vinyl
@@ -443,6 +489,10 @@ Class MainWindow
             ckbxCornerGroms.IsEnabled = True
             ckbxTBspacing.IsEnabled = True
             ckbxLRspacing.IsEnabled = True
+            ckbxTBQty.IsEnabled = True
+            ckbxLRQty.IsEnabled = True
+            txtTBQty.IsEnabled = True
+            txtLRQty.IsEnabled = True
             txtTBspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
 
@@ -483,6 +533,14 @@ Class MainWindow
             ckbxTBspacing.IsChecked = False
             ckbxLRspacing.IsEnabled = False
             ckbxLRspacing.IsChecked = False
+            ckbxTBQty.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            ckbxLRQty.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            txtTBQty.IsEnabled = False
+            txtLRQty.IsEnabled = False
+            txtTBQty.Clear()
+            txtLRQty.Clear()
             txtTBspacing.IsEnabled = False
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
@@ -525,6 +583,14 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = False
             ckbxLRspacing.IsChecked = False
             txtTBspacing.IsEnabled = False
+            ckbxTBQty.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            ckbxLRQty.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            txtTBQty.IsEnabled = False
+            txtLRQty.IsEnabled = False
+            txtTBQty.Clear()
+            txtLRQty.Clear()
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
@@ -548,6 +614,8 @@ Class MainWindow
         Dim pgDimsRange As Corel.Interop.VGCore.IVGShapeRange, pgDimsShape As Corel.Interop.VGCore.Shape
         Dim tbDist As Double = Val(txtTBDist.Text)
         Dim lrDist As Double = Val(txtLRDist.Text)
+        Dim tbQty As Single = Val(txtTBQty.Text)
+        Dim lrQty As Single = Val(txtLRQty.Text)
 
 
         If ckbxTBspacing.IsChecked And Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
@@ -583,9 +651,6 @@ Class MainWindow
         Dim templateFilePath As String = appDirectory & "TestTemplate.cdt"
         corelDoc = corelApp.CreateDocumentFromTemplate(templateFilePath)
         'corelDoc.Activate()
-        Dim regDots18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("regDots18x24")
-        Dim cutLines18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("cutLines18x24")
-        Dim lyrOne18x24 As ShapeRange = corelDoc.ActiveLayer.FindShapes("lyrOne18x24")
         Dim regmark As Layer = corelDoc.ActivePage.AllLayers.Find("Regmark")
         Dim thrucut As Layer = corelDoc.ActivePage.AllLayers.Find("Through Cut")
         Dim layer1 As Layer = corelDoc.ActivePage.AllLayers.Find("Layer 1")
@@ -607,25 +672,6 @@ Class MainWindow
                 pgDimsShape.Dimension.TextShape.Text.Story.Size = 1.8 * ((pgWidth + pgHeight) / 2) + 34
             End If
         Next
-
-        If lstMaterial.SelectedIndex = 0 And pgHeight = 18 And pgWidth = 24 Then
-            regDots18x24.MoveToLayer(regmark)
-            regDots18x24.Ungroup()
-            cutLines18x24.MoveToLayer(thrucut)
-            cutLines18x24.Ungroup()
-            lyrOne18x24.Ungroup()
-        ElseIf lstMaterial.SelectedIndex = 0 And pgHeight = 24 And pgWidth = 18 Then
-            regDots18x24.MoveToLayer(regmark)
-                regDots18x24.Ungroup()
-                cutLines18x24.MoveToLayer(thrucut)
-                cutLines18x24.Ungroup()
-                lyrOne18x24.Ungroup()
-            Else
-            regDots18x24.Delete()
-            cutLines18x24.Delete()
-            lyrOne18x24.Delete()
-        End If
-
 
         'Sets flutes & position
         vertFlutes = corelDoc.ActivePage.Shapes("vertFlutes")
@@ -715,10 +761,10 @@ Class MainWindow
 
         Dim radTxt, holeSzTxt, holeLRDistTxt, holeTBDistTxt, holePlcTxt As String
 
-            If ckbxUL.IsChecked Then
-                corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
-            End If
-            If ckbxUC.IsChecked Then
+        If ckbxUL.IsChecked Then
+            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
+        End If
+        If ckbxUC.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
         End If
         If ckbxUR.IsChecked Then
@@ -819,7 +865,7 @@ Class MainWindow
                     holeSzTxt = holeSzTxt + "one in each corner" + vbCrLf
                 End If
             Else
-                    holeSzTxt = ""
+                holeSzTxt = ""
             End If
 
             Dim holesAndCornersTxt As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,
@@ -836,7 +882,7 @@ Class MainWindow
 
         'Grommets
         grommet = corelDoc.ActivePage.Shapes("grommet")
-        Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing As Corel.Interop.VGCore.Shape
+        Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing, grommetTBQty, grommetLRQty As Corel.Interop.VGCore.Shape
         If ckbxCornerGroms.IsChecked Then
 
             grommetUL = grommet.Duplicate()
@@ -891,56 +937,71 @@ Class MainWindow
             Next i
         End If
 
+        If ckbxTBQty.IsChecked Then
+            Dim tbQtyDist As Single = ((pgWidth - 2)) / tbQty
+            Dim i As Integer
+            grommetTBQty = grommet.Duplicate()
+            grommetTBQty.SetPosition(0.625, pgHeight - 0.625)
+            grommetTBQty.Duplicate(, 0 - pgHeight + 2)
+
+            For i = 1 To tbQty - 2
+                grommetTBQty.Duplicate((tbQtyDist) * i)
+                grommetTBQty.Duplicate((tbQtyDist) * i, 0 - pgHeight + 2)
+            Next i
+        End If
+
         grommet.Delete()
 
         'grommet & banner text
         Dim bannerSizeTxt, grommetTxt As String
         Dim bannerArtTxt, grommetArtTxt As Corel.Interop.VGCore.Shape
 
-        grommetTxt = "3/8'' Brass Grommets "
+        If ckbxCLRgroms.IsChecked = True Or ckbxCornerGroms.IsChecked = True Or ckbxCTBGroms.IsChecked = True Or ckbxLRspacing.IsChecked = True Or ckbxTBspacing.IsChecked = True Then
+            grommetTxt = "3/8'' Brass Grommets "
 
-        If lstMaterial.SelectedIndex = 5 Then
-            bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
-            bannerArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, bannerSizeTxt, , ,
+            If lstMaterial.SelectedIndex = 5 Then
+                bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
+                bannerArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, bannerSizeTxt, , ,
                                                     "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
-            bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
-            If ckbxCornerGroms.IsChecked Then
-                grommetTxt += "- One in each corner"
-            End If
-            If ckbxCTBGroms.IsChecked Then
-                grommetTxt += ", in center of top & bottom"
-            End If
-            If ckbxCLRgroms.IsChecked Then
-                grommetTxt += ", in center of left & right"
-            End If
-            If ckbxTBspacing.IsChecked Then
-                grommetTxt += ", every " + txtTBspacing.Text + "'' along top & bottom"
-            End If
-            If ckbxLRspacing.IsChecked Then
-                grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
-            End If
-            grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
+                bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
+                If ckbxCornerGroms.IsChecked Then
+                    grommetTxt += "- One in each corner"
+                End If
+                If ckbxCTBGroms.IsChecked Then
+                    grommetTxt += ", in center of top & bottom"
+                End If
+                If ckbxCLRgroms.IsChecked Then
+                    grommetTxt += ", in center of left & right"
+                End If
+                If ckbxTBspacing.IsChecked Then
+                    grommetTxt += ", every " + txtTBspacing.Text + "'' along top & bottom"
+                End If
+                If ckbxLRspacing.IsChecked Then
+                    grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
+                End If
+                grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
                                                     "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
-            grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
-        Else
-            If ckbxCornerGroms.IsChecked Then
-                grommetTxt += "- One in each corner"
-            End If
-            If ckbxCTBGroms.IsChecked Then
-                grommetTxt += ", in center of top & bottom"
-            End If
-            If ckbxCLRgroms.IsChecked Then
-                grommetTxt += ", in center of left & right"
-            End If
-            If ckbxTBspacing.IsChecked Then
-                grommetTxt += ", every " + txtTBspacing.Text + "'' along top & bottom"
-            End If
-            If ckbxLRspacing.IsChecked Then
-                grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
-            End If
-            grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
+                grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
+            Else
+                If ckbxCornerGroms.IsChecked Then
+                    grommetTxt += "- One in each corner"
+                End If
+                If ckbxCTBGroms.IsChecked Then
+                    grommetTxt += ", in center of top & bottom"
+                End If
+                If ckbxCLRgroms.IsChecked Then
+                    grommetTxt += ", in center of left & right"
+                End If
+                If ckbxTBspacing.IsChecked Then
+                    grommetTxt += ", every " + txtTBspacing.Text + "'' along top & bottom"
+                End If
+                If ckbxLRspacing.IsChecked Then
+                    grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
+                End If
+                grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
                                                     "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
-            grommetArtTxt.SetPosition(0, -grommetArtTxt.SizeHeight - 1)
+                grommetArtTxt.SetPosition(0, -grommetArtTxt.SizeHeight - 1)
+            End If
         End If
 
         'Tags
@@ -962,12 +1023,6 @@ Class MainWindow
             tagBorder.Delete()
             tagHoles.Delete()
         End If
-
-        'Sets registration dot position
-
-        regDot = corelDoc.ActivePage.Shapes("RegDot")
-        regDot.SetPosition(0 - 6, pgHeight + 6)
-
 
         'Change view to fit everything on Layer 1
         corelApp.ActiveWindow.ActiveView.ToFitPage()
