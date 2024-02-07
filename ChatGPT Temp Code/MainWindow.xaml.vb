@@ -139,6 +139,9 @@ Class MainWindow
         ckbxLRQty.IsEnabled = False
         ckbxLRQty.IsChecked = False
         txtTBQty.IsEnabled = False
+        txtTBQty.Clear()
+        txtLRQty.IsEnabled = False
+        txtLRQty.Clear()
         txtTBspacing.IsEnabled = False
         txtTBspacing.Clear()
         txtLRspacing.IsEnabled = False
@@ -154,6 +157,8 @@ Class MainWindow
             ckbxCTBGroms.IsEnabled = False
             ckbxCTBGroms.IsChecked = False
             txtTBspacing.IsEnabled = False
+            txtTBspacing.Clear()
+            ckbxCornerGroms.IsChecked = True
         End If
         If ckbxTBQty.IsChecked = False Then
             ckbxTBspacing.IsEnabled = True
@@ -164,6 +169,7 @@ Class MainWindow
 
     Private Sub ckbxLRQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRQty.Click
         If ckbxLRQty.IsChecked = True Then
+            ckbxCornerGroms.IsChecked = True
             ckbxCLRgroms.IsEnabled = False
             ckbxCLRgroms.IsChecked = False
             ckbxLRspacing.IsEnabled = False
@@ -173,7 +179,7 @@ Class MainWindow
         If ckbxLRQty.IsChecked = False Then
             ckbxCLRgroms.IsEnabled = True
             ckbxLRspacing.IsEnabled = True
-            ckbxLRspacing.IsEnabled = True
+            txtLRspacing.IsEnabled = True
         End If
     End Sub
 
@@ -184,6 +190,9 @@ Class MainWindow
             ckbxTBQty.IsEnabled = False
             ckbxTBQty.IsChecked = False
             txtTBQty.IsEnabled = False
+            txtTBspacing.IsEnabled = False
+            txtTBDist.Clear()
+            txtTBQty.Clear()
         End If
         If ckbxCTBGroms.IsChecked = False Then
             ckbxTBspacing.IsEnabled = True
@@ -191,14 +200,78 @@ Class MainWindow
             txtTBQty.IsEnabled = True
         End If
     End Sub
+    Private Sub ckbxCLRGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Click
+        If ckbxCLRgroms.IsChecked = True Then
+            ckbxLRspacing.IsEnabled = False
+            ckbxLRspacing.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            ckbxLRQty.IsChecked = False
+            txtLRQty.IsEnabled = False
+            txtLRspacing.IsEnabled = False
+            txtLRDist.Clear()
+            txtLRQty.Clear()
+        End If
+        If ckbxCLRgroms.IsChecked = False Then
+            ckbxLRspacing.IsEnabled = True
+            ckbxLRQty.IsEnabled = True
+            txtLRQty.IsEnabled = True
+        End If
+    End Sub
+
+    Private Sub txtTBspacing_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBspacing.GotFocus
+        ckbxTBspacing.IsChecked = True
+        ckbxCTBGroms.IsChecked = False
+        ckbxCTBGroms.IsEnabled = False
+        ckbxTBQty.IsChecked = False
+        ckbxTBQty.IsEnabled = False
+        txtTBQty.IsEnabled = False
+        txtTBQty.Clear()
+        txtTBspacing.SelectAll()
+    End Sub
+    Private Sub txtTBQty_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBQty.GotFocus
+        ckbxCornerGroms.IsChecked = True
+        ckbxCTBGroms.IsChecked = False
+        ckbxCTBGroms.IsEnabled = False
+        ckbxTBspacing.IsEnabled = False
+        ckbxTBQty.IsChecked = True
+        ckbxTBQty.IsEnabled = True
+        txtTBQty.SelectAll()
+    End Sub
+
+    Private Sub txtLRspacing_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRspacing.GotFocus
+        ckbxLRspacing.IsChecked = True
+        ckbxCLRgroms.IsChecked = False
+        ckbxCLRgroms.IsEnabled = False
+        ckbxLRQty.IsChecked = False
+        ckbxLRQty.IsEnabled = False
+        txtLRQty.IsEnabled = False
+        txtLRQty.Clear()
+        txtLRspacing.SelectAll()
+    End Sub
+    Private Sub txtLRQty_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRQty.GotFocus
+        ckbxCornerGroms.IsChecked = True
+        ckbxCLRgroms.IsChecked = False
+        ckbxCLRgroms.IsEnabled = False
+        ckbxLRspacing.IsEnabled = False
+        ckbxLRQty.IsChecked = True
+        ckbxLRQty.IsEnabled = True
+        txtLRQty.SelectAll()
+    End Sub
 
     Private Sub ckbxLRspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRspacing.Click
+
         If ckbxLRspacing.IsChecked Then
             ckbxCLRgroms.IsEnabled = False
             ckbxCLRgroms.IsChecked = False
+            ckbxLRQty.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            txtLRQty.Clear()
         End If
         If ckbxLRspacing.IsChecked = False Then
             ckbxCLRgroms.IsEnabled = True
+            ckbxLRQty.IsEnabled = True
+            txtLRQty.IsEnabled = True
+
         End If
     End Sub
 
@@ -207,9 +280,15 @@ Class MainWindow
         If ckbxTBspacing.IsChecked Then
             ckbxCTBGroms.IsEnabled = False
             ckbxCTBGroms.IsChecked = False
+            ckbxTBQty.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            txtTBQty.Clear()
         End If
         If ckbxTBspacing.IsChecked = False Then
             ckbxCTBGroms.IsEnabled = True
+            ckbxTBQty.IsEnabled = True
+            txtTBQty.IsEnabled = True
+
         End If
     End Sub
 
@@ -680,13 +759,17 @@ Class MainWindow
 
         If lstFlutes.SelectedIndex = 0 Then 'Vertical flutes
             horzFlutes.Delete()
+            vertFlutes.SetSize(, pgHeight / 5)
             vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight / 2)
         ElseIf lstFlutes.SelectedIndex = 1 Then 'Horizontal flutes
             vertFlutes.Delete()
+            horzFlutes.SetSize(, pgHeight / 5)
             horzFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + horzFlutes.SizeHeight / 2)
         ElseIf lstFlutes.SelectedIndex = 2 Then 'Both flutes
+            vertFlutes.SetSize(, pgHeight / 5)
+            horzFlutes.SetSize(, pgHeight / 5)
             vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight + 1)
-            horzFlutes.SetPosition(pgWidth + 2, vertFlutes.PositionY - 4)
+            horzFlutes.SetPosition(pgWidth + 2, vertFlutes.PositionY - horzFlutes.SizeHeight - 2)
         Else 'No flutes
             horzFlutes.Delete()
             vertFlutes.Delete()
@@ -938,15 +1021,28 @@ Class MainWindow
         End If
 
         If ckbxTBQty.IsChecked Then
-            Dim tbQtyDist As Single = ((pgWidth - 2)) / tbQty
+            Dim tbQtyDist As Single = ((pgWidth - 2)) / (tbQty - 1)
             Dim i As Integer
             grommetTBQty = grommet.Duplicate()
-            grommetTBQty.SetPosition(0.625, pgHeight - 0.625)
+            grommetTBQty.SetPosition(tbQtyDist + 0.625, pgHeight - 0.625)
             grommetTBQty.Duplicate(, 0 - pgHeight + 2)
 
-            For i = 1 To tbQty - 2
+            For i = 1 To tbQty - 3
                 grommetTBQty.Duplicate((tbQtyDist) * i)
                 grommetTBQty.Duplicate((tbQtyDist) * i, 0 - pgHeight + 2)
+            Next i
+        End If
+
+        If ckbxLRQty.IsChecked Then
+            Dim LRQtyDist As Single = ((pgWidth - 2)) / (lrQty - 1)
+            Dim i As Integer
+            grommetLRQty = grommet.Duplicate()
+            grommetLRQty.SetPosition(0.625, LRQtyDist + 0.625)
+            grommetLRQty.Duplicate(pgWidth - 2)
+
+            For i = 1 To lrQty - 3
+                grommetLRQty.Duplicate(0, (LRQtyDist) * i)
+                grommetLRQty.Duplicate(pgWidth - 2, LRQtyDist * i)
             Next i
         End If
 
