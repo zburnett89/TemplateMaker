@@ -9,7 +9,7 @@ Class MainWindow
 
     Dim ctrlRectangle, cornerRect, vertFlutes,
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
-
+    Dim pSizeA, pSizeB As Double
 
     Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
         Dim openFileDialog As New Microsoft.Win32.OpenFileDialog()
@@ -80,7 +80,7 @@ Class MainWindow
         txtTBspacing.Text = gromtbdist
         txtLRspacing.Text = gromlrdist
 
-    End Sub
+    End Sub 'uploading an xml file
     Private Sub txtTBDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBDist.GotFocus
         txtTBDist.SelectAll()
     End Sub
@@ -148,7 +148,8 @@ Class MainWindow
         txtLRspacing.Clear()
         lstFlutes.SelectedIndex = -1
         lstStkDots.SelectedIndex = -1
-    End Sub
+        lstPresets.SelectedIndex = -1
+    End Sub 'clear button
 
     Private Sub ckbxTBQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBQty.Click
         If ckbxTBQty.IsChecked = True Then
@@ -164,8 +165,10 @@ Class MainWindow
             ckbxTBspacing.IsEnabled = True
             ckbxCTBGroms.IsEnabled = True
             txtTBspacing.IsEnabled = True
+            txtTBQty.Clear()
+            txtTBQty.IsEnabled = False
         End If
-    End Sub
+    End Sub 'lr quantity grommet checkbox click
 
     Private Sub ckbxLRQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRQty.Click
         If ckbxLRQty.IsChecked = True Then
@@ -180,8 +183,10 @@ Class MainWindow
             ckbxCLRgroms.IsEnabled = True
             ckbxLRspacing.IsEnabled = True
             txtLRspacing.IsEnabled = True
+            txtLRQty.Clear()
+            txtLRQty.IsEnabled = False
         End If
-    End Sub
+    End Sub 'lr quantity grommet checkbox click
 
     Private Sub ckbxCTBGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCTBGroms.Click
         If ckbxCTBGroms.IsChecked = True Then
@@ -199,7 +204,7 @@ Class MainWindow
             ckbxTBQty.IsEnabled = True
             txtTBQty.IsEnabled = True
         End If
-    End Sub
+    End Sub 'ctb grommet checkbox click
     Private Sub ckbxCLRGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Click
         If ckbxCLRgroms.IsChecked = True Then
             ckbxLRspacing.IsEnabled = False
@@ -216,7 +221,7 @@ Class MainWindow
             ckbxLRQty.IsEnabled = True
             txtLRQty.IsEnabled = True
         End If
-    End Sub
+    End Sub 'clr grommet checkbox click
 
     Private Sub txtTBspacing_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBspacing.GotFocus
         ckbxTBspacing.IsChecked = True
@@ -227,7 +232,7 @@ Class MainWindow
         txtTBQty.IsEnabled = False
         txtTBQty.Clear()
         txtTBspacing.SelectAll()
-    End Sub
+    End Sub 'tb grommet spacing txt gets focus
     Private Sub txtTBQty_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBQty.GotFocus
         ckbxCornerGroms.IsChecked = True
         ckbxCTBGroms.IsChecked = False
@@ -236,7 +241,7 @@ Class MainWindow
         ckbxTBQty.IsChecked = True
         ckbxTBQty.IsEnabled = True
         txtTBQty.SelectAll()
-    End Sub
+    End Sub 'tb grommet quantity txt gets focus
 
     Private Sub txtLRspacing_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRspacing.GotFocus
         ckbxLRspacing.IsChecked = True
@@ -247,7 +252,7 @@ Class MainWindow
         txtLRQty.IsEnabled = False
         txtLRQty.Clear()
         txtLRspacing.SelectAll()
-    End Sub
+    End Sub 'lr grommet spacing txt gets focus
     Private Sub txtLRQty_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRQty.GotFocus
         ckbxCornerGroms.IsChecked = True
         ckbxCLRgroms.IsChecked = False
@@ -256,7 +261,57 @@ Class MainWindow
         ckbxLRQty.IsChecked = True
         ckbxLRQty.IsEnabled = True
         txtLRQty.SelectAll()
-    End Sub
+    End Sub 'lr grommet quantity txt gets focus
+
+    Private Sub btnSwitchSize_Click(sender As Object, e As RoutedEventArgs) Handles btnSwitchSize.Click
+        pSizeA = Val(txtHeight.Text)
+        pSizeB = Val(txtWidth.Text)
+        txtHeight.Text = pSizeB.ToString
+        txtWidth.Text = pSizeA.ToString
+    End Sub 'switch sizes button
+
+    Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        Select Case lstPresets.SelectedIndex
+            Case 1
+                pSizeA = 6
+                pSizeB = 9
+            Case 2
+                pSizeA = 6
+                pSizeB = 12
+            Case 3
+                pSizeA = 6
+                pSizeB = 24
+            Case 4
+                pSizeA = 12
+                pSizeB = 18
+            Case 5
+                pSizeA = 12
+                pSizeB = 24
+            Case 6
+                pSizeA = 18
+                pSizeB = 24
+            Case 7
+                pSizeA = 24
+                pSizeB = 24
+            Case 8
+                pSizeA = 24
+                pSizeB = 36
+            Case 9
+                pSizeA = 24
+                pSizeB = 48
+            Case 10
+                pSizeA = 32
+                pSizeB = 48
+            Case 11
+                pSizeA = 48
+                pSizeB = 48
+            Case 12
+                pSizeA = 48
+                pSizeB = 96
+        End Select
+        txtHeight.Text = pSizeA.ToString
+        txtWidth.Text = pSizeB.ToString
+    End Sub 'preset size dropdown
 
     Private Sub ckbxLRspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxLRspacing.Click
 
@@ -266,14 +321,17 @@ Class MainWindow
             ckbxLRQty.IsChecked = False
             ckbxLRQty.IsEnabled = False
             txtLRQty.Clear()
+            txtLRQty.IsEnabled = False
         End If
         If ckbxLRspacing.IsChecked = False Then
             ckbxCLRgroms.IsEnabled = True
             ckbxLRQty.IsEnabled = True
             txtLRQty.IsEnabled = True
+            txtLRDist.Clear()
+            txtLRDist.IsEnabled = False
 
         End If
-    End Sub
+    End Sub 'left right grommet spacing
 
     Private Sub ckbxTBspacing_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBspacing.Click
 
@@ -283,14 +341,16 @@ Class MainWindow
             ckbxTBQty.IsChecked = False
             ckbxTBQty.IsEnabled = False
             txtTBQty.Clear()
+            txtTBQty.IsEnabled = False
         End If
         If ckbxTBspacing.IsChecked = False Then
             ckbxCTBGroms.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             txtTBQty.IsEnabled = True
-
+            txtTBDist.Clear()
+            txtTBDist.IsEnabled = False
         End If
-    End Sub
+    End Sub 'top bottom grommet spacing
 
     Private Sub lstFlutes_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstFlutes.SelectionChanged
         If lstFlutes.SelectedIndex = 1 Then
@@ -334,11 +394,11 @@ Class MainWindow
             ckbxLC.IsEnabled = False
             ckbxLR.IsEnabled = False
         End If
-    End Sub
+    End Sub 'allow hole selection
 
     Private Sub btnClose_Click(sender As Object, e As RoutedEventArgs) Handles btnClose.Click
         Close()
-    End Sub
+    End Sub 'close button
 
     Public Sub New()
 
@@ -352,7 +412,7 @@ Class MainWindow
 
 
 
-    End Sub
+    End Sub 'initialize corel
 
     Public Sub lstMaterial_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstMaterial.SelectionChanged
         If lstMaterial.SelectedIndex = -1 Then
@@ -790,44 +850,30 @@ Class MainWindow
             stkDot10x30.SetPosition(pgWidth / 2 - stkDot10x30.SizeWidth / 2, 0.3)
         End If
 
+        Dim crnrSz As Double
+
         Select Case lstCorners.SelectedIndex
             Case 1
-                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                ctrlRectangle.Outline.Width = 0
-                cornerRect.Rectangle.RadiusUpperLeft = 0.25
-                cornerRect.Rectangle.RadiusLowerLeft = 0.25
-                cornerRect.Rectangle.RadiusLowerRight = 0.25
-                cornerRect.Rectangle.RadiusUpperRight = 0.25
+                crnrSz = 0.25
             Case 2
-                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                ctrlRectangle.Outline.Width = 0
-                cornerRect.Rectangle.RadiusUpperLeft = 0.5
-                cornerRect.Rectangle.RadiusLowerLeft = 0.5
-                cornerRect.Rectangle.RadiusLowerRight = 0.5
-                cornerRect.Rectangle.RadiusUpperRight = 0.5
+                crnrSz = 0.5
             Case 3
-                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                ctrlRectangle.Outline.Width = 0
-                cornerRect.Rectangle.RadiusUpperLeft = 0.75
-                cornerRect.Rectangle.RadiusLowerLeft = 0.75
-                cornerRect.Rectangle.RadiusLowerRight = 0.75
-                cornerRect.Rectangle.RadiusUpperRight = 0.75
+                crnrSz = 0.75
             Case 4
-                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                ctrlRectangle.Outline.Width = 0
-                cornerRect.Rectangle.RadiusUpperLeft = 1
-                cornerRect.Rectangle.RadiusLowerLeft = 1
-                cornerRect.Rectangle.RadiusLowerRight = 1
-                cornerRect.Rectangle.RadiusUpperRight = 1
+                crnrSz = 1
             Case 5
-                cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
-                ctrlRectangle.Outline.Width = 0
-                cornerRect.Rectangle.RadiusUpperLeft = 1.5
-                cornerRect.Rectangle.RadiusLowerLeft = 1.5
-                cornerRect.Rectangle.RadiusLowerRight = 1.5
-                cornerRect.Rectangle.RadiusUpperRight = 1.5
+                crnrSz = 1.5
 
         End Select
+
+        If lstCorners.SelectedIndex > 0 Then
+            cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+            ctrlRectangle.Outline.Width = 0
+            cornerRect.Rectangle.RadiusUpperLeft = crnrSz
+            cornerRect.Rectangle.RadiusLowerLeft = crnrSz
+            cornerRect.Rectangle.RadiusLowerRight = crnrSz
+            cornerRect.Rectangle.RadiusUpperRight = crnrSz
+        End If
 
         Dim holeSz As Double = 0
 
@@ -1034,7 +1080,7 @@ Class MainWindow
         End If
 
         If ckbxLRQty.IsChecked Then
-            Dim LRQtyDist As Single = ((pgWidth - 2)) / (lrQty - 1)
+            Dim LRQtyDist As Single = ((pgHeight - 2)) / (lrQty - 1)
             Dim i As Integer
             grommetLRQty = grommet.Duplicate()
             grommetLRQty.SetPosition(0.625, LRQtyDist + 0.625)

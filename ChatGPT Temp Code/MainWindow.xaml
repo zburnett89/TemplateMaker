@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
         Icon="Template Maker Icon.ico"
         mc:Ignorable="d"
-        Title="Create Template" Height="480" Width="605" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Create Template" Height="26.2" Width="605" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Viewbox Margin="20,20,20,20">
         <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
             <Grid.ColumnDefinitions>
@@ -105,8 +105,9 @@
             <TextBlock HorizontalAlignment="Left" Margin="558,218,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="486,244,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
             <Label Content="Size
-                  " HorizontalAlignment="Left" Margin="292,43,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="35"/>
-            <ComboBox HorizontalAlignment="Left" Margin="327,44,0,0" VerticalAlignment="Top" Width="78">
+                  " HorizontalAlignment="Left" Margin="292,12,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="35"/>
+            <ComboBox x:Name="lstPresets" HorizontalAlignment="Left" Margin="327,13,0,0" VerticalAlignment="Top" Width="78" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="Custom"/>
                 <ComboBoxItem Content="6x9"/>
                 <ComboBoxItem Content="6x12"/>
                 <ComboBoxItem Content="6x24"/>
@@ -117,8 +118,12 @@
                 <ComboBoxItem Content="24x36"/>
                 <ComboBoxItem Content="24x48"/>
                 <ComboBoxItem Content="32x48"/>
+                <ComboBoxItem Content="48x48"/>
                 <ComboBoxItem Content="48x96"/>
             </ComboBox>
+            <Button x:Name="btnPortrait" Content="Portrait" HorizontalAlignment="Left" Margin="303,41,0,0" VerticalAlignment="Top" Height="60" Width="45" BorderBrush="#FF464646" FontSize="11"/>
+            <Button x:Name="btnLandscape" Content="Landscape" HorizontalAlignment="Left" Margin="370,46,0,0" VerticalAlignment="Top" Width="60" Height="45" BorderBrush="#FF464646" FontSize="11"/>
+            <Button x:Name="btnSwitchSize" Content="&#xE8CB;" HorizontalAlignment="Left" Margin="520,50,0,0" VerticalAlignment="Top" Width="60" Height="16" BorderBrush="#FF464646" FontSize="11" Background="#FFDDDDDD" FontFamily="Segoe MDL2 Assets" />
 
         </Grid>
     </Viewbox>
