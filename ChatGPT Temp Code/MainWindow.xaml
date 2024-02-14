@@ -15,12 +15,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="90" Margin="5,45,0,0" VerticalAlignment="Top" Width="267"/>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="42" Margin="5,135,0,0" VerticalAlignment="Top" Width="267"/>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="267"/>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="220" Margin="5,176,0,0" VerticalAlignment="Top" Width="267"/>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="92" Margin="5,44,0,0" VerticalAlignment="Top" Width="268"/>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="42" Margin="5,135,0,0" VerticalAlignment="Top" Width="268"/>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="268"/>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="220" Margin="5,176,0,0" VerticalAlignment="Top" Width="268"/>
             <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="272,346,0,0" VerticalAlignment="Top" Width="328"/>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="234" Margin="272,112,0,0" VerticalAlignment="Top" Width="328"/>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="236" Margin="272,111,0,0" VerticalAlignment="Top" Width="328"/>
             <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="112" Margin="272,0,0,0" VerticalAlignment="Top" Width="328"/>
             <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,358,0,0" Padding="5,5,5,5" IsDefault="True"/>
             <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="511,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
@@ -105,8 +105,8 @@
             <TextBlock HorizontalAlignment="Left" Margin="558,218,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="486,244,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
             <Label Content="Size
-                  " HorizontalAlignment="Left" Margin="292,12,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="35"/>
-            <ComboBox x:Name="lstPresets" HorizontalAlignment="Left" Margin="327,13,0,0" VerticalAlignment="Top" Width="78" SelectionChanged="ComboBox_SelectionChanged">
+                  " HorizontalAlignment="Left" Margin="292,42,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="35"/>
+            <ComboBox x:Name="lstPresets" HorizontalAlignment="Left" Margin="327,44,0,0" VerticalAlignment="Top" Width="78" SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBoxItem Content="Custom"/>
                 <ComboBoxItem Content="6x9"/>
                 <ComboBoxItem Content="6x12"/>
@@ -121,8 +121,6 @@
                 <ComboBoxItem Content="48x48"/>
                 <ComboBoxItem Content="48x96"/>
             </ComboBox>
-            <Button x:Name="btnPortrait" Content="Portrait" HorizontalAlignment="Left" Margin="303,41,0,0" VerticalAlignment="Top" Height="60" Width="45" BorderBrush="#FF464646" FontSize="11"/>
-            <Button x:Name="btnLandscape" Content="Landscape" HorizontalAlignment="Left" Margin="370,46,0,0" VerticalAlignment="Top" Width="60" Height="45" BorderBrush="#FF464646" FontSize="11"/>
             <Button x:Name="btnSwitchSize" Content="&#xE8CB;" HorizontalAlignment="Left" Margin="520,50,0,0" VerticalAlignment="Top" Width="60" Height="16" BorderBrush="#FF464646" FontSize="11" Background="#FFDDDDDD" FontFamily="Segoe MDL2 Assets" />
 
         </Grid>

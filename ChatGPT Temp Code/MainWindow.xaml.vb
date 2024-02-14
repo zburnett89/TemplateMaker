@@ -121,8 +121,10 @@ Class MainWindow
         ckbxLC.IsChecked = False
         ckbxLR.IsChecked = False
         txtWidth.IsEnabled = False
-        txtWidth.Clear()
         txtHeight.IsEnabled = False
+        pSizeA = Nothing
+        pSizeB = Nothing
+        txtWidth.Clear()
         txtHeight.Clear()
         ckbxCLRgroms.IsEnabled = False
         ckbxCLRgroms.IsChecked = False
@@ -160,6 +162,7 @@ Class MainWindow
             txtTBspacing.IsEnabled = False
             txtTBspacing.Clear()
             ckbxCornerGroms.IsChecked = True
+            txtTBQty.IsEnabled = True
         End If
         If ckbxTBQty.IsChecked = False Then
             ckbxTBspacing.IsEnabled = True
@@ -178,6 +181,8 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = False
             ckbxLRspacing.IsChecked = False
             txtLRspacing.IsEnabled = False
+            txtLRspacing.Clear()
+            txtLRQty.IsEnabled = True
         End If
         If ckbxLRQty.IsChecked = False Then
             ckbxCLRgroms.IsEnabled = True
@@ -196,13 +201,12 @@ Class MainWindow
             ckbxTBQty.IsChecked = False
             txtTBQty.IsEnabled = False
             txtTBspacing.IsEnabled = False
-            txtTBDist.Clear()
+            txtTBspacing.Clear()
             txtTBQty.Clear()
         End If
         If ckbxCTBGroms.IsChecked = False Then
             ckbxTBspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
-            txtTBQty.IsEnabled = True
         End If
     End Sub 'ctb grommet checkbox click
     Private Sub ckbxCLRGroms_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxCLRgroms.Click
@@ -213,53 +217,52 @@ Class MainWindow
             ckbxLRQty.IsChecked = False
             txtLRQty.IsEnabled = False
             txtLRspacing.IsEnabled = False
-            txtLRDist.Clear()
+            txtLRspacing.Clear()
             txtLRQty.Clear()
         End If
         If ckbxCLRgroms.IsChecked = False Then
             ckbxLRspacing.IsEnabled = True
             ckbxLRQty.IsEnabled = True
-            txtLRQty.IsEnabled = True
         End If
     End Sub 'clr grommet checkbox click
 
     Private Sub txtTBspacing_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBspacing.GotFocus
-        ckbxTBspacing.IsChecked = True
-        ckbxCTBGroms.IsChecked = False
-        ckbxCTBGroms.IsEnabled = False
-        ckbxTBQty.IsChecked = False
-        ckbxTBQty.IsEnabled = False
-        txtTBQty.IsEnabled = False
-        txtTBQty.Clear()
+        'ckbxTBspacing.IsChecked = True
+        'ckbxCTBGroms.IsChecked = False
+        'ckbxCTBGroms.IsEnabled = False
+        'ckbxTBQty.IsChecked = False
+        'ckbxTBQty.IsEnabled = False
+        'txtTBQty.IsEnabled = False
+        'txtTBQty.Clear()
         txtTBspacing.SelectAll()
     End Sub 'tb grommet spacing txt gets focus
     Private Sub txtTBQty_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBQty.GotFocus
-        ckbxCornerGroms.IsChecked = True
-        ckbxCTBGroms.IsChecked = False
-        ckbxCTBGroms.IsEnabled = False
-        ckbxTBspacing.IsEnabled = False
-        ckbxTBQty.IsChecked = True
-        ckbxTBQty.IsEnabled = True
+        'ckbxCornerGroms.IsChecked = True
+        'ckbxCTBGroms.IsChecked = False
+        'ckbxCTBGroms.IsEnabled = False
+        'ckbxTBspacing.IsEnabled = False
+        'ckbxTBQty.IsChecked = True
+        'ckbxTBQty.IsEnabled = True
         txtTBQty.SelectAll()
     End Sub 'tb grommet quantity txt gets focus
 
     Private Sub txtLRspacing_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRspacing.GotFocus
-        ckbxLRspacing.IsChecked = True
-        ckbxCLRgroms.IsChecked = False
-        ckbxCLRgroms.IsEnabled = False
-        ckbxLRQty.IsChecked = False
-        ckbxLRQty.IsEnabled = False
-        txtLRQty.IsEnabled = False
-        txtLRQty.Clear()
+        'ckbxLRspacing.IsChecked = True
+        'ckbxCLRgroms.IsChecked = False
+        'ckbxCLRgroms.IsEnabled = False
+        'ckbxLRQty.IsChecked = False
+        'ckbxLRQty.IsEnabled = False
+        'txtLRQty.IsEnabled = False
+        'txtLRQty.Clear()
         txtLRspacing.SelectAll()
     End Sub 'lr grommet spacing txt gets focus
     Private Sub txtLRQty_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRQty.GotFocus
-        ckbxCornerGroms.IsChecked = True
-        ckbxCLRgroms.IsChecked = False
-        ckbxCLRgroms.IsEnabled = False
-        ckbxLRspacing.IsEnabled = False
-        ckbxLRQty.IsChecked = True
-        ckbxLRQty.IsEnabled = True
+        'ckbxCornerGroms.IsChecked = True
+        'ckbxCLRgroms.IsChecked = False
+        'ckbxCLRgroms.IsEnabled = False
+        'ckbxLRspacing.IsEnabled = False
+        'ckbxLRQty.IsChecked = True
+        'ckbxLRQty.IsEnabled = True
         txtLRQty.SelectAll()
     End Sub 'lr grommet quantity txt gets focus
 
@@ -322,13 +325,14 @@ Class MainWindow
             ckbxLRQty.IsEnabled = False
             txtLRQty.Clear()
             txtLRQty.IsEnabled = False
+            txtLRspacing.IsEnabled = True
         End If
         If ckbxLRspacing.IsChecked = False Then
             ckbxCLRgroms.IsEnabled = True
             ckbxLRQty.IsEnabled = True
             txtLRQty.IsEnabled = True
-            txtLRDist.Clear()
-            txtLRDist.IsEnabled = False
+            txtLRspacing.Clear()
+            txtLRspacing.IsEnabled = False
 
         End If
     End Sub 'left right grommet spacing
@@ -342,13 +346,14 @@ Class MainWindow
             ckbxTBQty.IsEnabled = False
             txtTBQty.Clear()
             txtTBQty.IsEnabled = False
+            txtTBspacing.IsEnabled = True
         End If
         If ckbxTBspacing.IsChecked = False Then
             ckbxCTBGroms.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             txtTBQty.IsEnabled = True
-            txtTBDist.Clear()
-            txtTBDist.IsEnabled = False
+            txtTBspacing.Clear()
+            txtTBspacing.IsEnabled = False
         End If
     End Sub 'top bottom grommet spacing
 
@@ -489,10 +494,10 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             ckbxLRQty.IsEnabled = True
-            txtTBQty.IsEnabled = True
-            txtLRQty.IsEnabled = True
-            txtTBspacing.IsEnabled = True
-            txtLRspacing.IsEnabled = True
+            'txtTBQty.IsEnabled = True
+            'txtLRQty.IsEnabled = True
+            'txtTBspacing.IsEnabled = True
+            'txtLRspacing.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 1 Then 'Aluminum
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -548,10 +553,10 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             ckbxLRQty.IsEnabled = True
-            txtTBQty.IsEnabled = True
-            txtLRQty.IsEnabled = True
-            txtTBspacing.IsEnabled = True
-            txtLRspacing.IsEnabled = True
+            'txtTBQty.IsEnabled = True
+            'txtLRQty.IsEnabled = True
+            'txtTBspacing.IsEnabled = True
+            'txtLRspacing.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 4 Then 'Vinyl
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -630,10 +635,10 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             ckbxLRQty.IsEnabled = True
-            txtTBQty.IsEnabled = True
-            txtLRQty.IsEnabled = True
-            txtTBspacing.IsEnabled = True
-            txtLRspacing.IsEnabled = True
+            'txtTBQty.IsEnabled = True
+            'txtLRQty.IsEnabled = True
+            'txtTBspacing.IsEnabled = True
+            'txtLRspacing.IsEnabled = True
 
         ElseIf lstMaterial.SelectedIndex = 6 Then 'Poster
             txtHeight.IsEnabled = True
