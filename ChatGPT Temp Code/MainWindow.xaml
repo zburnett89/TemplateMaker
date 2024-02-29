@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
         Icon="Template Maker Icon.ico"
         mc:Ignorable="d"
-        Title="Create Template" Height="26.2" Width="605" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Create Template" Width="1200" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Viewbox Margin="20,20,20,20">
         <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
             <Grid.ColumnDefinitions>
@@ -71,10 +71,10 @@
             <CheckBox x:Name="ckbxUL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155,273,0,0" IsEnabled="False"/>
             <Label x:Name="lblHolePosition" Content="Hole Position" HorizontalAlignment="Left" Margin="159,237,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
             <Label x:Name="lblHoleDistance" Content="Hole Distance" HorizontalAlignment="Left" Margin="50,239,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" RenderTransformOrigin="0.515,0.464" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="txtTBDist" HorizontalAlignment="Left" Margin="91,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
-            <Label x:Name="lblHolesTBDist" Content="Top/Bottom" HorizontalAlignment="Left" Margin="11,292,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="txtLRDist" HorizontalAlignment="Left" Margin="91,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
-            <Label x:Name="lblHolesLRDist" Content="Left/Right" HorizontalAlignment="Left" Margin="21,322,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="txtTDist" HorizontalAlignment="Left" Margin="73,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
+            <Label x:Name="lblHolesTDist" Content="Top" HorizontalAlignment="Left" Margin="36,270,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="txtLDist" HorizontalAlignment="Left" Margin="73,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
+            <Label x:Name="lblHolesLDist" Content="Left" HorizontalAlignment="Left" Margin="33,324,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
             <CheckBox x:Name="ckbxUC" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,273,0,0" IsEnabled="False"/>
             <CheckBox x:Name="ckbxUR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="229,273,0,0" IsEnabled="False"/>
             <CheckBox x:Name="ckbxLL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155,346,0,0" IsEnabled="False"/>
@@ -121,7 +121,17 @@
                 <ComboBoxItem Content="48x48"/>
                 <ComboBoxItem Content="48x96"/>
             </ComboBox>
-            <Button x:Name="btnSwitchSize" Content="&#xE8CB;" HorizontalAlignment="Left" Margin="520,50,0,0" VerticalAlignment="Top" Width="60" Height="16" BorderBrush="#FF464646" FontSize="11" Background="#FFDDDDDD" FontFamily="Segoe MDL2 Assets" />
+            <Button x:Name="btnSwitchSize" Content="&#xE8CB;" HorizontalAlignment="Left" Margin="520,50,0,0" VerticalAlignment="Top" Width="60" Height="16" BorderBrush="#FF464646" FontSize="11" Background="#FFDDDDDD" FontFamily="Segoe MDL2 Assets" IsDefault="True" />
+            <TextBox x:Name="txtBDist" HorizontalAlignment="Left" Margin="73,299,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
+            <Label x:Name="lblHolesBDist" Content="Bottom" HorizontalAlignment="Left" Margin="15,296,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="txtRDist" HorizontalAlignment="Left" Margin="73,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="20" IsEnabled="False"/>
+            <Label x:Name="lblHolesRDist" Content="Right" HorizontalAlignment="Left" Margin="26,350,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
+            <Button x:Name="btnTBLink" HorizontalAlignment="Left" Margin="117,288,0,0" VerticalAlignment="Top" Height="14" Width="14" FontSize="8" IsEnabled="False">
+                <TextBlock x:Name="buttonTextBlock" FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" />
+            </Button>
+            <Button x:Name="btnLRLink" HorizontalAlignment="Left" Margin="117,342,0,0" VerticalAlignment="Top" Height="14" Width="14" FontSize="8" IsEnabled="False">
+                <TextBlock x:Name="buttonTextBlock1" FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" />
+            </Button>
 
         </Grid>
     </Viewbox>

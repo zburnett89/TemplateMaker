@@ -11,81 +11,87 @@ Class MainWindow
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
     Dim pSizeA, pSizeB As Double
 
-    Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
-        Dim openFileDialog As New Microsoft.Win32.OpenFileDialog()
-        Dim zchFile As New XDocument
+    'Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
+    '    Dim openFileDialog As New Microsoft.Win32.OpenFileDialog()
+    '    Dim zchFile As New XDocument
 
-        ' Set properties of the dialog
-        openFileDialog.Filter = "ZCH Files (*.zch)|*.zch|All Files (*.*)|*.*"
-        openFileDialog.Title = "Select ZCH File"
+    '    ' Set properties of the dialog
+    '    openFileDialog.Filter = "ZCH Files (*.zch)|*.zch|All Files (*.*)|*.*"
+    '    openFileDialog.Title = "Select ZCH File"
 
-        ' Show the dialog and get the selected file path
-        If openFileDialog.ShowDialog() = True Then
-            Dim selectedFilePath As String = openFileDialog.FileName
-            zchFile = XDocument.Load(selectedFilePath)
-        Else
-            Return
-        End If
+    '    ' Show the dialog and get the selected file path
+    '    If openFileDialog.ShowDialog() = True Then
+    '        Dim selectedFilePath As String = openFileDialog.FileName
+    '        zchFile = XDocument.Load(selectedFilePath)
+    '    Else
+    '        Return
+    '    End If
 
-        Dim orderNode As XElement = zchFile.Element("order")
-        Dim id As String = orderNode.Attribute("id").Value
-        Dim material As Integer = Integer.Parse(orderNode.Element("material").Value)
-        Dim height As Single = Single.Parse(orderNode.Element("height").Value)
-        Dim width As Single = Single.Parse(orderNode.Element("width").Value)
-        Dim flutes As Integer = Integer.Parse(orderNode.Element("flutes").Value)
-        Dim stakes As Integer = Integer.Parse(orderNode.Element("stakes").Value)
-        Dim corners As Integer = Integer.Parse(orderNode.Element("corners").Value)
-        Dim holes As Integer = Integer.Parse(orderNode.Element("holes").Value)
-        Dim holesize As Integer = Integer.Parse(orderNode.Element("holesize").Value)
-        Dim holedistvert As Single = Single.Parse(orderNode.Element("holedistvert").Value)
-        Dim holedisthorz As Single = Single.Parse(orderNode.Element("holedisthorz").Value)
-        Dim holeul As Boolean = Boolean.Parse(orderNode.Element("holeul").Value)
-        Dim holeuc As Boolean = Boolean.Parse(orderNode.Element("holeuc").Value)
-        Dim holeur As Boolean = Boolean.Parse(orderNode.Element("holeur").Value)
-        Dim holecl As Boolean = Boolean.Parse(orderNode.Element("holecl").Value)
-        Dim holecr As Boolean = Boolean.Parse(orderNode.Element("holecr").Value)
-        Dim holell As Boolean = Boolean.Parse(orderNode.Element("holell").Value)
-        Dim holelc As Boolean = Boolean.Parse(orderNode.Element("holelc").Value)
-        Dim holelr As Boolean = Boolean.Parse(orderNode.Element("holelr").Value)
-        Dim gromcorn As Boolean = Boolean.Parse(orderNode.Element("gromcorn").Value)
-        Dim gromtbc As Boolean = Boolean.Parse(orderNode.Element("gromtbc").Value)
-        Dim gromlrc As Boolean = Boolean.Parse(orderNode.Element("gromlrc").Value)
-        Dim gromtb As Boolean = Boolean.Parse(orderNode.Element("gromtb").Value)
-        Dim gromtbdist As Single = Single.Parse(orderNode.Element("gromtbdist").Value)
-        Dim gromlr As Boolean = Boolean.Parse(orderNode.Element("gromlr").Value)
-        Dim gromlrdist As Single = Single.Parse(orderNode.Element("gromlrdist").Value)
+    '    Dim orderNode As XElement = zchFile.Element("order")
+    '    Dim id As String = orderNode.Attribute("id").Value
+    '    Dim material As Integer = Integer.Parse(orderNode.Element("material").Value)
+    '    Dim height As Single = Single.Parse(orderNode.Element("height").Value)
+    '    Dim width As Single = Single.Parse(orderNode.Element("width").Value)
+    '    Dim flutes As Integer = Integer.Parse(orderNode.Element("flutes").Value)
+    '    Dim stakes As Integer = Integer.Parse(orderNode.Element("stakes").Value)
+    '    Dim corners As Integer = Integer.Parse(orderNode.Element("corners").Value)
+    '    Dim holes As Integer = Integer.Parse(orderNode.Element("holes").Value)
+    '    Dim holesize As Integer = Integer.Parse(orderNode.Element("holesize").Value)
+    '    Dim holedistvert As Single = Single.Parse(orderNode.Element("holedistvert").Value)
+    '    Dim holedisthorz As Single = Single.Parse(orderNode.Element("holedisthorz").Value)
+    '    Dim holeul As Boolean = Boolean.Parse(orderNode.Element("holeul").Value)
+    '    Dim holeuc As Boolean = Boolean.Parse(orderNode.Element("holeuc").Value)
+    '    Dim holeur As Boolean = Boolean.Parse(orderNode.Element("holeur").Value)
+    '    Dim holecl As Boolean = Boolean.Parse(orderNode.Element("holecl").Value)
+    '    Dim holecr As Boolean = Boolean.Parse(orderNode.Element("holecr").Value)
+    '    Dim holell As Boolean = Boolean.Parse(orderNode.Element("holell").Value)
+    '    Dim holelc As Boolean = Boolean.Parse(orderNode.Element("holelc").Value)
+    '    Dim holelr As Boolean = Boolean.Parse(orderNode.Element("holelr").Value)
+    '    Dim gromcorn As Boolean = Boolean.Parse(orderNode.Element("gromcorn").Value)
+    '    Dim gromtbc As Boolean = Boolean.Parse(orderNode.Element("gromtbc").Value)
+    '    Dim gromlrc As Boolean = Boolean.Parse(orderNode.Element("gromlrc").Value)
+    '    Dim gromtb As Boolean = Boolean.Parse(orderNode.Element("gromtb").Value)
+    '    Dim gromtbdist As Single = Single.Parse(orderNode.Element("gromtbdist").Value)
+    '    Dim gromlr As Boolean = Boolean.Parse(orderNode.Element("gromlr").Value)
+    '    Dim gromlrdist As Single = Single.Parse(orderNode.Element("gromlrdist").Value)
 
-        lstMaterial.SelectedIndex = material
-        txtWidth.Text = width
-        txtHeight.Text = height
-        lstFlutes.SelectedIndex = flutes
-        lstStkDots.SelectedIndex = stakes
-        lstCorners.SelectedIndex = corners
-        lstHoleSz.SelectedIndex = holesize
-        txtLRDist.Text = holedisthorz
-        txtTBDist.Text = holedistvert
-        ckbxUL.IsChecked = holeul
-        ckbxUC.IsChecked = holeuc
-        ckbxUR.IsChecked = holeur
-        ckbxCL.IsChecked = holecl
-        ckbxCR.IsChecked = holecr
-        ckbxLL.IsChecked = holell
-        ckbxLC.IsChecked = holelc
-        ckbxLR.IsChecked = holelr
-        ckbxCornerGroms.IsChecked = gromcorn
-        ckbxCTBGroms.IsChecked = gromtbc
-        ckbxCLRgroms.IsChecked = gromlrc
-        ckbxTBspacing.IsChecked = gromtb
-        ckbxLRspacing.IsChecked = gromlr
-        txtTBspacing.Text = gromtbdist
-        txtLRspacing.Text = gromlrdist
+    '    lstMaterial.SelectedIndex = material
+    '    txtWidth.Text = width
+    '    txtHeight.Text = height
+    '    lstFlutes.SelectedIndex = flutes
+    '    lstStkDots.SelectedIndex = stakes
+    '    lstCorners.SelectedIndex = corners
+    '    lstHoleSz.SelectedIndex = holesize
+    '    txtLRDist.Text = holedisthorz
+    '    txtTBDist.Text = holedistvert
+    '    ckbxUL.IsChecked = holeul
+    '    ckbxUC.IsChecked = holeuc
+    '    ckbxUR.IsChecked = holeur
+    '    ckbxCL.IsChecked = holecl
+    '    ckbxCR.IsChecked = holecr
+    '    ckbxLL.IsChecked = holell
+    '    ckbxLC.IsChecked = holelc
+    '    ckbxLR.IsChecked = holelr
+    '    ckbxCornerGroms.IsChecked = gromcorn
+    '    ckbxCTBGroms.IsChecked = gromtbc
+    '    ckbxCLRgroms.IsChecked = gromlrc
+    '    ckbxTBspacing.IsChecked = gromtb
+    '    ckbxLRspacing.IsChecked = gromlr
+    '    txtTBspacing.Text = gromtbdist
+    '    txtLRspacing.Text = gromlrdist
 
-    End Sub 'uploading an xml file
-    Private Sub txtTBDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTBDist.GotFocus
-        txtTBDist.SelectAll()
+    'End Sub 'uploading an xml file
+    Private Sub txtTDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtTDist.GotFocus
+        txtTDist.SelectAll()
     End Sub
-    Private Sub txtLRDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLRDist.GotFocus
-        txtLRDist.SelectAll()
+    Private Sub txtBDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtBDist.GotFocus
+        txtBDist.SelectAll()
+    End Sub
+    Private Sub txtLDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtLDist.GotFocus
+        txtLDist.SelectAll()
+    End Sub
+    Private Sub txtRDist_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtRDist.GotFocus
+        txtRDist.SelectAll()
     End Sub
 
     Private Sub txtHeight_GotFocus(sender As Object, e As RoutedEventArgs) Handles txtHeight.GotFocus
@@ -108,10 +114,15 @@ Class MainWindow
         lstHoleSz.IsEnabled = False
         lstCorners.SelectedIndex = -1
         lstHoleSz.SelectedIndex = -1
-        txtLRDist.IsEnabled = False
-        txtLRDist.Clear()
-        txtTBDist.IsEnabled = False
-        txtTBDist.Clear()
+        txtLDist.IsEnabled = False
+        txtLDist.Clear()
+        txtRDist.IsEnabled = False
+        txtRDist.Clear()
+        txtTDist.IsEnabled = False
+        txtTDist.Clear()
+        txtBDist.IsEnabled = False
+        txtBDist.Clear()
+        btnTBLink.IsEnabled = False
         ckbxUL.IsChecked = False
         ckbxUC.IsChecked = False
         ckbxUR.IsChecked = False
@@ -273,6 +284,44 @@ Class MainWindow
         txtWidth.Text = pSizeA.ToString
     End Sub 'switch sizes button
 
+    Private Sub btnTBLink_Click(sender As Object, e As RoutedEventArgs) Handles btnTBLink.Click
+        If buttonTextBlock.Text = ChrW(&HE72E).ToString() Then
+            buttonTextBlock.Text = ChrW(&HE785).ToString()
+            lblHolesBDist.IsEnabled = True
+            txtBDist.IsEnabled = True
+        Else
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            txtBDist.Text = txtTDist.Text
+            lblHolesBDist.IsEnabled = False
+            txtBDist.IsEnabled = False
+        End If
+    End Sub
+
+    Private Sub txtTDist_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtTDist.TextChanged
+        If buttonTextBlock.Text = ChrW(&HE72E) Then
+            txtBDist.Text = txtTDist.Text
+        End If
+    End Sub
+
+    Private Sub btnLRLink_Click(sender As Object, e As RoutedEventArgs) Handles btnLRLink.Click
+        If buttonTextBlock.Text = ChrW(&HE72E).ToString() Then
+            buttonTextBlock.Text = ChrW(&HE785).ToString()
+            lblHolesRDist.IsEnabled = True
+            txtRDist.IsEnabled = True
+        Else
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            txtRDist.Text = txtTDist.Text
+            lblHolesRDist.IsEnabled = False
+            txtRDist.IsEnabled = False
+        End If
+    End Sub
+
+    Private Sub txtLDist_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLDist.TextChanged
+        If buttonTextBlock.Text = ChrW(&HE72E) Then
+            txtRDist.Text = txtLDist.Text
+        End If
+    End Sub
+
     Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Select Case lstPresets.SelectedIndex
             Case 1
@@ -373,10 +422,16 @@ Class MainWindow
         If lstHoleSz.SelectedIndex <> -1 Then
             lblHoleDistance.IsEnabled = True
             lblHolePosition.IsEnabled = True
-            lblHolesTBDist.IsEnabled = True
-            txtTBDist.IsEnabled = True
-            txtLRDist.IsEnabled = True
-            lblHolesLRDist.IsEnabled = True
+            lblHolesTDist.IsEnabled = True
+            lblHolesBDist.IsEnabled = True
+            txtTDist.IsEnabled = True
+            txtBDist.IsEnabled = False
+            txtLDist.IsEnabled = True
+            txtRDist.IsEnabled = False
+            lblHolesLDist.IsEnabled = True
+            lblHolesRDist.IsEnabled = True
+            btnTBLink.IsEnabled = True
+            btnLRLink.IsEnabled = True
             ckbxUL.IsEnabled = True
             ckbxUC.IsEnabled = True
             ckbxUR.IsEnabled = True
@@ -388,8 +443,14 @@ Class MainWindow
         Else
             lblHoleDistance.IsEnabled = False
             lblHolePosition.IsEnabled = False
-            lblHolesTBDist.IsEnabled = False
-            lblHolesLRDist.IsEnabled = False
+            lblHolesTDist.IsEnabled = False
+            lblHolesBDist.IsEnabled = False
+            txtTDist.IsEnabled = False
+            txtBDist.IsEnabled = False
+            txtLDist.IsEnabled = False
+            txtRDist.IsEnabled = False
+            lblHolesLDist.IsEnabled = False
+            lblHolesRDist.IsEnabled = False
             ckbxUL.IsEnabled = False
             ckbxUC.IsEnabled = False
             ckbxUR.IsEnabled = False
@@ -430,10 +491,14 @@ Class MainWindow
             lblHoles.IsEnabled = False
             lstCorners.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
-            txtLRDist.IsEnabled = False
-            txtLRDist.Clear()
-            txtTBDist.IsEnabled = False
-            txtTBDist.Clear()
+            txtRDist.IsEnabled = False
+            txtRDist.Clear()
+            txtBDist.IsEnabled = False
+            txtBDist.Clear()
+            txtLDist.IsEnabled = False
+            txtLDist.Clear()
+            txtTDist.IsEnabled = False
+            txtTDist.Clear()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -460,6 +525,10 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
+            txtTBQty.IsEnabled = False
+            txtTBQty.Clear()
+            txtLRQty.IsEnabled = False
+            txtLRQty.Clear()
             lstFlutes.SelectedIndex = -1
             lstStkDots.SelectedIndex = -1
         End If
@@ -475,10 +544,14 @@ Class MainWindow
             lblHoles.IsEnabled = False
             lstCorners.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
-            txtLRDist.IsEnabled = False
-            txtLRDist.Clear()
-            txtTBDist.IsEnabled = False
-            txtTBDist.Clear()
+            txtLDist.IsEnabled = False
+            txtLDist.Clear()
+            txtRDist.IsEnabled = False
+            txtRDist.Clear()
+            txtTDist.IsEnabled = False
+            txtTDist.Clear()
+            txtBDist.IsEnabled = False
+            txtBDist.Clear()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -572,10 +645,14 @@ Class MainWindow
             lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
-            txtLRDist.IsEnabled = False
-            txtLRDist.Clear()
-            txtTBDist.IsEnabled = False
-            txtTBDist.Clear()
+            txtLDist.IsEnabled = False
+            txtLDist.Clear()
+            txtRDist.IsEnabled = False
+            txtRDist.Clear()
+            txtTDist.IsEnabled = False
+            txtTDist.Clear()
+            txtBDist.IsEnabled = False
+            txtBDist.Clear()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -614,10 +691,14 @@ Class MainWindow
             lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
-            txtLRDist.IsEnabled = False
-            txtLRDist.Clear()
-            txtTBDist.IsEnabled = False
-            txtTBDist.Clear()
+            txtLDist.IsEnabled = False
+            txtLDist.Clear()
+            txtRDist.IsEnabled = False
+            txtRDist.Clear()
+            txtTDist.IsEnabled = False
+            txtTDist.Clear()
+            txtBDist.IsEnabled = False
+            txtBDist.Clear()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -655,10 +736,14 @@ Class MainWindow
             lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
-            txtLRDist.IsEnabled = False
-            txtLRDist.Clear()
-            txtTBDist.IsEnabled = False
-            txtTBDist.Clear()
+            txtLDist.IsEnabled = False
+            txtLDist.Clear()
+            txtRDist.IsEnabled = False
+            txtRDist.Clear()
+            txtTDist.IsEnabled = False
+            txtTDist.Clear()
+            txtBDist.IsEnabled = False
+            txtBDist.Clear()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -700,10 +785,14 @@ Class MainWindow
             lstHoleSz.IsEnabled = False
             lstCorners.SelectedIndex = -1
             lstHoleSz.SelectedIndex = -1
-            txtLRDist.IsEnabled = False
-            txtLRDist.Clear()
-            txtTBDist.IsEnabled = False
-            txtTBDist.Clear()
+            txtLDist.IsEnabled = False
+            txtLDist.Clear()
+            txtRDist.IsEnabled = False
+            txtRDist.Clear()
+            txtTDist.IsEnabled = False
+            txtTDist.Clear()
+            txtBDist.IsEnabled = False
+            txtBDist.Clear()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -756,8 +845,10 @@ Class MainWindow
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
         Dim valLRspacing As Single = Val(txtLRspacing.Text)
         Dim pgDimsRange As Corel.Interop.VGCore.IVGShapeRange, pgDimsShape As Corel.Interop.VGCore.Shape
-        Dim tbDist As Double = Val(txtTBDist.Text)
-        Dim lrDist As Double = Val(txtLRDist.Text)
+        Dim tDist As Double = Val(txtTDist.Text)
+        Dim bDist As Double = Val(txtBDist.Text)
+        Dim lDist As Double = Val(txtLDist.Text)
+        Dim rDist As Double = Val(txtRDist.Text)
         Dim tbQty As Single = Val(txtTBQty.Text)
         Dim lrQty As Single = Val(txtLRQty.Text)
 
@@ -780,7 +871,7 @@ Class MainWindow
         End If
 
         If lstHoleSz.SelectedIndex <> -1 Then
-            If tbDist = 0 And lrDist = 0 Then
+            If tDist = 0 Or lDist = 0 Or bDist = 0 Or rDist = 0 Then
                 MsgBox("Distance from edge cannot be 0.", , Title:="Error!")
                 Exit Sub
             End If
@@ -896,28 +987,28 @@ Class MainWindow
         Dim radTxt, holeSzTxt, holeLRDistTxt, holeTBDistTxt, holePlcTxt As String
 
         If ckbxUL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight - tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)
         End If
         If ckbxUC.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tDist, holeSz / 2)
         End If
         If ckbxUR.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight - tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, pgHeight - tDist, holeSz / 2)
         End If
         If ckbxCL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lrDist, pgHeight / 2, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight / 2, holeSz / 2)
         End If
         If ckbxCR.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, pgHeight / 2, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, pgHeight / 2, holeSz / 2)
         End If
         If ckbxLL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lrDist, tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(lDist, bDist, holeSz / 2)
         End If
         If ckbxLC.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, bDist, holeSz / 2)
         End If
         If ckbxLR.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth - lrDist, tbDist, holeSz / 2)
+            corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, bDist, holeSz / 2)
         End If
 
         'Writing corner and hole description
@@ -936,54 +1027,54 @@ Class MainWindow
 
                 holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
 
-                If tbDist = lrDist Then
-                    holePlcTxt = tbDist.ToString
-                    If tbDist = 0.25 Then
-                        holePlcTxt = "1/4"
-                    ElseIf tbDist = 0.375 Then
-                        holePlcTxt = "3/8"
-                    ElseIf tbDist = 0.5 Then
-                        holePlcTxt = "1/2"
-                    ElseIf tbDist = 0.625 Then
-                        holePlcTxt = "5/8"
-                    ElseIf tbDist = 0.75 Then
-                        holePlcTxt = "3/4"
-                    End If
-                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge" + vbCrLf
-                Else
-                    If tbDist = 0.25 Then
-                        holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
-                    ElseIf tbDist = 0.375 Then
-                        holeTBDistTxt = "3/8'' from top and bottom edge" + vbCrLf
-                    ElseIf tbDist = 0.5 Then
-                        holeTBDistTxt = "1/2'' from top and bottom edge" + vbCrLf
-                    ElseIf tbDist = 0.625 Then
-                        holeTBDistTxt = "5/8'' from top and bottom edge" + vbCrLf
-                    ElseIf tbDist = 0.75 Then
-                        holeTBDistTxt = "3/4'' from top and bottom edge" + vbCrLf
-                    ElseIf txtTBDist Is Nothing Or tbDist = 0 Then
-                        holeTBDistTxt = ""
-                    Else
-                        holeTBDistTxt = txtTBDist.Text + "'' from top and bottom edge" + vbCrLf
-                    End If
-                    If lrDist = 0.25 Then
-                        holeLRDistTxt = "1/4'' from left and right edge" + vbCrLf
-                    ElseIf lrDist = 0.375 Then
-                        holeLRDistTxt = "3/8'' from left and right edge" + vbCrLf
-                    ElseIf lrDist = 0.5 Then
-                        holeLRDistTxt = "1/2'' from left and right edge" + vbCrLf
-                    ElseIf lrDist = 0.625 Then
-                        holeLRDistTxt = "5/8'' from left and right edge" + vbCrLf
-                    ElseIf lrDist = 0.75 Then
-                        holeLRDistTxt = "3/4'' from left and right edge" + vbCrLf
-                    ElseIf txtLRDist Is Nothing Or lrDist = 0 Then
-                        holeLRDistTxt = ""
-                    Else
-                        holeLRDistTxt = txtLRDist.Text + "'' from left and right edge" + vbCrLf
-                    End If
-                    holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt
+                'If tbDist = lrDist Then
+                '    holePlcTxt = tbDist.ToString
+                '    If tbDist = 0.25 Then
+                '        holePlcTxt = "1/4"
+                '    ElseIf tbDist = 0.375 Then
+                '        holePlcTxt = "3/8"
+                '    ElseIf tbDist = 0.5 Then
+                '        holePlcTxt = "1/2"
+                '    ElseIf tbDist = 0.625 Then
+                '        holePlcTxt = "5/8"
+                '    ElseIf tbDist = 0.75 Then
+                '        holePlcTxt = "3/4"
+                '    End If
+                '    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge" + vbCrLf
+                'Else
+                '    If tbDist = 0.25 Then
+                '        holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
+                '    ElseIf tbDist = 0.375 Then
+                '        holeTBDistTxt = "3/8'' from top and bottom edge" + vbCrLf
+                '    ElseIf tbDist = 0.5 Then
+                '        holeTBDistTxt = "1/2'' from top and bottom edge" + vbCrLf
+                '    ElseIf tbDist = 0.625 Then
+                '        holeTBDistTxt = "5/8'' from top and bottom edge" + vbCrLf
+                '    ElseIf tbDist = 0.75 Then
+                '        holeTBDistTxt = "3/4'' from top and bottom edge" + vbCrLf
+                '    ElseIf txtTBDist Is Nothing Or tbDist = 0 Then
+                '        holeTBDistTxt = ""
+                '    Else
+                '        holeTBDistTxt = txtTBDist.Text + "'' from top and bottom edge" + vbCrLf
+                '    End If
+                '    If lrDist = 0.25 Then
+                '        holeLRDistTxt = "1/4'' from left and right edge" + vbCrLf
+                '    ElseIf lrDist = 0.375 Then
+                '        holeLRDistTxt = "3/8'' from left and right edge" + vbCrLf
+                '    ElseIf lrDist = 0.5 Then
+                '        holeLRDistTxt = "1/2'' from left and right edge" + vbCrLf
+                '    ElseIf lrDist = 0.625 Then
+                '        holeLRDistTxt = "5/8'' from left and right edge" + vbCrLf
+                '    ElseIf lrDist = 0.75 Then
+                '        holeLRDistTxt = "3/4'' from left and right edge" + vbCrLf
+                '    ElseIf txtLRDist Is Nothing Or lrDist = 0 Then
+                '        holeLRDistTxt = ""
+                '    Else
+                '        holeLRDistTxt = txtLRDist.Text + "'' from left and right edge" + vbCrLf
+                '    End If
+                '    holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt
 
-                End If
+                'End If
                 If ckbxUC.IsChecked = True And ckbxLC.IsChecked = True Then
                     holeSzTxt = holeSzTxt + "in center at top & bottom" + vbCrLf
                 ElseIf ckbxUC.IsChecked = True And ckbxLC.IsChecked = False Then
