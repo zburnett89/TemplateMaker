@@ -123,6 +123,9 @@ Class MainWindow
         txtBDist.IsEnabled = False
         txtBDist.Clear()
         btnTBLink.IsEnabled = False
+        btnLRLink.IsEnabled = False
+        buttonTextBlock.Text = ChrW(&HE72E).ToString()
+        buttonTextBlock1.Text = ChrW(&HE72E).ToString()
         ckbxUL.IsChecked = False
         ckbxUC.IsChecked = False
         ckbxUR.IsChecked = False
@@ -304,13 +307,13 @@ Class MainWindow
     End Sub
 
     Private Sub btnLRLink_Click(sender As Object, e As RoutedEventArgs) Handles btnLRLink.Click
-        If buttonTextBlock.Text = ChrW(&HE72E).ToString() Then
-            buttonTextBlock.Text = ChrW(&HE785).ToString()
+        If buttonTextBlock1.Text = ChrW(&HE72E).ToString() Then
+            buttonTextBlock1.Text = ChrW(&HE785).ToString()
             lblHolesRDist.IsEnabled = True
             txtRDist.IsEnabled = True
         Else
-            buttonTextBlock.Text = ChrW(&HE72E).ToString()
-            txtRDist.Text = txtTDist.Text
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
+            txtRDist.Text = txtLDist.Text
             lblHolesRDist.IsEnabled = False
             txtRDist.IsEnabled = False
         End If
@@ -419,7 +422,7 @@ Class MainWindow
     End Sub
 
     Public Sub lstHoleSz_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstHoleSz.SelectionChanged
-        If lstHoleSz.SelectedIndex <> -1 Then
+        If lstHoleSz.SelectedIndex <> -1 And lstHoleSz.SelectedIndex <> 0 Then
             lblHoleDistance.IsEnabled = True
             lblHolePosition.IsEnabled = True
             lblHolesTDist.IsEnabled = True
@@ -451,6 +454,10 @@ Class MainWindow
             txtRDist.IsEnabled = False
             lblHolesLDist.IsEnabled = False
             lblHolesRDist.IsEnabled = False
+            btnTBLink.IsEnabled = False
+            btnLRLink.IsEnabled = False
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
             ckbxUL.IsEnabled = False
             ckbxUC.IsEnabled = False
             ckbxUR.IsEnabled = False
@@ -552,6 +559,10 @@ Class MainWindow
             txtTDist.Clear()
             txtBDist.IsEnabled = False
             txtBDist.Clear()
+            btnTBLink.IsEnabled = False
+            btnLRLink.IsEnabled = False
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -653,6 +664,10 @@ Class MainWindow
             txtTDist.Clear()
             txtBDist.IsEnabled = False
             txtBDist.Clear()
+            btnTBLink.IsEnabled = False
+            btnLRLink.IsEnabled = False
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -699,6 +714,10 @@ Class MainWindow
             txtTDist.Clear()
             txtBDist.IsEnabled = False
             txtBDist.Clear()
+            btnTBLink.IsEnabled = False
+            btnLRLink.IsEnabled = False
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -744,6 +763,10 @@ Class MainWindow
             txtTDist.Clear()
             txtBDist.IsEnabled = False
             txtBDist.Clear()
+            btnTBLink.IsEnabled = False
+            btnLRLink.IsEnabled = False
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -793,6 +816,10 @@ Class MainWindow
             txtTDist.Clear()
             txtBDist.IsEnabled = False
             txtBDist.Clear()
+            btnTBLink.IsEnabled = False
+            btnLRLink.IsEnabled = False
+            buttonTextBlock.Text = ChrW(&HE72E).ToString()
+            buttonTextBlock1.Text = ChrW(&HE72E).ToString()
             ckbxUL.IsChecked = False
             ckbxUC.IsChecked = False
             ckbxUR.IsChecked = False
@@ -974,17 +1001,17 @@ Class MainWindow
         Dim holeSz As Double = 0
 
         Select Case lstHoleSz.SelectedIndex
-            Case 0
-                holeSz = 0.1875
             Case 1
-                holeSz = 0.25
+                holeSz = 0.1875
             Case 2
-                holeSz = 0.3125
+                holeSz = 0.25
             Case 3
+                holeSz = 0.3125
+            Case 4
                 holeSz = 0.375
         End Select
 
-        Dim radTxt, holeSzTxt, holeLRDistTxt, holeTBDistTxt, holePlcTxt As String
+        Dim radTxt, holeSzTxt, holeLDistTxt, holeRDistTxt, holeLRDistTxt, holeTDistTxt, holeBDistTxt, holeTBDistTxt, holePlcTxt As String
 
         If ckbxUL.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)
@@ -1023,10 +1050,74 @@ Class MainWindow
                 radTxt = ""
 
             End If
-            If lstHoleSz.SelectedIndex <> -1 Then
+            If lstHoleSz.SelectedIndex > 0 Then
 
                 holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
+                If tDist = lDist And bDist = rDist Then
+                    holePlcTxt = tDist.ToString
+                    If tDist = 0.25 Then
+                        holePlcTxt = "1/4"
+                    ElseIf tDist = 0.375 Then
+                        holePlcTxt = "3/8"
+                    ElseIf tDist = 0.5 Then
+                        holePlcTxt = "1/2"
+                    ElseIf tDist = 0.625 Then
+                        holePlcTxt = "5/8"
+                    ElseIf tDist = 0.75 Then
+                        holePlcTxt = "3/4"
+                    End If
+                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge" + vbCrLf
+                ElseIf tDist = bDist And tDist <> lDist Then
+                    If tDist = 0.25 Then
+                        holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
+                    ElseIf tDist = 0.375 Then
+                        holeTBDistTxt = "3/8'' from top and bottom edge" + vbCrLf
+                    ElseIf tDist = 0.5 Then
+                        holeTBDistTxt = "1/2'' from top and bottom edge" + vbCrLf
+                    ElseIf tDist = 0.625 Then
+                        holeTBDistTxt = "5/8'' from top and bottom edge" + vbCrLf
+                    ElseIf tDist = 0.75 Then
+                        holeTBDistTxt = "3/4'' from top and bottom edge" + vbCrLf
+                    ElseIf txtTDist Is Nothing Or tDist = 0 Then
+                        holeTBDistTxt = ""
+                    Else
+                        holeTBDistTxt = txtTDist.Text + "'' from top and bottom edge" + vbCrLf
+                    End If
+                ElseIf lDist = rDist And lDist <> tDist Then
+                    If lDist = 0.25 Then
+                        holeLRDistTxt = "1/4'' from left and right edge" + vbCrLf
+                    ElseIf lDist = 0.375 Then
+                        holeLRDistTxt = "3/8'' from left and right edge" + vbCrLf
+                    ElseIf lDist = 0.5 Then
+                        holeLRDistTxt = "1/2'' from left and right edge" + vbCrLf
+                    ElseIf lDist = 0.625 Then
+                        holeLRDistTxt = "5/8'' from left and right edge" + vbCrLf
+                    ElseIf lDist = 0.75 Then
+                        holeLRDistTxt = "3/4'' from left and right edge" + vbCrLf
+                    ElseIf txtLDist Is Nothing Or lDist = 0 Then
+                        holeLRDistTxt = ""
+                    Else
+                        holeLRDistTxt = txtLDist.Text + "'' from left and right edge" + vbCrLf
+                    End If
+                Else
+                    If tDist = 0.25 Then
+                        holeTDistTxt = "1/4'' from top"
+                    ElseIf tDist = 0.375 Then
+                        holeTDistTxt = "3/8'' from top"
+                    ElseIf tDist = 0.5 Then
+                        holeTDistTxt = "1/2'' from top"
+                    ElseIf tDist = 0.625 Then
+                        holeTDistTxt = "5/8'' from top"
+                    ElseIf tDist = 0.75 Then
+                        holeTDistTxt = "3/4'' from top"
+                    Else
+                        holeTDistTxt = txtTDist.Text + "'' from top"
+                    End If
 
+
+
+                    holeSzTxt = holeSzTxt + vbCrLf + +holeTDistTxt + holeBDistTxt + holeLDistTxt + holeRDistTxt + holeTBDistTxt + holeLRDistTxt
+                End If
                 'If tbDist = lrDist Then
                 '    holePlcTxt = tbDist.ToString
                 '    If tbDist = 0.25 Then

@@ -62,6 +62,7 @@
             </ComboBox>
             <Label x:Name="lblHoles" Content="Holes" HorizontalAlignment="Left" Margin="72,197,0,0" VerticalAlignment="Top" FontWeight="Bold" SnapsToDevicePixels="True" IsEnabled="False" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="lstHoleSz" HorizontalAlignment="Left" Margin="131,199,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
+                <ComboBoxItem Content="None"/>
                 <ComboBoxItem Content="3/16''"/>
                 <ComboBoxItem Content="1/4''"/>
                 <ComboBoxItem Content="5/16''"/>
@@ -94,7 +95,7 @@
             <TextBox x:Name="txtLRspacing" HorizontalAlignment="Left" Margin="334,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" IsEnabled="False"/>
             <TextBlock HorizontalAlignment="Left" Margin="381,293,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="299,318,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
-            <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="282,358,0,0" VerticalAlignment="Top" Width="98" Height="28"/>
+            <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="282,358,0,0" VerticalAlignment="Top" Width="98" Height="28" Focusable="False" IsTabStop="False" Visibility="Hidden"/>
             <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="494,358,0,0" Padding="5,5,5,5"/>
             <CheckBox x:Name="ckbxTBQty" Content="Put" HorizontalAlignment="Left" Margin="466,169,0,0" VerticalAlignment="Top" IsEnabled="False"/>
             <TextBox x:Name="txtTBQty" HorizontalAlignment="Left" Margin="511,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
