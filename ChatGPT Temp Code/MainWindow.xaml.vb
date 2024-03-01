@@ -320,7 +320,7 @@ Class MainWindow
     End Sub
 
     Private Sub txtLDist_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtLDist.TextChanged
-        If buttonTextBlock.Text = ChrW(&HE72E) Then
+        If buttonTextBlock1.Text = ChrW(&HE72E) Then
             txtRDist.Text = txtLDist.Text
         End If
     End Sub
@@ -898,8 +898,27 @@ Class MainWindow
         End If
 
         If lstHoleSz.SelectedIndex <> -1 Then
-            If tDist = 0 Or lDist = 0 Or bDist = 0 Or rDist = 0 Then
-                MsgBox("Distance from edge cannot be 0.", , Title:="Error!")
+            If ckbxUL.IsChecked = True Or ckbxUR.IsChecked = True Or
+                ckbxLL.IsChecked = True Or ckbxLR.IsChecked = True Then
+                If tDist = 0 Or lDist = 0 Or bDist = 0 Or rDist = 0 Then
+                    MsgBox("Distance from edge cannot be 0.", , Title:="Error!")
+                    Exit Sub
+                End If
+            End If
+        End If
+
+        If lstHoleSz.SelectedIndex <> -1 Then
+            If tDist > pgHeight / 2 Or lDist > pgHeight / 2 Or bDist > pgWidth / 2 Or rDist > pgWidth / 2 Then
+                MsgBox("Invalid hole distance.", , Title:="Error!")
+                Exit Sub
+            End If
+        End If
+
+        If lstHoleSz.SelectedIndex <> -1 Then
+            If ckbxUL.IsChecked = False And ckbxUC.IsChecked = False And ckbxUR.IsChecked = False And
+                ckbxCL.IsChecked = False And ckbxCR.IsChecked = False And
+                ckbxLL.IsChecked = False And ckbxLC.IsChecked = False And ckbxLR.IsChecked = False Then
+                MsgBox("Must choose hole position.", , Title:="Error!")
                 Exit Sub
             End If
         End If
@@ -1011,7 +1030,8 @@ Class MainWindow
                 holeSz = 0.375
         End Select
 
-        Dim radTxt, holeSzTxt, holeLDistTxt, holeRDistTxt, holeLRDistTxt, holeTDistTxt, holeBDistTxt, holeTBDistTxt, holePlcTxt As String
+        Dim radTxt, holeSzTxt, holeLDistTxt, holeRDistTxt, holeLRDistTxt, holeTDistTxt, holeBDistTxt, holeTBDistTxt, holePlcTxt,
+        holeCTBTxt, holeCTTxt, holeCLRTxt, holeTCText, holeCornerText As String
 
         If ckbxUL.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)
@@ -1053,8 +1073,7 @@ Class MainWindow
             If lstHoleSz.SelectedIndex > 0 Then
 
                 holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
-                If tDist = lDist And bDist = rDist Then
-                    holePlcTxt = tDist.ToString
+                If tDist = lDist And bDist = rDist And lDist = bDist Then
                     If tDist = 0.25 Then
                         holePlcTxt = "1/4"
                     ElseIf tDist = 0.375 Then
@@ -1066,57 +1085,102 @@ Class MainWindow
                     ElseIf tDist = 0.75 Then
                         holePlcTxt = "3/4"
                     End If
-                    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge" + vbCrLf
-                ElseIf tDist = bDist And tDist <> lDist Then
-                    If tDist = 0.25 Then
-                        holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
-                    ElseIf tDist = 0.375 Then
-                        holeTBDistTxt = "3/8'' from top and bottom edge" + vbCrLf
-                    ElseIf tDist = 0.5 Then
-                        holeTBDistTxt = "1/2'' from top and bottom edge" + vbCrLf
-                    ElseIf tDist = 0.625 Then
-                        holeTBDistTxt = "5/8'' from top and bottom edge" + vbCrLf
-                    ElseIf tDist = 0.75 Then
-                        holeTBDistTxt = "3/4'' from top and bottom edge" + vbCrLf
-                    ElseIf txtTDist Is Nothing Or tDist = 0 Then
-                        holeTBDistTxt = ""
-                    Else
-                        holeTBDistTxt = txtTDist.Text + "'' from top and bottom edge" + vbCrLf
-                    End If
-                ElseIf lDist = rDist And lDist <> tDist Then
-                    If lDist = 0.25 Then
-                        holeLRDistTxt = "1/4'' from left and right edge" + vbCrLf
-                    ElseIf lDist = 0.375 Then
-                        holeLRDistTxt = "3/8'' from left and right edge" + vbCrLf
-                    ElseIf lDist = 0.5 Then
-                        holeLRDistTxt = "1/2'' from left and right edge" + vbCrLf
-                    ElseIf lDist = 0.625 Then
-                        holeLRDistTxt = "5/8'' from left and right edge" + vbCrLf
-                    ElseIf lDist = 0.75 Then
-                        holeLRDistTxt = "3/4'' from left and right edge" + vbCrLf
-                    ElseIf txtLDist Is Nothing Or lDist = 0 Then
-                        holeLRDistTxt = ""
-                    Else
-                        holeLRDistTxt = txtLDist.Text + "'' from left and right edge" + vbCrLf
-                    End If
+                    holeSzTxt = holeSzTxt + ", " + tDist.ToString + "'' from edge"
                 Else
-                    If tDist = 0.25 Then
-                        holeTDistTxt = "1/4'' from top"
-                    ElseIf tDist = 0.375 Then
-                        holeTDistTxt = "3/8'' from top"
-                    ElseIf tDist = 0.5 Then
-                        holeTDistTxt = "1/2'' from top"
-                    ElseIf tDist = 0.625 Then
-                        holeTDistTxt = "5/8'' from top"
-                    ElseIf tDist = 0.75 Then
-                        holeTDistTxt = "3/4'' from top"
-                    Else
-                        holeTDistTxt = txtTDist.Text + "'' from top"
+                    If tDist = bDist And tDist <> lDist Then
+                        If tDist = 0.25 Then
+                            holeTBDistTxt = "1/4'' from top & bottom edge" + vbCrLf
+                        ElseIf tDist = 0.375 Then
+                            holeTBDistTxt = "3/8'' from top & bottom edge" + vbCrLf
+                        ElseIf tDist = 0.5 Then
+                            holeTBDistTxt = "1/2'' from top & bottom edge" + vbCrLf
+                        ElseIf tDist = 0.625 Then
+                            holeTBDistTxt = "5/8'' from top & bottom edge" + vbCrLf
+                        ElseIf tDist = 0.75 Then
+                            holeTBDistTxt = "3/4'' from top & bottom edge" + vbCrLf
+                        ElseIf txtTDist Is Nothing Or tDist = 0 Then
+                            holeTBDistTxt = ""
+                        Else
+                            holeTBDistTxt = txtTDist.Text + "'' from top & bottom edge" + vbCrLf
+                        End If
+                    End If
+                    If lDist = rDist And lDist <> tDist Then
+                        If lDist = 0.25 Then
+                            holeLRDistTxt = "1/4'' from left & right edge" + vbCrLf
+                        ElseIf lDist = 0.375 Then
+                            holeLRDistTxt = "3/8'' from left & right edge" + vbCrLf
+                        ElseIf lDist = 0.5 Then
+                            holeLRDistTxt = "1/2'' from left & right edge" + vbCrLf
+                        ElseIf lDist = 0.625 Then
+                            holeLRDistTxt = "5/8'' from left & right edge" + vbCrLf
+                        ElseIf lDist = 0.75 Then
+                            holeLRDistTxt = "3/4'' from left & right edge" + vbCrLf
+                        ElseIf txtLDist Is Nothing Or lDist = 0 Then
+                            holeLRDistTxt = ""
+                        Else
+                            holeLRDistTxt = txtLDist.Text + "'' from left & right edge" + vbCrLf
+                        End If
+                    End If
+                    If tDist <> bDist Then
+                        If tDist = 0.25 Then
+                            holeTDistTxt = "1/4'' from top edge"
+                        ElseIf tDist = 0.375 Then
+                            holeTDistTxt = "3/8'' from top edge"
+                        ElseIf tDist = 0.5 Then
+                            holeTDistTxt = "1/2'' from top edge"
+                        ElseIf tDist = 0.625 Then
+                            holeTDistTxt = "5/8'' from top edge"
+                        ElseIf tDist = 0.75 Then
+                            holeTDistTxt = "3/4'' from top edge"
+                        Else
+                            holeTDistTxt = txtTDist.Text + "'' from top edge"
+                        End If
+                        If bDist = 0.25 Then
+                            holeBDistTxt = "1/4'' from bottom edge"
+                        ElseIf bDist = 0.375 Then
+                            holeBDistTxt = "3/8'' from bottom edge"
+                        ElseIf bDist = 0.5 Then
+                            holeBDistTxt = "1/2'' from bottom edge"
+                        ElseIf bDist = 0.625 Then
+                            holeBDistTxt = "5/8'' from bottom edge"
+                        ElseIf bDist = 0.75 Then
+                            holeBDistTxt = "3/4'' from bottom edge"
+                        Else
+                            holeBDistTxt = txtBDist.Text + "'' from bottom edge"
+                        End If
+                        holeTBDistTxt = holeTDistTxt + ", " + holeBDistTxt + vbCrLf
+                    End If
+                    If lDist <> rDist Then
+                        If lDist = 0.25 Then
+                            holeLDistTxt = "1/4'' from left edge"
+                        ElseIf lDist = 0.375 Then
+                            holeLDistTxt = "3/8'' from left edge"
+                        ElseIf lDist = 0.5 Then
+                            holeLDistTxt = "1/2'' from left edge"
+                        ElseIf lDist = 0.625 Then
+                            holeLDistTxt = "5/8'' from left edge"
+                        ElseIf lDist = 0.75 Then
+                            holeLDistTxt = "3/4'' from left edge"
+                        Else
+                            holeLDistTxt = txtLDist.Text + "'' from left edge"
+                        End If
+                        If rDist = 0.25 Then
+                            holeRDistTxt = "1/4'' from right edge"
+                        ElseIf rDist = 0.375 Then
+                            holeRDistTxt = "3/8'' from right edge"
+                        ElseIf rDist = 0.5 Then
+                            holeRDistTxt = "1/2'' from right edge"
+                        ElseIf rDist = 0.625 Then
+                            holeRDistTxt = "5/8'' from right edge"
+                        ElseIf rDist = 0.75 Then
+                            holeRDistTxt = "3/4'' from right edge"
+                        Else
+                            holeRDistTxt = txtRDist.Text + "'' from right edge"
+                        End If
+                        holeLRDistTxt = holeLDistTxt + ", " + holeRDistTxt + vbCrLf
+
                     End If
 
-
-
-                    holeSzTxt = holeSzTxt + vbCrLf + +holeTDistTxt + holeBDistTxt + holeLDistTxt + holeRDistTxt + holeTBDistTxt + holeLRDistTxt
                 End If
                 'If tbDist = lrDist Then
                 '    holePlcTxt = tbDist.ToString
@@ -1166,20 +1230,34 @@ Class MainWindow
                 '    holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt
 
                 'End If
+
                 If ckbxUC.IsChecked = True And ckbxLC.IsChecked = True Then
-                    holeSzTxt = holeSzTxt + "in center at top & bottom" + vbCrLf
+                    holeCTBTxt = "in center at top & bottom" + vbCrLf
+                    If ckbxCL.IsChecked = False And ckbxCR.IsChecked = False Then
+                        holeLRDistTxt = ""
+                    End If
                 ElseIf ckbxUC.IsChecked = True And ckbxLC.IsChecked = False Then
-                    holeSzTxt = holeSzTxt + "in center at top" + vbCrLf
+                    holeCTTxt = "in center at top" + vbCrLf
+                    If ckbxCL.IsChecked = False And ckbxCR.IsChecked = False Then
+                        holeLRDistTxt = ""
+                    End If
                 End If
                 If ckbxCL.IsChecked = True And ckbxCR.IsChecked = True Then
-                    holeSzTxt = holeSzTxt + "in center at left & right" + vbCrLf
+                    holeCLRTxt = "in center at left & right" + vbCrLf
+                    If ckbxUC.IsChecked = False And ckbxLC.IsChecked = False Then
+                        holeTBDistTxt = ""
+                    End If
                 End If
                 If ckbxUL.IsChecked = True And ckbxUR.IsChecked = True And ckbxLL.IsChecked = False And ckbxLR.IsChecked = False Then
-                    holeSzTxt = holeSzTxt + "in top two corners" + vbCrLf
+                    holeTCText = "in top two corners" + vbCrLf
                 End If
                 If ckbxUL.IsChecked = True And ckbxUR.IsChecked = True And ckbxLL.IsChecked = True And ckbxLR.IsChecked = True Then
-                    holeSzTxt = holeSzTxt + "one in each corner" + vbCrLf
+                    holeCornerText = "one in each corner" + vbCrLf
                 End If
+                holePlcTxt = holePlcTxt + holeCTBTxt + holeCTTxt + holeCLRTxt + holeTCText + holeCornerText
+                MsgBox(holePlcTxt.ToString)
+                holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt + holePlcTxt
+
             Else
                 holeSzTxt = ""
             End If
