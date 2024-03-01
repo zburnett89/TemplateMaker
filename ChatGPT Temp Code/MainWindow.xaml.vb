@@ -879,6 +879,7 @@ Class MainWindow
         Dim tbQty As Single = Val(txtTBQty.Text)
         Dim lrQty As Single = Val(txtLRQty.Text)
 
+        'Error messages
 
         If ckbxTBspacing.IsChecked And Not Integer.TryParse(pgWidth / valTBspacing, 0) Then
             MsgBox("Width must be evenly divisible by grommet spacing distance.", , Title:="Error!")
@@ -927,6 +928,93 @@ Class MainWindow
             MsgBox("Invalid page size.", , Title:="Error!")
             Exit Sub
         End If
+
+        Select Case lstMaterial.SelectedIndex
+            Case 0 ' coroplast
+                If Val(txtHeight.Text) > 48 Then
+                    If Val(txtWidth.Text) > 48 Then
+                        MsgBox("Invalid page size. Coro sheet size is 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                    If lstFlutes.SelectedIndex = 1 Then
+                        MsgBox("Flutes must be vertical at this size.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                End If
+                If Val(txtWidth.Text) > 48 Then
+                    If Val(txtHeight.Text) > 48 Then
+                        MsgBox("Invalid page size. Coro sheet size is 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                    If lstFlutes.SelectedIndex = 0 Then
+                        MsgBox("Flutes must be horizontal at this size.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                End If
+
+            Case 1 ' aluminum
+                If Val(txtHeight.Text) > 48 Then
+                    If Val(txtWidth.Text) > 48 Then
+                        MsgBox("Invalid page size. Aluminum sheet size is 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                    If Val(txtWidth.Text) <> 48 Then
+                        MsgBox("Cannot shear this size on aluminum. Shear can only cut up to 48''.")
+                        Exit Sub
+                    End If
+                End If
+                If Val(txtWidth.Text) > 48 Then
+                    If Val(txtHeight.Text) > 48 Then
+                        MsgBox("Invalid page size. Aluminum sheet size is 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                    If Val(txtWidth.Text) <> 48 Then
+                        MsgBox("Cannot shear this size on aluminum. Shear can only cut up to 48''.")
+                        Exit Sub
+                    End If
+                End If
+
+            Case 2 ' acm
+                If Val(txtHeight.Text) > 48 Then
+                    If Val(txtWidth.Text) > 48 Then
+                        MsgBox("Invalid page size. ACM sheet size is 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                End If
+                If Val(txtWidth.Text) > 48 Then
+                    If Val(txtHeight.Text) > 48 Then
+                        MsgBox("Invalid page size. ACM sheet size is 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                End If
+
+            Case 3 ' plastic
+                If Val(txtHeight.Text) > 48 Then
+                    If Val(txtWidth.Text) > 48 Then
+                        MsgBox("Invalid page size. Most plastic has a sheet size of 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                End If
+                If Val(txtWidth.Text) > 48 Then
+                    If Val(txtHeight.Text) > 48 Then
+                        MsgBox("Invalid page size. Most plastic has a sheet size of 48''x96''.", , Title:="Error!")
+                        Exit Sub
+                    End If
+                End If
+                If Val(txtHeight.Text) >= 48 Or Val(txtWidth.Text) >= 48 Then
+                    If Val(txtWidth.Text) > 36 Or Val(txtHeight.Text) > 36 Then
+                        MsgBox("Careful! If this is polyethylene, the largest we can do is 36''x48''.", , Title:="Warning!")
+                    End If
+                End If
+
+            Case 4 ' vinyl
+            Case 5 ' banner
+            Case 6 ' poster
+            Case 7 ' tags
+
+        End Select
+
+        'end of error messages
 
         Dim appDirectory As String = AppDomain.CurrentDomain.BaseDirectory
         Dim templateFilePath As String = appDirectory & "TestTemplate.cdt"
@@ -1031,7 +1119,7 @@ Class MainWindow
         End Select
 
         Dim radTxt, holeSzTxt, holeLDistTxt, holeRDistTxt, holeLRDistTxt, holeTDistTxt, holeBDistTxt, holeTBDistTxt, holePlcTxt,
-        holeCTBTxt, holeCTTxt, holeCLRTxt, holeTCText, holeCornerText As String
+        holeCTBTxt, holeCTTxt, holeCLRTxt, holeTCText, holeCornerText, holeEQDist As String
 
         If ckbxUL.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)
@@ -1075,17 +1163,19 @@ Class MainWindow
                 holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
                 If tDist = lDist And bDist = rDist And lDist = bDist Then
                     If tDist = 0.25 Then
-                        holePlcTxt = "1/4"
+                        holeEQDist = "1/4"
                     ElseIf tDist = 0.375 Then
-                        holePlcTxt = "3/8"
+                        holeEQDist = "3/8"
                     ElseIf tDist = 0.5 Then
-                        holePlcTxt = "1/2"
+                        holeEQDist = "1/2"
                     ElseIf tDist = 0.625 Then
-                        holePlcTxt = "5/8"
+                        holeEQDist = "5/8"
                     ElseIf tDist = 0.75 Then
-                        holePlcTxt = "3/4"
+                        holeEQDist = "3/4"
+                    Else
+                        holeEQDist = tDist.ToString
                     End If
-                    holeSzTxt = holeSzTxt + ", " + tDist.ToString + "'' from edge"
+                    holeSzTxt = holeSzTxt + ", " + holeEQDist + "'' from edge"
                 Else
                     If tDist = bDist And tDist <> lDist Then
                         If tDist = 0.25 Then
@@ -1182,54 +1272,6 @@ Class MainWindow
                     End If
 
                 End If
-                'If tbDist = lrDist Then
-                '    holePlcTxt = tbDist.ToString
-                '    If tbDist = 0.25 Then
-                '        holePlcTxt = "1/4"
-                '    ElseIf tbDist = 0.375 Then
-                '        holePlcTxt = "3/8"
-                '    ElseIf tbDist = 0.5 Then
-                '        holePlcTxt = "1/2"
-                '    ElseIf tbDist = 0.625 Then
-                '        holePlcTxt = "5/8"
-                '    ElseIf tbDist = 0.75 Then
-                '        holePlcTxt = "3/4"
-                '    End If
-                '    holeSzTxt = holeSzTxt + ", " + holePlcTxt + "'' from edge" + vbCrLf
-                'Else
-                '    If tbDist = 0.25 Then
-                '        holeTBDistTxt = "1/4'' from top and bottom edge" + vbCrLf
-                '    ElseIf tbDist = 0.375 Then
-                '        holeTBDistTxt = "3/8'' from top and bottom edge" + vbCrLf
-                '    ElseIf tbDist = 0.5 Then
-                '        holeTBDistTxt = "1/2'' from top and bottom edge" + vbCrLf
-                '    ElseIf tbDist = 0.625 Then
-                '        holeTBDistTxt = "5/8'' from top and bottom edge" + vbCrLf
-                '    ElseIf tbDist = 0.75 Then
-                '        holeTBDistTxt = "3/4'' from top and bottom edge" + vbCrLf
-                '    ElseIf txtTBDist Is Nothing Or tbDist = 0 Then
-                '        holeTBDistTxt = ""
-                '    Else
-                '        holeTBDistTxt = txtTBDist.Text + "'' from top and bottom edge" + vbCrLf
-                '    End If
-                '    If lrDist = 0.25 Then
-                '        holeLRDistTxt = "1/4'' from left and right edge" + vbCrLf
-                '    ElseIf lrDist = 0.375 Then
-                '        holeLRDistTxt = "3/8'' from left and right edge" + vbCrLf
-                '    ElseIf lrDist = 0.5 Then
-                '        holeLRDistTxt = "1/2'' from left and right edge" + vbCrLf
-                '    ElseIf lrDist = 0.625 Then
-                '        holeLRDistTxt = "5/8'' from left and right edge" + vbCrLf
-                '    ElseIf lrDist = 0.75 Then
-                '        holeLRDistTxt = "3/4'' from left and right edge" + vbCrLf
-                '    ElseIf txtLRDist Is Nothing Or lrDist = 0 Then
-                '        holeLRDistTxt = ""
-                '    Else
-                '        holeLRDistTxt = txtLRDist.Text + "'' from left and right edge" + vbCrLf
-                '    End If
-                '    holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt
-
-                'End If
 
                 If ckbxUC.IsChecked = True And ckbxLC.IsChecked = True Then
                     holeCTBTxt = "in center at top & bottom" + vbCrLf
@@ -1241,8 +1283,39 @@ Class MainWindow
                     If ckbxCL.IsChecked = False And ckbxCR.IsChecked = False Then
                         holeLRDistTxt = ""
                     End If
+                    If tDist = 0.25 Then
+                        holeTDistTxt = "1/4'' from top edge"
+                    ElseIf tDist = 0.375 Then
+                        holeTDistTxt = "3/8'' from top edge"
+                    ElseIf tDist = 0.5 Then
+                        holeTDistTxt = "1/2'' from top edge"
+                    ElseIf tDist = 0.625 Then
+                        holeTDistTxt = "5/8'' from top edge"
+                    ElseIf tDist = 0.75 Then
+                        holeTDistTxt = "3/4'' from top edge"
+                    Else
+                        holeTDistTxt = txtTDist.Text + "'' from top edge"
+                    End If
+                    holeTBDistTxt = holeTDistTxt + vbCrLf
+                    holeSzTxt = lstHoleSz.SelectionBoxItem.ToString + " holes"
+                    If tDist = lDist And lDist = rDist Then
+                        If tDist = 0.25 Then
+                            holeEQDist = "1/4"
+                        ElseIf tDist = 0.375 Then
+                            holeEQDist = "3/8"
+                        ElseIf tDist = 0.5 Then
+                            holeEQDist = "1/2"
+                        ElseIf tDist = 0.625 Then
+                            holeEQDist = "5/8"
+                        ElseIf tDist = 0.75 Then
+                            holeEQDist = "3/4"
+                        End If
+                        holeSzTxt = holeSzTxt + ", " + holeEQDist + "'' from edge"
+                        holeTBDistTxt = ""
+                        holeLRDistTxt = ""
+                    End If
                 End If
-                If ckbxCL.IsChecked = True And ckbxCR.IsChecked = True Then
+                    If ckbxCL.IsChecked = True And ckbxCR.IsChecked = True Then
                     holeCLRTxt = "in center at left & right" + vbCrLf
                     If ckbxUC.IsChecked = False And ckbxLC.IsChecked = False Then
                         holeTBDistTxt = ""
@@ -1255,7 +1328,7 @@ Class MainWindow
                     holeCornerText = "one in each corner" + vbCrLf
                 End If
                 holePlcTxt = holePlcTxt + holeCTBTxt + holeCTTxt + holeCLRTxt + holeTCText + holeCornerText
-                MsgBox(holePlcTxt.ToString)
+                ' MsgBox(holePlcTxt.ToString)
                 holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt + holePlcTxt
 
             Else
