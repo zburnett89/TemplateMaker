@@ -538,6 +538,9 @@ Class MainWindow
             txtLRQty.Clear()
             lstFlutes.SelectedIndex = -1
             lstStkDots.SelectedIndex = -1
+            lstPresets.IsEnabled = False
+            btnSwitchSize.IsEnabled = False
+
         End If
         If lstMaterial.SelectedIndex = 0 Then 'Coroplast
             txtHeight.IsEnabled = True
@@ -578,6 +581,8 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             ckbxLRQty.IsEnabled = True
+            lstPresets.IsEnabled = True
+            btnSwitchSize.IsEnabled = True
             'txtTBQty.IsEnabled = True
             'txtLRQty.IsEnabled = True
             'txtTBspacing.IsEnabled = True
@@ -617,6 +622,8 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
+            lstPresets.IsEnabled = True
+            btnSwitchSize.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 2 Or lstMaterial.SelectedIndex = 3 Then 'ACM or Plastic
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -637,6 +644,8 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             ckbxLRQty.IsEnabled = True
+            lstPresets.IsEnabled = True
+            btnSwitchSize.IsEnabled = True
             'txtTBQty.IsEnabled = True
             'txtLRQty.IsEnabled = True
             'txtTBspacing.IsEnabled = True
@@ -690,7 +699,8 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
-
+            lstPresets.IsEnabled = True
+            btnSwitchSize.IsEnabled = True
         ElseIf lstMaterial.SelectedIndex = 5 Then 'Banner
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -735,6 +745,8 @@ Class MainWindow
             ckbxLRspacing.IsEnabled = True
             ckbxTBQty.IsEnabled = True
             ckbxLRQty.IsEnabled = True
+            lstPresets.IsEnabled = True
+            btnSwitchSize.IsEnabled = True
             'txtTBQty.IsEnabled = True
             'txtLRQty.IsEnabled = True
             'txtTBspacing.IsEnabled = True
@@ -797,6 +809,9 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
+            lstPresets.IsEnabled = True
+            btnSwitchSize.IsEnabled = True
+
         ElseIf lstMaterial.SelectedIndex = 7 Then 'Tags
             lblFlutes.IsEnabled = False
             lstFlutes.IsEnabled = False
@@ -856,6 +871,8 @@ Class MainWindow
             txtLRspacing.Clear()
             lstFlutes.SelectedIndex = -1
             lstStkDots.SelectedIndex = -1
+            lstPresets.IsEnabled = False
+            btnSwitchSize.IsEnabled = False
 
         End If
 
@@ -931,21 +948,21 @@ Class MainWindow
 
         Select Case lstMaterial.SelectedIndex
             Case 0 ' coroplast
+                If Val(txtHeight.Text) > 48 And Val(txtWidth.Text) > 48 Then
+                    MsgBox("Invalid page size. Coro sheet size is 48''x96''.", , Title:="Error!")
+                    Exit Sub
+                End If
+                If Val(txtHeight.Text) > 96 Or Val(txtWidth.Text) > 96 Then
+                    MsgBox("Invalid page size. Coro sheet size is 48''x96''.", , Title:="Error!")
+                    Exit Sub
+                End If
                 If Val(txtHeight.Text) > 48 Then
-                    If Val(txtWidth.Text) > 48 Then
-                        MsgBox("Invalid page size. Coro sheet size is 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
                     If lstFlutes.SelectedIndex = 1 Then
                         MsgBox("Flutes must be vertical at this size.", , Title:="Error!")
                         Exit Sub
                     End If
                 End If
                 If Val(txtWidth.Text) > 48 Then
-                    If Val(txtHeight.Text) > 48 Then
-                        MsgBox("Invalid page size. Coro sheet size is 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
                     If lstFlutes.SelectedIndex = 0 Then
                         MsgBox("Flutes must be horizontal at this size.", , Title:="Error!")
                         Exit Sub
@@ -953,53 +970,44 @@ Class MainWindow
                 End If
 
             Case 1 ' aluminum
+                If Val(txtHeight.Text) > 48 And Val(txtWidth.Text) > 48 Then
+                    MsgBox("Invalid page size. Aluminum sheet size is 48''x96''.", , Title:="Error!")
+                    Exit Sub
+                End If
+                If Val(txtHeight.Text) > 96 Or Val(txtWidth.Text) > 96 Then
+                    MsgBox("Invalid page size. Aluminum sheet size is 48''x96''.", , Title:="Error!")
+                    Exit Sub
+                End If
                 If Val(txtHeight.Text) > 48 Then
-                    If Val(txtWidth.Text) > 48 Then
-                        MsgBox("Invalid page size. Aluminum sheet size is 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
                     If Val(txtWidth.Text) <> 48 Then
                         MsgBox("Cannot shear this size on aluminum. Shear can only cut up to 48''.")
                         Exit Sub
                     End If
                 End If
                 If Val(txtWidth.Text) > 48 Then
-                    If Val(txtHeight.Text) > 48 Then
-                        MsgBox("Invalid page size. Aluminum sheet size is 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
-                    If Val(txtWidth.Text) <> 48 Then
+                    If Val(txtHeight.Text) <> 48 Then
                         MsgBox("Cannot shear this size on aluminum. Shear can only cut up to 48''.")
                         Exit Sub
                     End If
                 End If
 
             Case 2 ' acm
-                If Val(txtHeight.Text) > 48 Then
-                    If Val(txtWidth.Text) > 48 Then
-                        MsgBox("Invalid page size. ACM sheet size is 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
+                If Val(txtHeight.Text) > 48 And Val(txtWidth.Text) > 48 Then
+                    MsgBox("Invalid page size. ACM sheet size is 48''x96''.", , Title:="Error!")
+                    Exit Sub
                 End If
-                If Val(txtWidth.Text) > 48 Then
-                    If Val(txtHeight.Text) > 48 Then
-                        MsgBox("Invalid page size. ACM sheet size is 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
+                If Val(txtHeight.Text) > 96 Or Val(txtWidth.Text) > 96 Then
+                    MsgBox("Invalid page size. ACM sheet size is 48''x96''.", , Title:="Error!")
+                    Exit Sub
                 End If
-
             Case 3 ' plastic
-                If Val(txtHeight.Text) > 48 Then
-                    If Val(txtWidth.Text) > 48 Then
-                        MsgBox("Invalid page size. Most plastic has a sheet size of 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
+                If Val(txtHeight.Text) > 48 And Val(txtWidth.Text) > 48 Then
+                    MsgBox("Invalid page size. Most plastic has a sheet size of 48''x96''.", , Title:="Error!")
+                    Exit Sub
                 End If
-                If Val(txtWidth.Text) > 48 Then
-                    If Val(txtHeight.Text) > 48 Then
-                        MsgBox("Invalid page size. Most plastic has a sheet size of 48''x96''.", , Title:="Error!")
-                        Exit Sub
-                    End If
+                If Val(txtHeight.Text) > 96 Or Val(txtWidth.Text) > 96 Then
+                    MsgBox("Invalid page size. Most plastic has a sheet size of 48''x96''.", , Title:="Error!")
+                    Exit Sub
                 End If
                 If Val(txtHeight.Text) >= 48 Or Val(txtWidth.Text) >= 48 Then
                     If Val(txtWidth.Text) > 36 Or Val(txtHeight.Text) > 36 Then
@@ -1008,7 +1016,17 @@ Class MainWindow
                 End If
 
             Case 4 ' vinyl
+                If Val(txtHeight.Text) > 50 And Val(txtWidth.Text) > 50 Then
+                    MsgBox("Invalid page size. One side must be no more than 50''.", , Title:="Error!")
+                    Exit Sub
+                End If
+
             Case 5 ' banner
+                If Val(txtHeight.Text) > 120 And Val(txtWidth.Text) > 120 Then
+                    MsgBox("Invalid page size. One side must be no more than 120''.", , Title:="Error!")
+                    Exit Sub
+                End If
+
             Case 6 ' poster
             Case 7 ' tags
 
