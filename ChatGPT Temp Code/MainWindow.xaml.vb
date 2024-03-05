@@ -926,7 +926,7 @@ Class MainWindow
         End If
 
         If lstHoleSz.SelectedIndex <> -1 Then
-            If tDist > pgHeight / 2 Or lDist > pgHeight / 2 Or bDist > pgWidth / 2 Or rDist > pgWidth / 2 Then
+            If tDist > pgHeight / 2 Or bDist > pgHeight / 2 Or lDist > pgWidth / 2 Or rDist > pgWidth / 2 Then
                 MsgBox("Invalid hole distance.", , Title:="Error!")
                 Exit Sub
             End If
@@ -1333,7 +1333,7 @@ Class MainWindow
                         holeLRDistTxt = ""
                     End If
                 End If
-                    If ckbxCL.IsChecked = True And ckbxCR.IsChecked = True Then
+                If ckbxCL.IsChecked = True And ckbxCR.IsChecked = True Then
                     holeCLRTxt = "in center at left & right" + vbCrLf
                     If ckbxUC.IsChecked = False And ckbxLC.IsChecked = False Then
                         holeTBDistTxt = ""
