@@ -1,0 +1,9 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="TemplateMaker_Installer" Manufacturer="Burnett Software Solutions" Version="1.1.0.0" UpgradeCode="2333024d-7de6-4f97-9ba2-1c75f34e90af">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+	  <MediaTemplate EmbedCab="yes" />
+    <Feature Id="Main">
+      <ComponentGroupRef Id="AppComponents" />
+    </Feature>
+  </Package>
+</Wix>

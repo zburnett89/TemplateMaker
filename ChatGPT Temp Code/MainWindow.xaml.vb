@@ -1,5 +1,4 @@
 ﻿Imports System.Math
-Imports System.Xml.Linq
 Imports Corel.Interop.VGCore
 
 Class MainWindow
@@ -1477,6 +1476,12 @@ Class MainWindow
                 If ckbxLRspacing.IsChecked Then
                     grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
                 End If
+                If ckbxTBQty.IsChecked Then
+                    grommetTxt += ", " + txtTBQty.Text + " grommets along top & bottom"
+                End If
+                If ckbxLRQty.IsChecked Then
+                    grommetTxt += ", " + txtLRQty.Text + " grommets along left & right"
+                End If
                 grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
                                                     "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
                 grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
@@ -1495,6 +1500,12 @@ Class MainWindow
                 End If
                 If ckbxLRspacing.IsChecked Then
                     grommetTxt += ", every " + txtLRspacing.Text + "'' along left & right"
+                End If
+                If ckbxTBQty.IsChecked Then
+                    grommetTxt += ", " + txtTBQty.Text + " grommets along top & bottom"
+                End If
+                If ckbxLRQty.IsChecked Then
+                    grommetTxt += ", " + txtLRQty.Text + " grommets along left & right"
                 End If
                 grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
                                                     "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
