@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
         Icon="Template Maker Icon.ico"
         mc:Ignorable="d"
-        Title="Create Template" Width="1200" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Template Maker" Width="1200" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Viewbox Margin="20,20,20,20">
         <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
             <Grid.ColumnDefinitions>

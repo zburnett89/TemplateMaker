@@ -914,7 +914,7 @@ Class MainWindow
             Exit Sub
         End If
 
-        If lstHoleSz.SelectedIndex <> -1 Then
+        If lstHoleSz.SelectedIndex > 0 Then
             If ckbxUL.IsChecked = True Or ckbxUR.IsChecked = True Or
                 ckbxLL.IsChecked = True Or ckbxLR.IsChecked = True Then
                 If tDist = 0 Or lDist = 0 Or bDist = 0 Or rDist = 0 Then
@@ -924,14 +924,14 @@ Class MainWindow
             End If
         End If
 
-        If lstHoleSz.SelectedIndex <> -1 Then
+        If lstHoleSz.SelectedIndex > 0 Then
             If tDist > pgHeight / 2 Or bDist > pgHeight / 2 Or lDist > pgWidth / 2 Or rDist > pgWidth / 2 Then
                 MsgBox("Invalid hole distance.", , Title:="Error!")
                 Exit Sub
             End If
         End If
 
-        If lstHoleSz.SelectedIndex <> -1 Then
+        If lstHoleSz.SelectedIndex > 0 Then
             If ckbxUL.IsChecked = False And ckbxUC.IsChecked = False And ckbxUR.IsChecked = False And
                 ckbxCL.IsChecked = False And ckbxCR.IsChecked = False And
                 ckbxLL.IsChecked = False And ckbxLC.IsChecked = False And ckbxLR.IsChecked = False Then
@@ -1137,6 +1137,22 @@ Class MainWindow
 
         Dim radTxt, holeSzTxt, holeLDistTxt, holeRDistTxt, holeLRDistTxt, holeTDistTxt, holeBDistTxt, holeTBDistTxt, holePlcTxt,
         holeCTBTxt, holeCTTxt, holeCLRTxt, holeTCText, holeCornerText, holeEQDist As String
+
+        radTxt = String.Empty
+        holeSzTxt = String.Empty
+        holeLDistTxt = String.Empty
+        holeRDistTxt = String.Empty
+        holeLRDistTxt = String.Empty
+        holeTDistTxt = String.Empty
+        holeBDistTxt = String.Empty
+        holeTBDistTxt = String.Empty
+        holePlcTxt = String.Empty
+        holeCTBTxt = String.Empty
+        holeCTTxt = String.Empty
+        holeCLRTxt = String.Empty
+        holeTCText = String.Empty
+        holeCornerText = String.Empty
+        holeEQDist = String.Empty
 
         If ckbxUL.IsChecked Then
             corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)

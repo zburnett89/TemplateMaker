@@ -8,10 +8,13 @@
     <Platforms>AnyCPU;x86</Platforms>
     <ApplicationIcon>Template Maker Icon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>TemplateMaker</AssemblyName>
+    <PackageIcon>Template Maker Icon.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -20,6 +23,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
@@ -61,6 +65,13 @@
     <Import Include="System.Windows.Media.Imaging" />
     <Import Include="System.Windows.Navigation" />
     <Import Include="System.Windows.Shapes" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Template Maker Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
