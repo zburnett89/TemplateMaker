@@ -1,0 +1,15 @@
+﻿<Window x:Class="Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatGPT_Temp_Code"
+        mc:Ignorable="d"
+        Title="HELP I'M TRAPPED IN THIS DIGITAL DOG BODY" Height="450" Width="800">
+    <Grid>
+        <Viewbox>
+            <Image x:Name="imgCoro" Height="100" Width="100"/>
+        </Viewbox>
+
+    </Grid>
+</Window>
