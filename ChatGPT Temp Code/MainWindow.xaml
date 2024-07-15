@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
-        Icon="Template Maker Icon.ico"
+        Icon="TemplateMakerIcon.ico"
         mc:Ignorable="d"
         Title="Template Maker" Width="1200" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Viewbox Margin="20,20,20,20">
@@ -20,8 +20,12 @@
             <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="45" Margin="5,0,0,0" VerticalAlignment="Top" Width="268"/>
             <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="220" Margin="5,176,0,0" VerticalAlignment="Top" Width="268"/>
             <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="272,346,0,0" VerticalAlignment="Top" Width="328"/>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="236" Margin="272,111,0,0" VerticalAlignment="Top" Width="328"/>
-            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="112" Margin="272,0,0,0" VerticalAlignment="Top" Width="328"/>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="236" Margin="272,111,0,0" VerticalAlignment="Top" Width="328">
+                <CheckBox x:Name="ckbxBannerRoll" Content="No Grommets (Banner Roll)" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" Margin="0,48,0,0"/>
+            </Border>
+            <Border BorderBrush="#FFAFAFAF" BorderThickness="1" HorizontalAlignment="Left" Height="112" Margin="272,0,0,0" VerticalAlignment="Top" Width="328">
+                <Button x:Name="btn18x24coro" Content="18x24 Coro" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="58,15,0,0" Click="btn18x24coro_Click"/>
+            </Border>
             <Button x:Name="btnGo" Content="Create Template" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="388,358,0,0" Padding="5,5,5,5" IsDefault="True"/>
             <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="511,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
             <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="511,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79"/>
@@ -84,9 +88,9 @@
             <CheckBox x:Name="ckbxCL" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155,309,0,0" IsEnabled="False"/>
             <CheckBox x:Name="ckbxCR" Content="" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="229,309,0,0" IsEnabled="False"/>
             <Label Content="Grommets" HorizontalAlignment="Left" Margin="401,122,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <CheckBox x:Name="ckbxCornerGroms" Content="Four Corners" HorizontalAlignment="Left" Margin="279,168,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-            <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="279,193,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-            <CheckBox x:Name="ckbxCLRgroms" Content="Center Left &amp; Right" HorizontalAlignment="Left" Margin="279,218,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCornerGroms" Content="Four Corners" HorizontalAlignment="Left" Margin="279,214,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCTBGroms" Content="Center Top &amp; Bottom" HorizontalAlignment="Left" Margin="462,189,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxCLRgroms" Content="Center Left &amp; Right" HorizontalAlignment="Left" Margin="462,214,0,0" VerticalAlignment="Top" IsEnabled="False"/>
             <CheckBox x:Name="ckbxTBspacing" Content="Every" HorizontalAlignment="Left" Margin="279,243,0,0" VerticalAlignment="Top" IsEnabled="False"/>
             <TextBox x:Name="txtTBspacing" HorizontalAlignment="Left" Margin="334,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
             <TextBlock HorizontalAlignment="Left" Margin="381,243,0,0" TextWrapping="Wrap" Text="in. Along" VerticalAlignment="Top"/>
@@ -97,14 +101,14 @@
             <TextBlock HorizontalAlignment="Left" Margin="299,318,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
             <Button x:Name="btnXML" Content="Load ZCH File..." HorizontalAlignment="Left" Margin="282,358,0,0" VerticalAlignment="Top" Width="98" Height="28" Focusable="False" IsTabStop="False" Visibility="Hidden"/>
             <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="494,358,0,0" Padding="5,5,5,5"/>
-            <CheckBox x:Name="ckbxTBQty" Content="Put" HorizontalAlignment="Left" Margin="466,169,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-            <TextBox x:Name="txtTBQty" HorizontalAlignment="Left" Margin="511,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
-            <TextBlock HorizontalAlignment="Left" Margin="558,168,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="486,194,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
-            <CheckBox x:Name="ckbxLRQty" Content="Put" HorizontalAlignment="Left" Margin="466,219,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-            <TextBox x:Name="txtLRQty" HorizontalAlignment="Left" Margin="511,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" IsEnabled="False"/>
-            <TextBlock HorizontalAlignment="Left" Margin="558,218,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="486,244,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
+            <CheckBox x:Name="ckbxTBQty" Content="Put" HorizontalAlignment="Left" Margin="462,242,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <TextBox x:Name="txtTBQty" HorizontalAlignment="Left" Margin="507,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" IsEnabled="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="554,241,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="482,267,0,0" TextWrapping="Wrap" Text="Top &amp; Bottom" VerticalAlignment="Top"/>
+            <CheckBox x:Name="ckbxLRQty" Content="Put" HorizontalAlignment="Left" Margin="462,292,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <TextBox x:Name="txtLRQty" HorizontalAlignment="Left" Margin="507,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Height="18" IsEnabled="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="554,291,0,0" TextWrapping="Wrap" Text="Along" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="482,317,0,0" TextWrapping="Wrap" Text="Left &amp; Right" VerticalAlignment="Top"/>
             <Label Content="Size
                   " HorizontalAlignment="Left" Margin="292,42,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="35"/>
             <ComboBox x:Name="lstPresets" HorizontalAlignment="Left" Margin="327,44,0,0" VerticalAlignment="Top" Width="78" SelectionChanged="ComboBox_SelectionChanged">
@@ -133,6 +137,7 @@
             <Button x:Name="btnLRLink" HorizontalAlignment="Left" Margin="117,342,0,0" VerticalAlignment="Top" Height="14" Width="14" FontSize="8" IsEnabled="False">
                 <TextBlock x:Name="buttonTextBlock1" FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" />
             </Button>
+            <CheckBox x:Name="ckbxTopCornerGroms" Content ="Top Corners" HorizontalAlignment="Left" Margin="279,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
 
         </Grid>
     </Viewbox>

@@ -2,23 +2,26 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <RootNamespace>ChatGPT_Temp_Code</RootNamespace>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
-    <ApplicationIcon>Template Maker Icon.ico</ApplicationIcon>
+    <ApplicationIcon>TemplateMakerIcon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>TemplateMaker</AssemblyName>
     <PackageIcon>Template Maker Icon.png</PackageIcon>
+    <ImportedNamespaces>System.Windows=False,System.Windows.Controls=False,System.Windows.Data=False,System.Windows.Documents=False,System.Windows.Input=False,System.Windows.Media=False,System.Windows.Media.Imaging=False,System.Windows.Navigation=False,System.Windows.Shapes=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,TemplateMaker App=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -47,9 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Template Maker Icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="TemplateMakerIcon.ico" />
     <Content Include="TestTemplate.cdt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -76,7 +77,7 @@
 
   <ItemGroup>
     <Reference Include="Corel.Interop.VGCore">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Corel\CorelDRAW Graphics Suite 2022\Programs64\Assemblies\Corel.Interop.VGCore.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Corel\CorelDRAW Graphics Suite\25\Programs64\Assemblies\Corel.Interop.VGCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

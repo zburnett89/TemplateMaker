@@ -7,7 +7,8 @@ Class MainWindow
     Public corelDoc As Corel.Interop.VGCore.Document
 
     Dim ctrlRectangle, cornerRect, vertFlutes,
-            horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles As Corel.Interop.VGCore.Shape
+            horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles,
+            pwrClip, theHole As Corel.Interop.VGCore.Shape
     Dim pSizeA, pSizeB As Double
 
     'Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
@@ -164,6 +165,10 @@ Class MainWindow
         lstFlutes.SelectedIndex = -1
         lstStkDots.SelectedIndex = -1
         lstPresets.SelectedIndex = -1
+        ckbxTopCornerGroms.IsChecked = False
+        ckbxTopCornerGroms.IsEnabled = False
+        ckbxBannerRoll.IsChecked = False
+        ckbxBannerRoll.IsEnabled = False
     End Sub 'clear button
 
     Private Sub ckbxTBQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBQty.Click
@@ -324,7 +329,42 @@ Class MainWindow
         End If
     End Sub
 
-    Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+    Private Sub dieCutBx_Checked()
+
+    End Sub
+
+    Private Sub btn18x24coro_Click(sender As Object, e As RoutedEventArgs) Handles btn18x24coro.Click
+        lstMaterial.SelectedIndex = 0
+        lstPresets.SelectedIndex = 6
+        lstFlutes.SelectedIndex = 0
+    End Sub
+
+    Private Sub ckbxBannerRoll_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxBannerRoll.Click
+        If ckbxBannerRoll.IsChecked = True Then
+            ckbxCornerGroms.IsChecked = False
+            ckbxCornerGroms.IsEnabled = False
+            ckbxLRQty.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            ckbxTBQty.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            ckbxCTBGroms.IsChecked = False
+            ckbxCTBGroms.IsEnabled = False
+            ckbxLRspacing.IsChecked = False
+            ckbxLRspacing.IsEnabled = False
+            ckbxTBspacing.IsChecked = False
+            ckbxTBspacing.IsEnabled = False
+            ckbxCLRgroms.IsChecked = False
+            ckbxCLRgroms.IsEnabled = False
+            ckbxCTBGroms.IsChecked = False
+            ckbxCTBGroms.IsEnabled = False
+            ckbxTopCornerGroms.IsChecked = False
+            ckbxTopCornerGroms.IsEnabled = False
+
+        End If
+
+    End Sub
+
+    Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles lstPresets.SelectionChanged
         Select Case lstPresets.SelectedIndex
             Case 1
                 pSizeA = 6
@@ -539,7 +579,10 @@ Class MainWindow
             lstStkDots.SelectedIndex = -1
             lstPresets.IsEnabled = False
             btnSwitchSize.IsEnabled = False
-
+            ckbxTopCornerGroms.IsChecked = False
+            ckbxTopCornerGroms.IsEnabled = False
+            ckbxBannerRoll.IsChecked = False
+            ckbxBannerRoll.IsEnabled = False
         End If
         If lstMaterial.SelectedIndex = 0 Then 'Coroplast
             txtHeight.IsEnabled = True
@@ -582,6 +625,9 @@ Class MainWindow
             ckbxLRQty.IsEnabled = True
             lstPresets.IsEnabled = True
             btnSwitchSize.IsEnabled = True
+            ckbxTopCornerGroms.IsEnabled = True
+            ckbxBannerRoll.IsChecked = False
+            ckbxBannerRoll.IsEnabled = False
             'txtTBQty.IsEnabled = True
             'txtLRQty.IsEnabled = True
             'txtTBspacing.IsEnabled = True
@@ -623,6 +669,11 @@ Class MainWindow
             txtLRspacing.Clear()
             lstPresets.IsEnabled = True
             btnSwitchSize.IsEnabled = True
+            ckbxTopCornerGroms.IsChecked = False
+            ckbxTopCornerGroms.IsEnabled = False
+            ckbxBannerRoll.IsChecked = False
+            ckbxBannerRoll.IsEnabled = False
+
         ElseIf lstMaterial.SelectedIndex = 2 Or lstMaterial.SelectedIndex = 3 Then 'ACM or Plastic
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -645,6 +696,9 @@ Class MainWindow
             ckbxLRQty.IsEnabled = True
             lstPresets.IsEnabled = True
             btnSwitchSize.IsEnabled = True
+            ckbxTopCornerGroms.IsEnabled = True
+            ckbxBannerRoll.IsEnabled = False
+
             'txtTBQty.IsEnabled = True
             'txtLRQty.IsEnabled = True
             'txtTBspacing.IsEnabled = True
@@ -698,8 +752,21 @@ Class MainWindow
             txtTBspacing.Clear()
             txtLRspacing.IsEnabled = False
             txtLRspacing.Clear()
+            ckbxTBQty.IsChecked = False
+            ckbxTBQty.IsEnabled = False
+            ckbxLRQty.IsChecked = False
+            ckbxLRQty.IsEnabled = False
+            txtTBQty.IsEnabled = False
+            txtLRQty.IsEnabled = False
+            txtTBQty.Clear()
+            txtLRQty.Clear()
             lstPresets.IsEnabled = True
             btnSwitchSize.IsEnabled = True
+            ckbxTopCornerGroms.IsChecked = False
+            ckbxTopCornerGroms.IsEnabled = False
+            ckbxBannerRoll.IsChecked = False
+            ckbxBannerRoll.IsEnabled = False
+
         ElseIf lstMaterial.SelectedIndex = 5 Then 'Banner
             txtHeight.IsEnabled = True
             txtWidth.IsEnabled = True
@@ -746,6 +813,9 @@ Class MainWindow
             ckbxLRQty.IsEnabled = True
             lstPresets.IsEnabled = True
             btnSwitchSize.IsEnabled = True
+            ckbxTopCornerGroms.IsEnabled = True
+            ckbxBannerRoll.IsEnabled = True
+
             'txtTBQty.IsEnabled = True
             'txtLRQty.IsEnabled = True
             'txtTBspacing.IsEnabled = True
@@ -810,6 +880,10 @@ Class MainWindow
             txtLRspacing.Clear()
             lstPresets.IsEnabled = True
             btnSwitchSize.IsEnabled = True
+            ckbxTopCornerGroms.IsChecked = False
+            ckbxTopCornerGroms.IsEnabled = False
+            ckbxBannerRoll.IsChecked = False
+            ckbxBannerRoll.IsEnabled = False
 
         ElseIf lstMaterial.SelectedIndex = 7 Then 'Tags
             lblFlutes.IsEnabled = False
@@ -872,6 +946,10 @@ Class MainWindow
             lstStkDots.SelectedIndex = -1
             lstPresets.IsEnabled = False
             btnSwitchSize.IsEnabled = False
+            ckbxTopCornerGroms.IsChecked = False
+            ckbxTopCornerGroms.IsEnabled = False
+            ckbxBannerRoll.IsChecked = False
+            ckbxBannerRoll.IsEnabled = False
 
         End If
 
@@ -1051,6 +1129,10 @@ Class MainWindow
         ctrlRectangle.SizeHeight = pgHeight
         ctrlRectangle.SizeWidth = pgWidth
         ctrlRectangle.SetPosition(0, pgHeight)
+        pwrClip = corelDoc.ActivePage.Shapes("pwrClip")
+        pwrClip.SizeHeight = pgHeight
+        pwrClip.SizeWidth = pgWidth
+        pwrClip.SetPosition(0, pgHeight)
 
         pgDimsRange = corelDoc.ActiveLayer.Shapes.All
         For Each pgDimsShape In pgDimsRange
@@ -1064,17 +1146,25 @@ Class MainWindow
 
         horzFlutes = corelDoc.ActivePage.Shapes("horzFlutes")
 
+        Dim fluteSz As Double
+
+        If pgHeight / 5 <= 2 Then
+            fluteSz = 2
+        Else
+            fluteSz = pgHeight / 5
+        End If
+
         If lstFlutes.SelectedIndex = 0 Then 'Vertical flutes
             horzFlutes.Delete()
-            vertFlutes.SetSize(, pgHeight / 5)
+            vertFlutes.SetSize(, fluteSz)
             vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight / 2)
         ElseIf lstFlutes.SelectedIndex = 1 Then 'Horizontal flutes
             vertFlutes.Delete()
-            horzFlutes.SetSize(, pgHeight / 5)
+            horzFlutes.SetSize(, fluteSz)
             horzFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + horzFlutes.SizeHeight / 2)
         ElseIf lstFlutes.SelectedIndex = 2 Then 'Both flutes
-            vertFlutes.SetSize(, pgHeight / 5)
-            horzFlutes.SetSize(, pgHeight / 5)
+            vertFlutes.SetSize(, fluteSz)
+            horzFlutes.SetSize(, fluteSz)
             vertFlutes.SetPosition(pgWidth + 2, pgHeight / 2 + vertFlutes.SizeHeight + 1)
             horzFlutes.SetPosition(pgWidth + 2, vertFlutes.PositionY - horzFlutes.SizeHeight - 2)
         Else 'No flutes
@@ -1092,11 +1182,22 @@ Class MainWindow
         ElseIf lstStkDots.SelectedIndex = 1 Then '6x24
             stkDot10x30.Delete()
             stkDot6x24.SetPosition(pgWidth / 2 - stkDot6x24.SizeWidth / 2, 0.3)
+            corelDoc.SelectableShapes.FindShape("pwrClip").AddToSelection()
+            corelDoc.SelectableShapes.FindShape("stkDot6x24").AddToSelection()
+            corelApp.ActiveSelection.Group()
+            corelDoc.Selection.OrderToBack()
+
         ElseIf lstStkDots.SelectedIndex = 0 Then '10x30
             stkDot6x24.Delete()
             stkDot10x30.SetPosition(pgWidth / 2 - stkDot10x30.SizeWidth / 2, 0.3)
+            corelDoc.SelectableShapes.FindShape("pwrClip").AddToSelection()
+            corelDoc.SelectableShapes.FindShape("stkDot10x30").AddToSelection()
+            corelApp.ActiveSelection.Group()
+            corelDoc.Selection.OrderToBack()
+
         End If
 
+        'Radius corners
         Dim crnrSz As Double
 
         Select Case lstCorners.SelectedIndex
@@ -1120,8 +1221,12 @@ Class MainWindow
             cornerRect.Rectangle.RadiusLowerLeft = crnrSz
             cornerRect.Rectangle.RadiusLowerRight = crnrSz
             cornerRect.Rectangle.RadiusUpperRight = crnrSz
+            pwrClip.AddToPowerClip(cornerRect, -1)
+            cornerRect.PowerClip.ExtractShapes().CreateSelection()
+            corelApp.ActiveSelection.Delete()
         End If
 
+        'holes
         Dim holeSz As Double = 0
 
         Select Case lstHoleSz.SelectedIndex
@@ -1154,36 +1259,65 @@ Class MainWindow
         holeCornerText = String.Empty
         holeEQDist = String.Empty
 
+        theHole = corelDoc.SelectableShapes.FindShape("theHole")
+        Dim hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8 As Corel.Interop.VGCore.Shape
+
+
         If ckbxUL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight - tDist, holeSz / 2)
+            hole1 = theHole.Duplicate()
+            hole1.SetPosition(lDist - (holeSz / 2), pgHeight - (tDist - holeSz / 2))
+            hole1.SetSize(holeSz)
         End If
         If ckbxUC.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tDist, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, pgHeight - tDist, holeSz / 2)
+            hole2 = theHole.Duplicate()
+            hole2.SetPosition(pgWidth / 2 - (holeSz / 2), pgHeight - (tDist - holeSz / 2))
+            hole2.SetSize(holeSz)
         End If
         If ckbxUR.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, pgHeight - tDist, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, pgHeight - tDist, holeSz / 2)
+            hole3 = theHole.Duplicate()
+            hole3.SetPosition(pgWidth - (lDist + (holeSz / 2)), pgHeight - (tDist - holeSz / 2))
+            hole3.SetSize(holeSz)
         End If
         If ckbxCL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight / 2, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(lDist, pgHeight / 2, holeSz / 2)
+            hole4 = theHole.Duplicate()
+            hole4.SetPosition(lDist - (holeSz / 2), pgHeight / 2 + (holeSz / 2))
+            hole4.SetSize(holeSz)
         End If
         If ckbxCR.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, pgHeight / 2, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, pgHeight / 2, holeSz / 2)
+            hole5 = theHole.Duplicate()
+            hole5.SetPosition(pgWidth - (lDist + (holeSz / 2)), pgHeight / 2 + (holeSz / 2))
+            hole5.SetSize(holeSz)
         End If
         If ckbxLL.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(lDist, bDist, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(lDist, bDist, holeSz / 2)
+            hole6 = theHole.Duplicate()
+            hole6.SetPosition(lDist - (holeSz / 2), bDist + holeSz / 2)
+            hole6.SetSize(holeSz)
         End If
         If ckbxLC.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, bDist, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(pgWidth / 2, bDist, holeSz / 2)
+            hole7 = theHole.Duplicate()
+            hole7.SetPosition(pgWidth / 2 - (holeSz / 2), bDist + holeSz / 2)
+            hole7.SetSize(holeSz)
         End If
         If ckbxLR.IsChecked Then
-            corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, bDist, holeSz / 2)
+            'corelApp.ActiveLayer.CreateEllipse2(pgWidth - rDist, bDist, holeSz / 2)
+            hole8 = theHole.Duplicate()
+            hole8.SetPosition(pgWidth - (lDist + (holeSz / 2)), bDist + holeSz / 2)
+            hole8.SetSize(holeSz)
         End If
+        theHole.Delete()
 
         'Writing corner and hole description
         If lstCorners.SelectedIndex <> -1 Or lstHoleSz.SelectedIndex <> -1 Then
 
 
-            If lstCorners.SelectedIndex <> -1 And lstCorners.SelectedIndex <> 0 Then
+            If lstCorners.SelectedIndex > 0 Then
 
                 radTxt = lstCorners.SelectionBoxItem.ToString + " radius corners"
 
@@ -1209,7 +1343,7 @@ Class MainWindow
                         holeEQDist = tDist.ToString
                     End If
                     holeSzTxt = holeSzTxt + ", " + holeEQDist + "'' from edge"
-                Else
+        Else
                     If tDist = bDist And tDist <> lDist Then
                         If tDist = 0.25 Then
                             holeTBDistTxt = "1/4'' from top & bottom edge" + vbCrLf
@@ -1361,7 +1495,6 @@ Class MainWindow
                     holeCornerText = "one in each corner" + vbCrLf
                 End If
                 holePlcTxt = holePlcTxt + holeCTBTxt + holeCTTxt + holeCLRTxt + holeTCText + holeCornerText
-                ' MsgBox(holePlcTxt.ToString)
                 holeSzTxt = holeSzTxt + vbCrLf + holeTBDistTxt + holeLRDistTxt + holePlcTxt
 
             Else
@@ -1375,14 +1508,31 @@ Class MainWindow
             holesAndCornersTxt.SetPosition(0, 0 - (pgHeight * 0.125))
             holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
 
-
-
-
+            If lstHoleSz.SelectedIndex > 0 Then
+                If lstCorners.SelectedIndex > 0 Then
+                    corelDoc.SelectableShapes.FindShapes("theHole").Group().CreateSelection()
+                    corelApp.ActiveSelection.OrderToFront()
+                    cornerRect.AddToSelection()
+                    corelApp.ActiveSelection.Group()
+                Else
+                    corelDoc.SelectableShapes.FindShapes("theHole").Group().CreateSelection()
+                    corelApp.ActiveSelection.OrderToFront()
+                    pwrClip.AddToSelection()
+                    corelApp.ActiveSelection.Group()
+                    corelApp.ActiveSelection.OrderToBack()
+                End If
+            End If
         End If
 
-        'Grommets
-        grommet = corelDoc.ActivePage.Shapes("grommet")
+            'Grommets
+            grommet = corelDoc.ActivePage.Shapes("grommet")
         Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing, grommetTBQty, grommetLRQty As Corel.Interop.VGCore.Shape
+
+        If ckbxTopCornerGroms.IsChecked Then
+            grommetUL = grommet.Duplicate()
+            grommetUL.SetPosition(0.625, pgHeight - 0.625)
+            grommetUL.Duplicate(pgWidth - 2)
+        End If
         If ckbxCornerGroms.IsChecked Then
 
             grommetUL = grommet.Duplicate()
@@ -1469,8 +1619,9 @@ Class MainWindow
         Dim bannerSizeTxt, grommetTxt As String
         Dim bannerArtTxt, grommetArtTxt As Corel.Interop.VGCore.Shape
 
-        If ckbxCLRgroms.IsChecked = True Or ckbxCornerGroms.IsChecked = True Or ckbxCTBGroms.IsChecked = True Or ckbxLRspacing.IsChecked = True Or ckbxTBspacing.IsChecked = True Then
-            grommetTxt = "3/8'' Brass Grommets "
+        If ckbxCLRgroms.IsChecked = True Or ckbxCornerGroms.IsChecked = True Or ckbxCTBGroms.IsChecked = True Or
+            ckbxLRspacing.IsChecked = True Or ckbxTBspacing.IsChecked = True Or ckbxTopCornerGroms.IsChecked = True Then
+            grommetTxt = "3/8'' Brass Grommets"
 
             If lstMaterial.SelectedIndex = 5 Then
                 bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
@@ -1478,7 +1629,10 @@ Class MainWindow
                                                     "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
                 bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
                 If ckbxCornerGroms.IsChecked Then
-                    grommetTxt += "- One in each corner"
+                    grommetTxt += " - One in each corner"
+                End If
+                If ckbxTopCornerGroms.IsChecked Then
+                    grommetTxt += ", in top two corners"
                 End If
                 If ckbxCTBGroms.IsChecked Then
                     grommetTxt += ", in center of top & bottom"
@@ -1503,7 +1657,10 @@ Class MainWindow
                 grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
             Else
                 If ckbxCornerGroms.IsChecked Then
-                    grommetTxt += "- One in each corner"
+                    grommetTxt += " - One in each corner"
+                End If
+                If ckbxTopCornerGroms.IsChecked Then
+                    grommetTxt += ", in top two corners"
                 End If
                 If ckbxCTBGroms.IsChecked Then
                     grommetTxt += ", in center of top & bottom"
@@ -1528,6 +1685,13 @@ Class MainWindow
                 grommetArtTxt.SetPosition(0, -grommetArtTxt.SizeHeight - 1)
             End If
         End If
+        If ckbxBannerRoll.IsChecked Then
+            bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
+            bannerArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, bannerSizeTxt & vbCrLf & "No Hems or Grommets", , ,
+                                                    "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+            bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
+
+        End If
 
         'Tags
         tagBorder = corelDoc.ActiveLayer.Shapes.FindShape("tagBorder")
@@ -1544,6 +1708,7 @@ Class MainWindow
             tagText.SetSize(pgWidth)
             tagText.SetPosition(0, 0 - (pgHeight * 0.125))
             tagText.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
+            pwrClip.Delete()
         Else
             tagBorder.Delete()
             tagHoles.Delete()
