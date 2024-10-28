@@ -958,7 +958,7 @@ Class MainWindow
     Public Sub BtnGo_Click(sender As Object, e As RoutedEventArgs) Handles btnGo.Click
 
         corelApp.Visible = True
-
+        corelDoc = Nothing
 
 
         Dim pgHeight As Single = Val(txtHeight.Text)
