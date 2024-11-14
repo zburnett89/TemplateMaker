@@ -138,6 +138,7 @@
                 <TextBlock x:Name="buttonTextBlock1" FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" />
             </Button>
             <CheckBox x:Name="ckbxTopCornerGroms" Content ="Top Corners" HorizontalAlignment="Left" Margin="279,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxDieCut" Content="Die Cut?" HorizontalAlignment="Left" Margin="330,85,0,0" VerticalAlignment="Top"/>
 
         </Grid>
     </Viewbox>

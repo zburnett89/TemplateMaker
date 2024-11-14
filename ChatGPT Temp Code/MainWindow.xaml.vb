@@ -1,14 +1,15 @@
 ﻿Imports System.Math
-Imports Corel.Interop.VGCore
+Imports VGCore
+Imports CorelDRAW
 
 Class MainWindow
 
-    Public corelApp As Corel.Interop.VGCore.Application
-    Public corelDoc As Corel.Interop.VGCore.Document
+    Public corelApp As CorelDRAW.Application
+    Public corelDoc As CorelDRAW.Document
 
     Dim ctrlRectangle, cornerRect, vertFlutes,
             horzFlutes, stkDot6x24, stkDot10x30, grommet, tagBorder, tagHoles,
-            pwrClip, theHole As Corel.Interop.VGCore.Shape
+            pwrClip, theHole As CorelDRAW.Shape
     Dim pSizeA, pSizeB As Double
 
     'Private Sub btnXML_Click(sender As Object, e As RoutedEventArgs) Handles btnXML.Click
@@ -169,6 +170,7 @@ Class MainWindow
         ckbxTopCornerGroms.IsEnabled = False
         ckbxBannerRoll.IsChecked = False
         ckbxBannerRoll.IsEnabled = False
+        ckbxDieCut.IsChecked = False
     End Sub 'clear button
 
     Private Sub ckbxTBQty_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxTBQty.Click
@@ -337,6 +339,8 @@ Class MainWindow
         lstMaterial.SelectedIndex = 0
         lstPresets.SelectedIndex = 6
         lstFlutes.SelectedIndex = 0
+        txtHeight.Text = 18
+        txtWidth.Text = 24
     End Sub
 
     Private Sub ckbxBannerRoll_Checked(sender As Object, e As RoutedEventArgs) Handles ckbxBannerRoll.Click
@@ -505,6 +509,18 @@ Class MainWindow
             ckbxLL.IsEnabled = False
             ckbxLC.IsEnabled = False
             ckbxLR.IsEnabled = False
+            txtTDist.Clear()
+            txtBDist.Clear()
+            txtLDist.Clear()
+            txtRDist.Clear()
+            ckbxUL.IsChecked = False
+            ckbxUC.IsChecked = False
+            ckbxUR.IsChecked = False
+            ckbxCL.IsChecked = False
+            ckbxCR.IsChecked = False
+            ckbxLL.IsChecked = False
+            ckbxLC.IsChecked = False
+            ckbxLR.IsChecked = False
         End If
     End Sub 'allow hole selection
 
@@ -517,9 +533,9 @@ Class MainWindow
         InitializeComponent()
 
         If corelApp Is Nothing Then
-            corelApp = CType(CreateObject("CorelDRAW.Application"), Corel.Interop.VGCore.Application)
+            corelApp = CType(CreateObject("CorelDRAW.Application"), CorelDRAW.Application)
         Else
-            corelApp = CType(GetObject(, "CorelDRAW.Application"), Corel.Interop.VGCore.Application)
+            corelApp = CType(GetObject(, "CorelDRAW.Application"), CorelDRAW.Application)
         End If
 
 
@@ -965,7 +981,7 @@ Class MainWindow
         Dim pgWidth As Single = Val(txtWidth.Text)
         Dim valTBspacing As Single = Val(txtTBspacing.Text)
         Dim valLRspacing As Single = Val(txtLRspacing.Text)
-        Dim pgDimsRange As Corel.Interop.VGCore.IVGShapeRange, pgDimsShape As Corel.Interop.VGCore.Shape
+        Dim pgDimsRange As VGCore.IVGShapeRange, pgDimsShape As CorelDRAW.Shape
         Dim tDist As Double = Val(txtTDist.Text)
         Dim bDist As Double = Val(txtBDist.Text)
         Dim lDist As Double = Val(txtLDist.Text)
@@ -1113,11 +1129,13 @@ Class MainWindow
 
         Dim appDirectory As String = AppDomain.CurrentDomain.BaseDirectory
         Dim templateFilePath As String = appDirectory & "TestTemplate.cdt"
-        corelDoc = corelApp.CreateDocumentFromTemplate(templateFilePath)
-        'corelDoc.Activate()
-        Dim regmark As Layer = corelDoc.ActivePage.AllLayers.Find("Regmark")
-        Dim thrucut As Layer = corelDoc.ActivePage.AllLayers.Find("Through Cut")
-        Dim layer1 As Layer = corelDoc.ActivePage.AllLayers.Find("Layer 1")
+        Dim openDocumentsCount As Integer = corelApp.Documents.Count
+        'MessageBox.Show("Number of open documents: " & openDocumentsCount)
+        corelDoc = corelApp.CreateDocumentFromTemplate(templateFilePath, True)
+        corelDoc.Activate()
+        Dim regmark As CorelDRAW.Layer = corelDoc.ActivePage.AllLayers.Find("Regmark")
+        Dim thrucut As CorelDRAW.Layer = corelDoc.ActivePage.AllLayers.Find("Through Cut")
+        Dim layer1 As CorelDRAW.Layer = corelDoc.ActivePage.AllLayers.Find("Layer 1")
 
 
         'Sets the page size
@@ -1136,7 +1154,7 @@ Class MainWindow
 
         pgDimsRange = corelDoc.ActiveLayer.Shapes.All
         For Each pgDimsShape In pgDimsRange
-            If pgDimsShape.Type = cdrShapeType.cdrLinearDimensionShape Then
+            If pgDimsShape.Type = CorelDRAW.cdrShapeType.cdrLinearDimensionShape Then
                 pgDimsShape.Dimension.TextShape.Text.Story.Size = 1.8 * ((pgWidth + pgHeight) / 2) + 34
             End If
         Next
@@ -1216,6 +1234,7 @@ Class MainWindow
 
         If lstCorners.SelectedIndex > 0 Then
             cornerRect = corelDoc.ActiveLayer.CreateRectangle(0, 0, pgWidth, pgHeight)
+            cornerRect.Name = "pwrClip"
             ctrlRectangle.Outline.Width = 0
             cornerRect.Rectangle.RadiusUpperLeft = crnrSz
             cornerRect.Rectangle.RadiusLowerLeft = crnrSz
@@ -1260,7 +1279,7 @@ Class MainWindow
         holeEQDist = String.Empty
 
         theHole = corelDoc.SelectableShapes.FindShape("theHole")
-        Dim hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8 As Corel.Interop.VGCore.Shape
+        Dim hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8 As CorelDRAW.Shape
 
 
         If ckbxUL.IsChecked Then
@@ -1343,7 +1362,7 @@ Class MainWindow
                         holeEQDist = tDist.ToString
                     End If
                     holeSzTxt = holeSzTxt + ", " + holeEQDist + "'' from edge"
-        Else
+                Else
                     If tDist = bDist And tDist <> lDist Then
                         If tDist = 0.25 Then
                             holeTBDistTxt = "1/4'' from top & bottom edge" + vbCrLf
@@ -1501,12 +1520,12 @@ Class MainWindow
                 holeSzTxt = ""
             End If
 
-            Dim holesAndCornersTxt As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,
-                                                    "Arial", , , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
+            Dim holesAndCornersTxt As CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt + vbCrLf + holeSzTxt, , ,
+                                                    "Arial", , , , , CorelDRAW.cdrAlignment.cdrCenterAlignment)
 
             holesAndCornersTxt.SetSize(pgWidth)
             holesAndCornersTxt.SetPosition(0, 0 - (pgHeight * 0.125))
-            holesAndCornersTxt.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
+            holesAndCornersTxt.AlignToShape(CorelDRAW.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
 
             If lstHoleSz.SelectedIndex > 0 Then
                 If lstCorners.SelectedIndex > 0 Then
@@ -1524,9 +1543,12 @@ Class MainWindow
             End If
         End If
 
-            'Grommets
-            grommet = corelDoc.ActivePage.Shapes("grommet")
-        Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing, grommetTBQty, grommetLRQty As Corel.Interop.VGCore.Shape
+        'Grommets
+        grommet = corelDoc.ActivePage.Shapes("grommet")
+
+        Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing, grommetTBQty, grommetLRQty, gromDot As CorelDRAW.Shape
+
+        gromDot = corelDoc.ActivePage.Shapes("gromDot")
 
         If ckbxTopCornerGroms.IsChecked Then
             grommetUL = grommet.Duplicate()
@@ -1613,11 +1635,15 @@ Class MainWindow
             Next i
         End If
 
+        'If lstMaterial.SelectedIndex <> 5 Then
+        'gromDot
+        '
+        'End If
         grommet.Delete()
 
         'grommet & banner text
         Dim bannerSizeTxt, grommetTxt As String
-        Dim bannerArtTxt, grommetArtTxt As Corel.Interop.VGCore.Shape
+        Dim bannerArtTxt, grommetArtTxt As CorelDRAW.Shape
 
         If ckbxCLRgroms.IsChecked = True Or ckbxCornerGroms.IsChecked = True Or ckbxCTBGroms.IsChecked = True Or
             ckbxLRspacing.IsChecked = True Or ckbxTBspacing.IsChecked = True Or ckbxTopCornerGroms.IsChecked = True Then
@@ -1626,7 +1652,7 @@ Class MainWindow
             If lstMaterial.SelectedIndex = 5 Then
                 bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
                 bannerArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, bannerSizeTxt, , ,
-                                                    "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+                                                    "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , CorelDRAW.cdrAlignment.cdrLeftAlignment)
                 bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
                 If ckbxCornerGroms.IsChecked Then
                     grommetTxt += " - One in each corner"
@@ -1653,7 +1679,7 @@ Class MainWindow
                     grommetTxt += ", " + txtLRQty.Text + " grommets along left & right"
                 End If
                 grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
-                                                    "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+                                                    "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , CorelDRAW.cdrAlignment.cdrLeftAlignment)
                 grommetArtTxt.SetPosition(0, -3 * bannerArtTxt.SizeHeight)
             Else
                 If ckbxCornerGroms.IsChecked Then
@@ -1681,14 +1707,14 @@ Class MainWindow
                     grommetTxt += ", " + txtLRQty.Text + " grommets along left & right"
                 End If
                 grommetArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, grommetTxt, , ,
-                                                    "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+                                                    "Arial", 1.5 * ((pgWidth + pgHeight) / 2) + 34, , , , CorelDRAW.cdrAlignment.cdrLeftAlignment)
                 grommetArtTxt.SetPosition(0, -grommetArtTxt.SizeHeight - 1)
             End If
         End If
         If ckbxBannerRoll.IsChecked Then
             bannerSizeTxt = "Banner Finish Size is " + txtHeight.Text + "''x" + txtWidth.Text + "''"
             bannerArtTxt = corelDoc.ActiveLayer.CreateArtisticText(0, 0, bannerSizeTxt & vbCrLf & "No Hems or Grommets", , ,
-                                                    "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , Corel.Interop.VGCore.cdrAlignment.cdrLeftAlignment)
+                                                    "Arial", 3 * ((pgWidth + pgHeight) / 2) + 34, , , , CorelDRAW.cdrAlignment.cdrLeftAlignment)
             bannerArtTxt.SetPosition(0, -bannerArtTxt.SizeHeight - 1)
 
         End If
@@ -1700,23 +1726,32 @@ Class MainWindow
         If lstMaterial.SelectedIndex = 7 Then
             tagBorder.SetPosition(0, 6)
             tagHoles.SetPosition(1.85, 5.5)
+            tagBorder.AddToSelection()
+            tagHoles.AddToSelection()
+            corelApp.ActiveSelection.Group()
             ctrlRectangle.Outline.Width = 0
             radTxt = "1/2'' radius corners"
-            Dim tagText As Corel.Interop.VGCore.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt, , ,
-                                                    "Arial", , , , , Corel.Interop.VGCore.cdrAlignment.cdrCenterAlignment)
+            Dim tagText As CorelDRAW.Shape = corelDoc.ActiveLayer.CreateArtisticText(0, 0, radTxt, , ,
+                                                    "Arial", , , , , CorelDRAW.cdrAlignment.cdrCenterAlignment)
 
             tagText.SetSize(pgWidth)
             tagText.SetPosition(0, 0 - (pgHeight * 0.125))
-            tagText.AlignToShape(Corel.Interop.VGCore.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
+            tagText.AlignToShape(CorelDRAW.cdrAlignType.cdrAlignHCenter, ctrlRectangle)
             pwrClip.Delete()
         Else
             tagBorder.Delete()
             tagHoles.Delete()
         End If
 
+        If ckbxDieCut.IsChecked Then
+            pwrClip.Delete()
+            ctrlRectangle.Outline.Width = 0
+        End If
+
         'Change view to fit everything on Layer 1
         corelApp.ActiveWindow.ActiveView.ToFitPage()
         corelDoc.ClearSelection()
+
 
     End Sub
 End Class

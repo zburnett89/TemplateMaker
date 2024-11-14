@@ -10,7 +10,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>TemplateMaker</AssemblyName>
     <PackageIcon>Template Maker Icon.png</PackageIcon>
-    <ImportedNamespaces>Corel.Interop.VGCore=False,CorelDRAW=False,System.Windows=False,System.Windows.Controls=False,System.Windows.Data=False,System.Windows.Documents=False,System.Windows.Input=False,System.Windows.Media=False,System.Windows.Media.Imaging=False,System.Windows.Navigation=False,System.Windows.Shapes=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,TemplateMaker App=True</ImportedNamespaces>
+    <ImportedNamespaces>CorelDRAW=False,System.Windows=False,System.Windows.Controls=False,System.Windows.Data=False,System.Windows.Documents=False,System.Windows.Input=False,System.Windows.Media=False,System.Windows.Media.Imaging=False,System.Windows.Navigation=False,System.Windows.Shapes=False,VGCore=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,TemplateMaker App=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,6 +22,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <Optimize>True</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -31,6 +32,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,10 +40,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <COMReference Include="FontManager">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>25</VersionMajor>
+      <Guid>3607915e-f0e3-c6b0-440a-86aff5aa2321</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CorelDRAW">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>25</VersionMajor>
+      <Guid>fbf4300f-d921-11d1-b806-00a0c90646a9</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="VGCore">
       <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>5</VersionMinor>
-      <VersionMajor>24</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>25</VersionMajor>
       <Guid>95e23c91-bc5a-49f3-8cd1-1fc515597048</Guid>
       <Lcid>0</Lcid>
       <Isolated>false</Isolated>
@@ -66,7 +86,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Import Include="Corel.Interop.VGCore" />
     <Import Include="CorelDRAW" />
     <Import Include="System.Windows" />
     <Import Include="System.Windows.Controls" />
@@ -77,6 +96,7 @@
     <Import Include="System.Windows.Media.Imaging" />
     <Import Include="System.Windows.Navigation" />
     <Import Include="System.Windows.Shapes" />
+    <Import Include="VGCore" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,9 +107,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Corel.Interop.VGCore">
-      <HintPath>..\..\..\..\..\..\Program Files\Corel\CorelDRAW Graphics Suite\25\Programs64\Assemblies\Corel.Interop.VGCore.dll</HintPath>
-    </Reference>
+    <None Update="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
   </ItemGroup>
 
 </Project>
