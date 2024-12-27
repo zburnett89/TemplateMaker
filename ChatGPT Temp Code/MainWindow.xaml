@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChatGPT_Temp_Code"
         Icon="TemplateMakerIcon.ico"
         mc:Ignorable="d"
-        Title="Template Maker" Width="1200" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="Template Maker" Width="1110" MinWidth="605" MinHeight="480" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Viewbox Margin="20,20,20,20">
         <Grid RenderTransformOrigin="0.396,0.348" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
             <Grid.ColumnDefinitions>
@@ -137,8 +137,9 @@
             <Button x:Name="btnLRLink" HorizontalAlignment="Left" Margin="117,342,0,0" VerticalAlignment="Top" Height="14" Width="14" FontSize="8" IsEnabled="False">
                 <TextBlock x:Name="buttonTextBlock1" FontFamily="Segoe MDL2 Assets" Text="&#xE72E;" />
             </Button>
-            <CheckBox x:Name="ckbxTopCornerGroms" Content ="Top Corners" HorizontalAlignment="Left" Margin="279,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
+            <CheckBox x:Name="ckbxTopCornerGroms" Content ="Top Corners" HorizontalAlignment="Left" Margin="280,189,0,0" VerticalAlignment="Top" IsEnabled="False"/>
             <CheckBox x:Name="ckbxDieCut" Content="Die Cut?" HorizontalAlignment="Left" Margin="330,85,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btnArtUpload" Content="Add Art" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="327,358,0,0" Padding="5,5,5,5" IsDefault="True" IsEnabled="False"/>
 
         </Grid>
     </Viewbox>

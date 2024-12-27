@@ -3,6 +3,7 @@ Imports VGCore
 Imports CorelDRAW
 Imports System.Runtime.InteropServices
 Imports System.ComponentModel
+Imports Microsoft.Win32
 
 Class MainWindow
 
@@ -343,6 +344,27 @@ Class MainWindow
 
     Private Sub dieCutBx_Checked()
 
+    End Sub
+
+    Public Sub btnArtUpload_Click(sender As Object, e As RoutedEventArgs) Handles btnArtUpload.Click
+        Dim openFileDialog As New OpenFileDialog With {
+        .Filter = "Supported Files|*.pdf;*.jpg;*.jpeg;*.png;*.eps;*.ai|All Files|*.*",
+        .Title = "Select an Artwork File"
+    }
+        Dim artworkFilePath As String = openFileDialog.FileName
+
+        If openFileDialog.ShowDialog() = DialogResult.HasValue Then
+
+
+            ' Check if the file exists
+            If Not System.IO.File.Exists(artworkFilePath) Then
+                MessageBox.Show("Selected file does not exist.")
+                Return
+            End If
+        Else
+            MessageBox.Show("NO ART")
+            Return
+        End If
     End Sub
 
     Private Sub btn18x24coro_Click(sender As Object, e As RoutedEventArgs) Handles btn18x24coro.Click
@@ -1594,9 +1616,10 @@ Class MainWindow
             'Grommets
             grommet = corelDoc.ActivePage.Shapes("grommet")
 
-            Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing, grommetTBQty, grommetLRQty, gromDot As CorelDRAW.Shape
+        Dim grommetUL, grommetUC, grommetTBSpacing, grommetCL, grommetLRSpacing, grommetTBQty, grommetLRQty, gromDot As CorelDRAW.Shape
+        Dim gromDotGroup, gromGroup As CorelDRAW.ShapeRange
 
-            gromDot = corelDoc.ActivePage.Shapes("gromDot")
+        gromDot = corelDoc.ActivePage.Shapes("gromDot")
 
             If ckbxTopCornerGroms.IsChecked Then
                 grommetUL = grommet.Duplicate()
@@ -1683,11 +1706,17 @@ Class MainWindow
                 Next i
             End If
 
-            'If lstMaterial.SelectedIndex <> 5 Then
-            'gromDot
-            '
-            'End If
-            grommet.Delete()
+        grommet.Delete()
+
+        If lstMaterial.SelectedIndex <> 5 Then
+            gromDotGroup = corelDoc.ActivePage.Shapes.FindShapes("gromDot")
+            gromDotGroup.Shapes.All.Group()
+            corelDoc.ClearSelection()
+            corelDoc.ActivePage.FindShape("pwrClip").AddToSelection()
+            gromDotGroup.AddToSelection()
+            corelDoc.Selection.Group()
+            corelDoc.Selection.OrderToBack()
+        End If
 
         'grommet & banner text
         Dim bannerSizeTxt, grommetTxt, foldText As String
@@ -1807,8 +1836,26 @@ Class MainWindow
                 ctrlRectangle.Outline.Width = 0
             End If
 
-            'Change view to fit everything on Layer 1
-            corelApp.ActiveWindow.ActiveView.ToFitPage()
+        'Try
+        '    ' Import the artwork file into the active CorelDraw document
+        '    Dim importOptions As CorelDRAW.ImportFilter = corelDoc.Import(artworkFilePath)
+        '    Dim importedArtwork As CorelDRAW.ShapeRange = corelDoc.ActiveLayer.Shapes.Import(artworkFilePath, CorelDRAW.cdrFilter.cdrAutoSense)
+
+        '    ' Optionally adjust the position of the imported artwork
+        '    For Each artworkShape As CorelDRAW.Shape In importedArtwork
+        '        artworkShape.SetPosition(corelDoc.ActivePage.SizeWidth / 2, corelDoc.ActivePage.SizeHeight / 2) ' Center the artwork
+        '    Next
+
+        '    MessageBox.Show("Artwork imported successfully!")
+
+        'Catch ex As COMException
+        '    MessageBox.Show("Error importing artwork: " & ex.Message)
+        'Catch ex As Exception
+        '    MessageBox.Show("General error: " & ex.Message)
+        'End Try
+
+        'Change view to fit everything on Layer 1
+        corelApp.ActiveWindow.ActiveView.ToFitPage()
             corelDoc.ClearSelection()
 
 
